@@ -9,10 +9,7 @@ export const HeaderWrapper = styled.header`
   justify-content: space-between;
   height: 64px;
   padding: 24px;
-`;
-
-export const Logo = styled.img`
-  height: 40px;
+  margin: 24px;
 `;
 
 export const SearchBlock = styled.div`

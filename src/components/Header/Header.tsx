@@ -1,7 +1,6 @@
 import logo from "../../assets/header/logo.png";
 import {
   HeaderWrapper,
-  Logo,
   SearchBlock,
   CatalogText,
   StyledInput,
@@ -9,11 +8,12 @@ import {
 import SearchIcon from "../../assets/icons/Search.svg";
 import { StyledAdornment } from "./Header.styles";
 import Button from "../../shared/ui/Button/Button";
+import { BaseLogo } from "../../shared/styles/styles";
 
 const Header = () => {
   return (
     <HeaderWrapper>
-      <Logo src={logo} alt="logo" />
+      <BaseLogo src={logo} alt="logo" />
 
       <SearchBlock>
         <CatalogText>Catalog</CatalogText>

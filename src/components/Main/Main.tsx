@@ -1,5 +1,5 @@
 import Button from "../../shared/ui/Button/Button";
-import BaseHeader from "../../shared/styles/Header/HeaderText";
+import { BaseHeader, BaseParagraph } from "../../shared/styles/styles";
 import mainImg from "../../assets/main-page/primary/woman.png";
 import booksImg from "../../assets/main-page/primary/books.png";
 import {
@@ -7,7 +7,6 @@ import {
   InfoWrapper,
   MainImage,
   MainWrapper,
-  TextParagraph,
 } from "./Main.styles";
 
 const Main = () => {
@@ -15,9 +14,9 @@ const Main = () => {
     <MainWrapper>
       <InfoWrapper>
         <BaseHeader>Build your library with us</BaseHeader>
-        <TextParagraph>
+        <BaseParagraph>
           Buy two books and <br></br>get one free
-        </TextParagraph>
+        </BaseParagraph>
         <Button variant="contained" style={{ zIndex: 2, marginTop: "50px" }}>
           Choose book
         </Button>
