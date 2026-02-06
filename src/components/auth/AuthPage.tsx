@@ -1,5 +1,5 @@
 import Footer from "../../shared/ui/Footer/Footer";
-import Header from "../../shared/ui/Header/Header";
+import Header from "../../shared/ui/Input/Input";
 import { MainImage } from "../main-page/Main/Main.styles";
 import { AuthContainer, AuthWrapper } from "./AuthPage.styles";
 import LogInPage from "./LoginPage";

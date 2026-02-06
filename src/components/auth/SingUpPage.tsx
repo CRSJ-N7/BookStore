@@ -1,10 +1,11 @@
 import {
   StyledAdornment,
   StyledInput,
-} from "../../shared/ui/Header/Header.styles";
+} from "../../shared/ui/Input/Input.styles";
 import emailIcon from "../../assets/icons/mail.svg";
 import hideIcon from "../../assets/icons/hide.svg";
 import { useState } from "react";
+import { BaseParagraph } from "../../shared/styles/styles";
 
 const SignUpPage = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
@@ -22,7 +23,9 @@ const SignUpPage = () => {
           </StyledAdornment>
         }
       />
-      <p>Enter your email</p>
+      <BaseParagraph style={{ fontSize: "14px" }}>
+        Enter your email
+      </BaseParagraph>
       <StyledInput
         placeholder="Password"
         type={isPasswordHidden ? "password" : "text"}
@@ -36,7 +39,9 @@ const SignUpPage = () => {
           </StyledAdornment>
         }
       />
-      <p>Enter your password</p>
+      <BaseParagraph style={{ fontSize: "14px" }}>
+        Enter your password
+      </BaseParagraph>
       <StyledInput
         placeholder="Password replay"
         type={isReplyPasswordHidden ? "password" : "text"}
@@ -51,7 +56,9 @@ const SignUpPage = () => {
           </StyledAdornment>
         }
       />
-      <p>Repeat your password without errors</p>
+      <BaseParagraph style={{ fontSize: "14px" }}>
+        Repeat your password without errors
+      </BaseParagraph>
     </>
   );
 };

@@ -1,10 +1,11 @@
 import {
   StyledAdornment,
   StyledInput,
-} from "../../shared/ui/Header/Header.styles";
+} from "../../shared/ui/Input/Input.styles";
 import emailIcon from "../../assets/icons/mail.svg";
 import hideIcon from "../../assets/icons/hide.svg";
 import { useState } from "react";
+import { BaseParagraph } from "../../shared/styles/styles";
 
 const LogInPage = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
@@ -21,7 +22,9 @@ const LogInPage = () => {
           </StyledAdornment>
         }
       />
-      <p>Enter your email</p>
+      <BaseParagraph style={{ fontSize: "14px" }}>
+        Enter your email
+      </BaseParagraph>
       <StyledInput
         placeholder="Password"
         disableUnderline
@@ -36,7 +39,9 @@ const LogInPage = () => {
           </StyledAdornment>
         }
       />
-      <p>Enter your password</p>
+      <BaseParagraph style={{ fontSize: "14px" }}>
+        Enter your password
+      </BaseParagraph>
     </>
   );
 };

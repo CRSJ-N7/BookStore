@@ -4,9 +4,9 @@ import {
   SearchBlock,
   CatalogText,
   StyledInput,
-} from "./Header.styles";
+} from "./Input.styles";
 import SearchIcon from "../../../assets/icons/Search.svg";
-import { StyledAdornment } from "./Header.styles";
+import { StyledAdornment } from "./Input.styles";
 import Button from "../Button/Button";
 import { BaseLogo } from "../../styles/styles";
 
@@ -18,13 +18,8 @@ const Header = () => {
       <SearchBlock>
         <CatalogText>Catalog</CatalogText>
         <StyledInput
+          disableUnderline
           placeholder="Search books"
-          sx={{
-            "& .MuiInputBase-input": {
-              paddingTop: "22px",
-              paddingBottom: "8px",
-            },
-          }}
           startAdornment={
             <StyledAdornment position="start">
               <img src={SearchIcon} alt="search" />

@@ -1,3 +1,4 @@
+import Input from "@mui/material/Input";
 import styled from "styled-components";
 
 export const UserProfileWrapper = styled.div`
@@ -34,4 +35,19 @@ export const InputLabel = styled.span`
   color: #344966;
   pointer-events: none;
   z-index: 2;
+`;
+
+export const ChangeParagraph = styled.p`
+  color: #8d9f4f;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+`;
+
+export const ProfileInput = styled(Input)`
+  width: 630px;
+  height: 64px;
+  padding-inline: 24px;
+  background-color: #f0f4ef;
+  border-radius: 16px;
+  text-underline-offset: none;
 `;

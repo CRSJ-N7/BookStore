@@ -1,18 +1,18 @@
 import Footer from "../../shared/ui/Footer/Footer";
-import Header from "../../shared/ui/Header/Header";
+import Header from "../../shared/ui/Input/Input";
 import {
+  ChangeParagraph,
   InputLabel,
   InputWithLabelWrapper,
   ProfileDataContainer,
+  ProfileInput,
   ProfilePicture,
   UserProfileWrapper,
 } from "./UserProfile.styles";
 import userPicture from "../../assets/profile/user.png";
-import {
-  StyledInput,
-  StyledAdornment,
-} from "../../shared/ui/Header/Header.styles";
+import { StyledAdornment } from "../../shared/ui/Input/Input.styles";
 import profileIcon from "../../assets/icons/profile.svg";
+import { BaseParagraph } from "../../shared/styles/styles";
 
 const UserProfile = () => {
   return (
@@ -24,18 +24,21 @@ const UserProfile = () => {
         <ProfilePicture src={userPicture} />
         <ProfileDataContainer>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <p>Personal information</p>
-            <p>Change information</p>
+            <BaseParagraph>Personal information</BaseParagraph>
+            <ChangeParagraph>Change information</ChangeParagraph>
           </div>
           <InputWithLabelWrapper>
             <InputLabel>Your name</InputLabel>
-            <StyledInput
+            <ProfileInput
               placeholder="Guy Howkins"
               disableUnderline
+              disabled
+              style={{ cursor: "not-allowed" }}
               sx={{
                 "& .MuiInputBase-input": {
                   paddingTop: "25px",
                   paddingBottom: "8px",
+                  cursor: "not-allowed",
                 },
               }}
               startAdornment={
@@ -47,13 +50,15 @@ const UserProfile = () => {
           </InputWithLabelWrapper>
           <InputWithLabelWrapper>
             <InputLabel>Your email</InputLabel>
-            <StyledInput
+            <ProfileInput
               disableUnderline
+              disabled
               placeholder="somefancy@gmail.com"
               sx={{
                 "& .MuiInputBase-input": {
                   paddingTop: "25px",
                   paddingBottom: "8px",
+                  cursor: "not-allowed",
                 },
               }}
               startAdornment={
@@ -64,15 +69,21 @@ const UserProfile = () => {
             />
           </InputWithLabelWrapper>
 
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <BaseParagraph>Password</BaseParagraph>
+            <ChangeParagraph>Change password</ChangeParagraph>
+          </div>
           <InputWithLabelWrapper>
-            <InputLabel>Your password</InputLabel>
-            <StyledInput
+            <InputLabel>Change password</InputLabel>
+            <ProfileInput
               disableUnderline
+              disabled
               placeholder="**********************"
               sx={{
                 "& .MuiInputBase-input": {
                   paddingTop: "25px",
                   paddingBottom: "8px",
+                  cursor: "not-allowed",
                 },
               }}
               startAdornment={
