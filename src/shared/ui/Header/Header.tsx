@@ -19,7 +19,12 @@ const Header = () => {
         <CatalogText>Catalog</CatalogText>
         <StyledInput
           placeholder="Search books"
-          disableUnderline
+          sx={{
+            "& .MuiInputBase-input": {
+              paddingTop: "22px",
+              paddingBottom: "8px",
+            },
+          }}
           startAdornment={
             <StyledAdornment position="start">
               <img src={SearchIcon} alt="search" />

@@ -30,7 +30,6 @@ const SignUpPage = () => {
         startAdornment={
           <StyledAdornment position="start">
             <img
-              style={{ cursor: "pointer" }}
               src={hideIcon}
               onClick={() => setIsPasswordHidden(!isPasswordHidden)}
             ></img>

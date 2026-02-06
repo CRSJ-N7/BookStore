@@ -1,6 +1,8 @@
 import Footer from "../../shared/ui/Footer/Footer";
 import Header from "../../shared/ui/Header/Header";
 import {
+  InputLabel,
+  InputWithLabelWrapper,
   ProfileDataContainer,
   ProfilePicture,
   UserProfileWrapper,
@@ -21,38 +23,65 @@ const UserProfile = () => {
       <UserProfileWrapper>
         <ProfilePicture src={userPicture} />
         <ProfileDataContainer>
-          <StyledInput
-            placeholder="Your name"
-            disableUnderline
-            startAdornment={
-              <StyledAdornment position="start">
-                <img src={profileIcon}></img>
-              </StyledAdornment>
-            }
-          />
-          <StyledInput
-            placeholder="Your email"
-            disableUnderline
-            startAdornment={
-              <StyledAdornment position="start">
-                <img src={profileIcon}></img>
-              </StyledAdornment>
-            }
-            endAdornment={
-              <StyledAdornment position="start">
-                <img src={profileIcon}></img>
-              </StyledAdornment>
-            }
-          />
-          <StyledInput
-            placeholder="Email"
-            disableUnderline
-            startAdornment={
-              <StyledAdornment position="start">
-                <img src={profileIcon}></img>
-              </StyledAdornment>
-            }
-          />
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <p>Personal information</p>
+            <p>Change information</p>
+          </div>
+          <InputWithLabelWrapper>
+            <InputLabel>Your name</InputLabel>
+            <StyledInput
+              placeholder="Guy Howkins"
+              disableUnderline
+              sx={{
+                "& .MuiInputBase-input": {
+                  paddingTop: "25px",
+                  paddingBottom: "8px",
+                },
+              }}
+              startAdornment={
+                <StyledAdornment position="start">
+                  <img src={profileIcon}></img>
+                </StyledAdornment>
+              }
+            />
+          </InputWithLabelWrapper>
+          <InputWithLabelWrapper>
+            <InputLabel>Your email</InputLabel>
+            <StyledInput
+              disableUnderline
+              placeholder="somefancy@gmail.com"
+              sx={{
+                "& .MuiInputBase-input": {
+                  paddingTop: "25px",
+                  paddingBottom: "8px",
+                },
+              }}
+              startAdornment={
+                <StyledAdornment position="start">
+                  <img src={profileIcon}></img>
+                </StyledAdornment>
+              }
+            />
+          </InputWithLabelWrapper>
+
+          <InputWithLabelWrapper>
+            <InputLabel>Your password</InputLabel>
+            <StyledInput
+              disableUnderline
+              placeholder="**********************"
+              sx={{
+                "& .MuiInputBase-input": {
+                  paddingTop: "25px",
+                  paddingBottom: "8px",
+                },
+              }}
+              startAdornment={
+                <StyledAdornment position="start">
+                  <img src={profileIcon}></img>
+                </StyledAdornment>
+              }
+            />
+          </InputWithLabelWrapper>
         </ProfileDataContainer>
       </UserProfileWrapper>
       <div></div>
