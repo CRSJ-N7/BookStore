@@ -1,14 +1,14 @@
-import logo from "../../assets/header/logo.png";
+import logo from "../../../assets/header/logo.png";
 import {
   HeaderWrapper,
   SearchBlock,
   CatalogText,
   StyledInput,
 } from "./Header.styles";
-import SearchIcon from "../../assets/icons/Search.svg";
+import SearchIcon from "../../../assets/icons/Search.svg";
 import { StyledAdornment } from "./Header.styles";
-import Button from "../../shared/ui/Button/Button";
-import { BaseLogo } from "../../shared/styles/styles";
+import Button from "../Button/Button";
+import { BaseLogo } from "../../styles/styles";
 
 const Header = () => {
   return (

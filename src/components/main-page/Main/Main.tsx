@@ -1,12 +1,12 @@
-import mainImg from "../../assets/main-page/primary/woman.png";
-import booksImg from "../../assets/main-page/primary/books.png";
+import mainImg from "../../../assets/main-page/primary/woman.png";
+import booksImg from "../../../assets/main-page/primary/books.png";
 import {
   BackgroundImage,
   InfoWrapper,
   MainImage,
   MainWrapper,
 } from "./Main.styles";
-import InfoContainer from "../../shared/ui/Info/InfoContainer";
+import InfoContainer from "../../../shared/ui/Info/InfoContainer";
 
 const Main = () => {
   const paragraph = (

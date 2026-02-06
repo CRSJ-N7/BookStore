@@ -1,12 +1,12 @@
-import InfoContainer from "../../shared/ui/Info/InfoContainer";
-import authImage from "../../assets/main-page/login/login.png";
+import InfoContainer from "../../../shared/ui/Info/InfoContainer";
+import authImage from "../../../assets/main-page/login/login.png";
 import {
   AuthImage,
   AuthWrapper,
   BackgroundImage,
   InfoWrapper,
 } from "./Auth.style";
-import winksImage from "../../assets/main-page/login/winks.png";
+import winksImage from "../../../assets/main-page/login/winks.png";
 
 const Auth = () => {
   const header = "Autorize now";
