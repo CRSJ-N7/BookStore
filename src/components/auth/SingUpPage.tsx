@@ -13,7 +13,7 @@ const SignUpPage = () => {
 
   return (
     <>
-      <div style={{ fontSize: "55px" }}>LOG IN</div>
+      <div style={{ fontSize: "55px" }}>SIGN UP</div>
       <StyledInput
         placeholder="Email"
         disableUnderline

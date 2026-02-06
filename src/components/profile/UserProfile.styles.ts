@@ -9,9 +9,24 @@ export const UserProfileWrapper = styled.div`
   margin-bottom: 100px;
 `;
 
-export const ProfilePicture = styled.img`
+export const PhotoWrapper = styled.div`
+  position: relative;
   width: 305px;
   height: 305px;
+`;
+
+export const ProfilePicture = styled.img`
+  width: 100%;
+  height: 100%;
+  display: block;
+`;
+
+export const PhotoUploader = styled.img`
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 2;
+  cursor: pointer;
 `;
 
 export const ProfileDataContainer = styled.div`

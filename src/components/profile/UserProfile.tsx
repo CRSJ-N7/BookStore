@@ -4,6 +4,8 @@ import {
   ChangeParagraph,
   InputLabel,
   InputWithLabelWrapper,
+  PhotoUploader,
+  PhotoWrapper,
   ProfileDataContainer,
   ProfileInput,
   ProfilePicture,
@@ -13,6 +15,7 @@ import userPicture from "../../assets/profile/user.png";
 import { StyledAdornment } from "../../shared/ui/Input/Input.styles";
 import profileIcon from "../../assets/icons/profile.svg";
 import { BaseParagraph } from "../../shared/styles/styles";
+import photoUploader from "../../assets/profile/photoUpload.png";
 
 const UserProfile = () => {
   return (
@@ -21,7 +24,10 @@ const UserProfile = () => {
 
       <Header />
       <UserProfileWrapper>
-        <ProfilePicture src={userPicture} />
+        <PhotoWrapper>
+          <ProfilePicture src={userPicture} />
+          <PhotoUploader src={photoUploader} />
+        </PhotoWrapper>
         <ProfileDataContainer>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <BaseParagraph>Personal information</BaseParagraph>
