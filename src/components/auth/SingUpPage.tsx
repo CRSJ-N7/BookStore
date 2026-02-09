@@ -1,7 +1,7 @@
 import {
   StyledAdornment,
   StyledInput,
-} from "../../shared/ui/Input/Input.styles";
+} from "../../layouts/Header/Header.styles";
 import emailIcon from "../../assets/icons/mail.svg";
 import hideIcon from "../../assets/icons/hide.svg";
 import { useState } from "react";

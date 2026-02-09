@@ -1,6 +1,6 @@
-import { BaseLogo, BaseParagraph } from "../../styles/styles";
-import footerLogo from "../../../assets/footer/footer-logo.png";
-import map from "../../../assets/footer/map.png";
+import { BaseLogo, BaseParagraph } from "../../shared/styles/styles";
+import footerLogo from "../../assets/footer/footer-logo.png";
+import map from "../../assets/footer/map.png";
 import { InfoWrapper, FooterWrapper } from "./Footer.styles";
 
 const Footer = () => {

@@ -1,5 +1,3 @@
-import Footer from "../../shared/ui/Footer/Footer";
-import Header from "../../shared/ui/Input/Input";
 import {
   ChangeParagraph,
   InputLabel,
@@ -12,7 +10,7 @@ import {
   UserProfileWrapper,
 } from "./UserProfile.styles";
 import userPicture from "../../assets/profile/user.png";
-import { StyledAdornment } from "../../shared/ui/Input/Input.styles";
+import { StyledAdornment } from "../../layouts/Header/Header.styles";
 import profileIcon from "../../assets/icons/profile.svg";
 import { BaseParagraph } from "../../shared/styles/styles";
 import photoUploader from "../../assets/profile/photoUpload.png";
@@ -22,7 +20,6 @@ const UserProfile = () => {
     <div>
       <div style={{ fontSize: "55px" }}>PROFILE</div>
 
-      <Header />
       <UserProfileWrapper>
         <PhotoWrapper>
           <ProfilePicture src={userPicture} />
@@ -101,8 +98,6 @@ const UserProfile = () => {
           </InputWithLabelWrapper>
         </ProfileDataContainer>
       </UserProfileWrapper>
-      <div></div>
-      <Footer />
     </div>
   );
 };
