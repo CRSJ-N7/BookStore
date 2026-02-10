@@ -3,7 +3,7 @@ import "./App.css";
 import AuthPage from "./components/auth/AuthPage";
 import ProfilePage from "./components/profile/ProfilePage";
 
-import MainPage from "./components/main-page/MainPage";
+import MainPage from "./components/main/MainPage";
 import DefaultLayout from "./layouts/DefaultLayout";
 
 function App() {

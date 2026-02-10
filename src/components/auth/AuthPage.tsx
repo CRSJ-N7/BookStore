@@ -1,4 +1,4 @@
-import { MainImage } from "../main-page/Main/Main.styles";
+import { MainImage } from "../main/Main/Main.styles";
 import { AuthContainer, AuthWrapper } from "./AuthPage.styles";
 import LogInPage from "./log-in/LoginPage";
 import SignUpPage from "./sign-up/SingUpPage";
