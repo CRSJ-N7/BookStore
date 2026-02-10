@@ -5,10 +5,10 @@ import {
   AuthWrapper,
   BackgroundImage,
   InfoWrapper,
-} from "./Auth.style";
+} from "./AuthBanner.styles";
 import winksImage from "../../../assets/main-page/login/winks.png";
 
-const Auth = () => {
+const AuthBanner = () => {
   const header = "Autorize now";
   const paragraph = "Autorize now and discover faboulous world of books";
   const buttonText = "Log in / Sign up";
@@ -32,4 +32,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthBanner;

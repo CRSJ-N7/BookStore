@@ -1,11 +1,11 @@
 import {
   StyledAdornment,
   StyledInput,
-} from "../../layouts/Header/Header.styles";
-import emailIcon from "../../assets/icons/mail.svg";
-import hideIcon from "../../assets/icons/hide.svg";
+} from "../../../layouts/Header/Header.styles";
+import emailIcon from "../../../assets/icons/mail.svg";
+import hideIcon from "../../../assets/icons/hide.svg";
 import { useState } from "react";
-import { BaseParagraph } from "../../shared/styles/styles";
+import { BaseParagraph } from "../../../shared/styles/styles";
 
 const SignUpPage = () => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);

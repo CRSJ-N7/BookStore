@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AuthPage from "./components/auth/AuthPage";
-import UserProfile from "./components/profile/UserProfile";
+import ProfilePage from "./components/profile/ProfilePage";
 
-import MainPage from "./pages/MainPage";
+import MainPage from "./components/main-page/MainPage";
 import DefaultLayout from "./layouts/DefaultLayout";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<MainPage />} />
           <Route path="/auth" element={<AuthPage />} />
-          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
       </Routes>
     </>

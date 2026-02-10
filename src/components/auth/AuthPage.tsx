@@ -1,7 +1,7 @@
 import { MainImage } from "../main-page/Main/Main.styles";
 import { AuthContainer, AuthWrapper } from "./AuthPage.styles";
-import LogInPage from "./LoginPage";
-import SignUpPage from "./SingUpPage";
+import LogInPage from "./log-in/LoginPage";
+import SignUpPage from "./sign-up/SingUpPage";
 import authImage from "../../assets/login-signup/man.png";
 import { useState } from "react";
 

@@ -8,14 +8,14 @@ import {
   ProfileInput,
   ProfilePicture,
   UserProfileWrapper,
-} from "./UserProfile.styles";
+} from "./ProfilePage.styles";
 import userPicture from "../../assets/profile/user.png";
 import { StyledAdornment } from "../../layouts/Header/Header.styles";
 import profileIcon from "../../assets/icons/profile.svg";
 import { BaseParagraph } from "../../shared/styles/styles";
 import photoUploader from "../../assets/profile/photoUpload.png";
 
-const UserProfile = () => {
+const ProfilePage = () => {
   return (
     <div>
       <div style={{ fontSize: "55px" }}>PROFILE</div>
@@ -102,4 +102,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default ProfilePage;
