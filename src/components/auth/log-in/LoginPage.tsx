@@ -20,17 +20,11 @@ const SignUpPage = () => {
     },
 
     validationSchema: Yup.object({
-      name: Yup.string().required("Name is required").min(2, "Too short"),
-
       email: Yup.string().email("Invalid email").required("Email is required"),
 
       password: Yup.string()
         .min(6, "Minimum 6 characters")
         .required("Password is required"),
-
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Confirm your password"),
     }),
 
     onSubmit: async (values) => {
@@ -40,13 +34,13 @@ const SignUpPage = () => {
           password: values.password,
         });
 
-        const { accessToken, refreshToken, user } = loginResponse.data;
+        const { accessToken, refreshToken, safeUser } = loginResponse.data;
 
         tokenStorage.setAccess(accessToken);
         tokenStorage.setRefresh(refreshToken);
-        console.log(user);
+        console.log(safeUser);
 
-        dispatch(setUser(user));
+        dispatch(setUser(safeUser));
 
         navigate("/");
       } catch (error) {
@@ -59,7 +53,7 @@ const SignUpPage = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div style={{ fontSize: "55px" }}>SIGN UP</div>
+        <div style={{ fontSize: "55px" }}>LOG IN</div>
 
         <input
           name="email"

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { tokenStorage } from "../storage/tokenStorage";
 
 type User = {
   id: number;
@@ -24,13 +25,14 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuth = true;
     },
-    logout(state) {
+    logOut(state) {
       state.user = null;
       state.isAuth = false;
+      tokenStorage.clear();
     },
   },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { setUser, logOut } = authSlice.actions;
 
 export default authSlice.reducer;

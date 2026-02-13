@@ -14,11 +14,21 @@ import { StyledAdornment } from "../../layouts/Header/Header.styles";
 import profileIcon from "../../assets/icons/profile.svg";
 import { BaseParagraph } from "../../shared/styles/styles";
 import photoUploader from "../../assets/profile/photoUpload.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
+import { BaseButton } from "../../shared/ui/Button/Button.styles";
+import { useNavigate } from "react-router-dom";
+import { logOut } from "../../store/authSlice";
 
 const ProfilePage = () => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logOut());
+    navigate("/");
+  };
 
   return (
     <div>
@@ -100,6 +110,7 @@ const ProfilePage = () => {
               }
             />
           </InputWithLabelWrapper>
+          <BaseButton onClick={() => logoutHandler()}>Logout</BaseButton>
         </ProfileDataContainer>
       </UserProfileWrapper>
     </div>

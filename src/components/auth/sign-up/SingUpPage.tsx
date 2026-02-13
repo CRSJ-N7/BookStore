@@ -48,13 +48,13 @@ const SignUpPage = () => {
           password: values.password,
         });
 
-        const { accessToken, refreshToken, user } = loginResponse.data;
+        const { accessToken, refreshToken, safeUser } = loginResponse.data;
 
         tokenStorage.setAccess(accessToken);
         tokenStorage.setRefresh(refreshToken);
-        console.log(user);
+        console.log(safeUser);
 
-        dispatch(setUser(user));
+        dispatch(setUser(safeUser));
 
         navigate("/");
       } catch (error) {
