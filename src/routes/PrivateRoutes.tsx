@@ -7,7 +7,7 @@ type PrivateRouteProps = {
   children: ReactNode;
 };
 
-const PrivateRoute = ({ children }: PrivateRouteProps) => {
+export const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   if (!user) {
@@ -17,4 +17,13 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   return <>{children}</>;
 };
 
+export const ProtectedAuthRoute = ({ children }: PrivateRouteProps) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  if (user) {
+    return <Navigate to="/profile" />;
+  }
+
+  return <>{children}</>;
+};
 export default PrivateRoute;

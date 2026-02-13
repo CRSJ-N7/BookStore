@@ -12,7 +12,7 @@ import LogInPage from "./components/auth/log-in/LoginPage";
 import SignUpPage from "./components/auth/sign-up/SingUpPage";
 
 import { tokenStorage } from "./storage/tokenStorage";
-import PrivateRoute from "./routes/PrivateRoutes";
+import PrivateRoute, { ProtectedAuthRoute } from "./routes/PrivateRoutes";
 
 const accessToken = tokenStorage.getAccess();
 if (accessToken) {
@@ -39,7 +39,14 @@ function App() {
       <Routes>
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<MainPage />} />
-          <Route path="/auth" element={<AuthPage />}>
+          <Route
+            path="/auth"
+            element={
+              <ProtectedAuthRoute>
+                <AuthPage />
+              </ProtectedAuthRoute>
+            }
+          >
             <Route index element={<LogInPage />} />
             <Route path="login" element={<LogInPage />} />
             <Route path="signup" element={<SignUpPage />} />

@@ -20,6 +20,28 @@ export const BaseLogo = styled.img`
   height: 40px;
 `;
 
+export const StyledButton = styled(Button)`
+  text-transform: none;
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const StyledAdornment = styled.div`
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  img {
+    width: 22px;
+    height: 22px;
+    opacity: 0.6;
+  }
+`;
+
 export const StyledInput = styled.input<{
   error?: boolean;
   success?: boolean;
@@ -45,26 +67,4 @@ export const StyledInput = styled.input<{
   background-color: #f0f4ef;
   border-radius: 16px;
   text-underline-offset: none;
-`;
-
-export const StyledButton = styled(Button)`
-  text-transform: none;
-`;
-
-export const InputWrapper = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-export const StyledAdornment = styled.div`
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-
-  img {
-    width: 22px;
-    height: 22px;
-    opacity: 0.6;
-  }
 `;
