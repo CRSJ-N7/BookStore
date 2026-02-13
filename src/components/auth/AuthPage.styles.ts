@@ -10,3 +10,10 @@ export const AuthContainer = styled.div`
   display: "flex";
   flex-direction: column;
 `;
+
+export const SwitchAuth = styled.span`
+  cursor: pointer;
+  text-decoration: underline;
+  color: green;
+  margin-inline: 15px;
+`;

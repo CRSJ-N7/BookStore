@@ -6,8 +6,11 @@ import emailIcon from "../../../assets/icons/mail.svg";
 import hideIcon from "../../../assets/icons/hide.svg";
 import { useState } from "react";
 import { BaseParagraph } from "../../../shared/styles/styles";
+import { useNavigate } from "react-router-dom";
+import { SwitchAuth } from "../AuthPage.styles";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const [isReplyPasswordHidden, setIsReplyPasswordHidden] = useState(true);
 
@@ -58,6 +61,10 @@ const SignUpPage = () => {
       />
       <BaseParagraph style={{ fontSize: "14px" }}>
         Repeat your password without errors
+      </BaseParagraph>
+      <BaseParagraph>
+        Already have an account?
+        <SwitchAuth onClick={() => navigate("/auth/login")}>Log In</SwitchAuth>
       </BaseParagraph>
     </>
   );
