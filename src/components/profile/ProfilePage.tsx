@@ -1,18 +1,21 @@
 import {
   ChangeParagraph,
-  InputLabel,
-  InputWithLabelWrapper,
   PhotoUploader,
   PhotoWrapper,
   ProfileDataContainer,
-  ProfileInput,
   ProfilePicture,
   UserProfileWrapper,
 } from "./ProfilePage.styles";
 import userPicture from "../../assets/profile/user.png";
-import { StyledAdornment } from "../../layouts/Header/Header.styles";
 import profileIcon from "../../assets/icons/profile.svg";
-import { BaseParagraph } from "../../shared/styles/styles";
+import emailIcon from "../../assets/icons/mail.svg";
+import hideIcon from "../../assets/icons/hide.svg";
+import {
+  BaseParagraph,
+  InputWrapper,
+  StyledAdornment,
+  StyledInput,
+} from "../../shared/styles/styles";
 import photoUploader from "../../assets/profile/photoUpload.png";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
@@ -44,72 +47,39 @@ const ProfilePage = () => {
             <BaseParagraph>Personal information</BaseParagraph>
             <ChangeParagraph>Change information</ChangeParagraph>
           </div>
-          <InputWithLabelWrapper>
-            <InputLabel>Your name</InputLabel>
-            <ProfileInput
-              placeholder={user?.name}
-              disableUnderline
-              disabled
-              style={{ cursor: "not-allowed" }}
-              sx={{
-                "& .MuiInputBase-input": {
-                  paddingTop: "25px",
-                  paddingBottom: "8px",
-                  cursor: "not-allowed",
-                },
-              }}
-              startAdornment={
-                <StyledAdornment position="start">
-                  <img src={profileIcon}></img>
-                </StyledAdornment>
-              }
-            />
-          </InputWithLabelWrapper>
-          <InputWithLabelWrapper>
-            <InputLabel>Your email</InputLabel>
-            <ProfileInput
-              disableUnderline
-              disabled
-              placeholder={user?.email || "someemail"}
-              sx={{
-                "& .MuiInputBase-input": {
-                  paddingTop: "25px",
-                  paddingBottom: "8px",
-                  cursor: "not-allowed",
-                },
-              }}
-              startAdornment={
-                <StyledAdornment position="start">
-                  <img src={profileIcon}></img>
-                </StyledAdornment>
-              }
-            />
-          </InputWithLabelWrapper>
-
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <BaseParagraph>Password</BaseParagraph>
-            <ChangeParagraph>Change password</ChangeParagraph>
-          </div>
-          <InputWithLabelWrapper>
-            <InputLabel>Change password</InputLabel>
-            <ProfileInput
-              disableUnderline
-              disabled
-              placeholder="**********************"
-              sx={{
-                "& .MuiInputBase-input": {
-                  paddingTop: "25px",
-                  paddingBottom: "8px",
-                  cursor: "not-allowed",
-                },
-              }}
-              startAdornment={
-                <StyledAdornment position="start">
-                  <img src={profileIcon}></img>
-                </StyledAdornment>
-              }
-            />
-          </InputWithLabelWrapper>
+          <InputWrapper>
+            <StyledAdornment>
+              <img src={profileIcon}></img>
+            </StyledAdornment>
+            <StyledInput
+              name="name"
+              type="input"
+              placeholder=""
+              value={user?.name}
+            ></StyledInput>
+          </InputWrapper>
+          <InputWrapper>
+            <StyledAdornment>
+              <img src={emailIcon}></img>
+            </StyledAdornment>
+            <StyledInput
+              name="email"
+              type="input"
+              placeholder=""
+              value={user?.email}
+            ></StyledInput>
+          </InputWrapper>{" "}
+          <InputWrapper>
+            <StyledAdornment>
+              <img src={hideIcon}></img>
+            </StyledAdornment>
+            <StyledInput
+              name="confirmPassword"
+              type="password"
+              placeholder=""
+              value="***************"
+            ></StyledInput>
+          </InputWrapper>
           <BaseButton onClick={() => logoutHandler()}>Logout</BaseButton>
         </ProfileDataContainer>
       </UserProfileWrapper>

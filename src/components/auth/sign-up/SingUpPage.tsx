@@ -6,8 +6,15 @@ import { api } from "../../../axios/axios";
 import { setUser } from "../../../store/authSlice";
 import { tokenStorage } from "../../../storage/tokenStorage";
 import type { AxiosError } from "axios";
-import { BaseParagraph } from "../../../shared/styles/styles";
+import {
+  BaseParagraph,
+  InputWrapper,
+  StyledAdornment,
+} from "../../../shared/styles/styles";
 import { SwitchAuth } from "../AuthPage.styles";
+import { StyledInput } from "../../../shared/styles/styles";
+import mailIcon from "../../../assets/icons/mail.svg";
+import hideIcon from "../../../assets/icons/mail.svg";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -15,15 +22,12 @@ const SignUpPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
 
     validationSchema: Yup.object({
-      name: Yup.string().required("Name is required").min(2, "Too short"),
-
       email: Yup.string().email("Invalid email").required("Email is required"),
 
       password: Yup.string()
@@ -38,7 +42,6 @@ const SignUpPage = () => {
     onSubmit: async (values) => {
       try {
         await api.post("/users/auth/sign-up", {
-          name: values.name,
           email: values.email,
           password: values.password,
         });
@@ -64,52 +67,58 @@ const SignUpPage = () => {
     },
   });
 
+  const hasError = formik.touched.password && Boolean(formik.errors.password);
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div style={{ fontSize: "55px" }}>SIGN UP</div>
-
-        <input
-          name="name"
-          placeholder="Name"
-          onChange={formik.handleChange}
-          value={formik.values.name}
-        />
-        {formik.touched.name && formik.errors.name && (
-          <div>{formik.errors.name}</div>
-        )}
-
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-        />
-        {formik.touched.email && formik.errors.email && (
-          <div>{formik.errors.email}</div>
-        )}
-
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-        />
-        {formik.touched.password && formik.errors.password && (
-          <div>{formik.errors.password}</div>
-        )}
-
-        <input
-          name="confirmPassword"
-          type="password"
-          placeholder="Repeat password"
-          onChange={formik.handleChange}
-          value={formik.values.confirmPassword}
-        />
-        {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-          <div>{formik.errors.confirmPassword}</div>
-        )}
+        <InputWrapper>
+          <StyledAdornment>
+            <img src={mailIcon} alt="email" />
+          </StyledAdornment>
+          <StyledInput
+            name="email"
+            placeholder="Email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            error={hasError}
+          />
+          {formik.touched.email && formik.errors.email && (
+            <div>{formik.errors.email}</div>
+          )}
+        </InputWrapper>
+        <InputWrapper>
+          <StyledAdornment>
+            <img src={hideIcon} alt="email" />
+          </StyledAdornment>
+          <StyledInput
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            error={hasError}
+          />
+          {formik.touched.password && formik.errors.password && (
+            <div>{formik.errors.password}</div>
+          )}
+        </InputWrapper>
+        <InputWrapper>
+          <StyledAdornment>
+            <img src={hideIcon} alt="email" />
+          </StyledAdornment>
+          <StyledInput
+            name="confirmPassword"
+            type="password"
+            placeholder="Repeat password"
+            onChange={formik.handleChange}
+            value={formik.values.confirmPassword}
+            error={hasError}
+          />
+          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+            <div>{formik.errors.confirmPassword}</div>
+          )}
+        </InputWrapper>
 
         <button type="submit">Register</button>
       </form>

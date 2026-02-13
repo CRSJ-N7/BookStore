@@ -1,14 +1,13 @@
 import logo from "../../assets/header/logo.png";
-import {
-  HeaderWrapper,
-  SearchBlock,
-  CatalogText,
-  StyledInput,
-} from "./Header.styles";
+import { HeaderWrapper, SearchBlock, CatalogText } from "./Header.styles";
 import SearchIcon from "../../assets/icons/Search.svg";
-import { StyledAdornment } from "./Header.styles";
 import Button from "../../shared/ui/Button/Button";
-import { BaseLogo } from "../../shared/styles/styles";
+import {
+  BaseLogo,
+  InputWrapper,
+  StyledAdornment,
+  StyledInput,
+} from "../../shared/styles/styles";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { type RootState } from "../../store/store";
@@ -24,15 +23,12 @@ const Header = () => {
 
       <SearchBlock>
         <CatalogText>Catalog</CatalogText>
-        <StyledInput
-          disableUnderline
-          placeholder="Search books"
-          startAdornment={
-            <StyledAdornment position="start">
-              <img src={SearchIcon} alt="search" />
-            </StyledAdornment>
-          }
-        />
+        <InputWrapper>
+          <StyledAdornment>
+            <img src={SearchIcon}></img>
+          </StyledAdornment>
+          <StyledInput placeholder="Search books" />
+        </InputWrapper>
       </SearchBlock>
 
       {!isAuth ? (

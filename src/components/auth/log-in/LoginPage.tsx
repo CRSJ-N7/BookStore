@@ -6,8 +6,16 @@ import { api } from "../../../axios/axios";
 import { setUser } from "../../../store/authSlice";
 import { tokenStorage } from "../../../storage/tokenStorage";
 import type { AxiosError } from "axios";
-import { BaseParagraph } from "../../../shared/styles/styles";
+import {
+  BaseParagraph,
+  InputWrapper,
+  StyledAdornment,
+} from "../../../shared/styles/styles";
 import { SwitchAuth } from "../AuthPage.styles";
+import { StyledInput } from "../../../shared/styles/styles";
+import mailIcon from "../../../assets/icons/mail.svg";
+import hideIcon from "../../../assets/icons/hide.svg";
+import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -53,32 +61,40 @@ const SignUpPage = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div style={{ fontSize: "55px" }}>LOG IN</div>
+        <InputWrapper>
+          <StyledAdornment>
+            <img src={mailIcon} alt="email" />
+          </StyledAdornment>
+          <StyledInput
+            name="email"
+            placeholder="Email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
+          {formik.touched.email && formik.errors.email && (
+            <div>{formik.errors.email}</div>
+          )}
+        </InputWrapper>
 
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-        />
-        {formik.touched.email && formik.errors.email && (
-          <div>{formik.errors.email}</div>
-        )}
+        <InputWrapper>
+          <StyledAdornment>
+            <img src={hideIcon} alt="email" />
+          </StyledAdornment>
+          <StyledInput
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
+          {formik.touched.password && formik.errors.password && (
+            <div>{formik.errors.password}</div>
+          )}
+        </InputWrapper>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-        />
-        {formik.touched.password && formik.errors.password && (
-          <div>{formik.errors.password}</div>
-        )}
-
-        <button type="submit">Register</button>
+        <BaseButton type="submit">Log in</BaseButton>
       </form>
-      <BaseParagraph>
+      <BaseParagraph style={{ marginTop: "25px" }}>
         Don't have an account?
         <SwitchAuth onClick={() => navigate("/auth/signup")}>
           Sign Up
