@@ -5,6 +5,7 @@ export const BaseHeader = styled.h1`
   font-family: "Poppins", sans-serif;
   font-size: 40px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 export const BaseParagraph = styled.p`

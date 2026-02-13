@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <HeaderWrapper>
-      <BaseLogo src={logo} alt="logo" />
+      <BaseLogo src={logo} alt="logo" onClick={() => navigate("/")} />
 
       <SearchBlock>
         <CatalogText>Catalog</CatalogText>

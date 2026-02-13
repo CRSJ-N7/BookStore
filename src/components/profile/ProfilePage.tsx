@@ -14,8 +14,12 @@ import { StyledAdornment } from "../../layouts/Header/Header.styles";
 import profileIcon from "../../assets/icons/profile.svg";
 import { BaseParagraph } from "../../shared/styles/styles";
 import photoUploader from "../../assets/profile/photoUpload.png";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 const ProfilePage = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
+
   return (
     <div>
       <div style={{ fontSize: "55px" }}>PROFILE</div>
@@ -33,7 +37,7 @@ const ProfilePage = () => {
           <InputWithLabelWrapper>
             <InputLabel>Your name</InputLabel>
             <ProfileInput
-              placeholder="Guy Howkins"
+              placeholder={user?.name}
               disableUnderline
               disabled
               style={{ cursor: "not-allowed" }}
@@ -56,7 +60,7 @@ const ProfilePage = () => {
             <ProfileInput
               disableUnderline
               disabled
-              placeholder="somefancy@gmail.com"
+              placeholder={user?.email || "someemail"}
               sx={{
                 "& .MuiInputBase-input": {
                   paddingTop: "25px",

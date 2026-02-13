@@ -11,6 +11,13 @@ import { setUser, logout } from "./store/authSlice";
 import LogInPage from "./components/auth/log-in/LoginPage";
 import SignUpPage from "./components/auth/sign-up/SingUpPage";
 
+import { tokenStorage } from "./storage/tokenStorage";
+
+const accessToken = tokenStorage.getAccess();
+if (accessToken) {
+  api.defaults.headers.Authorization = `Bearer ${accessToken}`;
+}
+
 function App() {
   const dispatch = useDispatch();
 
