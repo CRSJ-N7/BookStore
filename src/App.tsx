@@ -14,10 +14,10 @@ import SignUpPage from "./components/auth/sign-up/SingUpPage";
 import { tokenStorage } from "./storage/tokenStorage";
 import PrivateRoute, { ProtectedAuthRoute } from "./routes/PrivateRoutes";
 
-const accessToken = tokenStorage.getAccess();
-if (accessToken) {
-  api.defaults.headers.Authorization = `Bearer ${accessToken}`;
-}
+// const accessToken = tokenStorage.getAccess();
+// if (accessToken) {
+//   api.defaults.headers.Authorization = `Bearer ${accessToken}`;
+// }
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ function App() {
         console.log(res.data);
       })
       .catch(() => {
+        console.log("мы зашли в catch и делаем logout");
         dispatch(logOut());
       });
   }, []);

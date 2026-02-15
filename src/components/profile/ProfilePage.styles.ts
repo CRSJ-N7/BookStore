@@ -1,30 +1,27 @@
-import Input from "@mui/material/Input";
 import styled from "styled-components";
 
 export const UserProfileWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 100px;
   margin-bottom: 100px;
+  margin-left: 80px;
+  gap: 128px;
 `;
 
 export const PhotoWrapper = styled.div`
   position: relative;
-  width: 305px;
-  height: 305px;
 `;
 
 export const ProfilePicture = styled.img`
-  width: 100%;
-  height: 100%;
   display: block;
+  max-width: 305px;
+  max-height: 305px;
+  border-radius: 10%;
 `;
 
 export const PhotoUploader = styled.img`
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 150px;
+  right: 25px;
   z-index: 2;
   cursor: pointer;
 `;
@@ -56,13 +53,15 @@ export const ChangeParagraph = styled.p`
   color: #8d9f4f;
   text-decoration-line: underline;
   text-decoration-style: solid;
+  cursor: pointer;
 `;
 
-export const ProfileInput = styled(Input)`
-  width: 630px;
-  height: 64px;
-  padding-inline: 24px;
-  background-color: #f0f4ef;
-  border-radius: 16px;
-  text-underline-offset: none;
+export const FloatingLabel = styled.label`
+  position: absolute;
+  top: 8px;
+  left: 50px;
+  font-size: 12px;
+  font-family: Poppins;
+  color: #344966;
+  z-index: 2;
 `;
