@@ -39,8 +39,6 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <div style={{ fontSize: "55px" }}>PROFILE</div>
-
       <UserProfileWrapper>
         <PhotoWrapper>
           <ProfilePicture src={userPicture} />
