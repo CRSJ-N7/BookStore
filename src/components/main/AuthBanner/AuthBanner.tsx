@@ -7,29 +7,34 @@ import {
   InfoWrapper,
 } from "./AuthBanner.styles";
 import winksImage from "../../../assets/main-page/login/winks.png";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../store/store";
 
 const AuthBanner = () => {
   const header = "Autorize now";
   const paragraph = "Autorize now and discover faboulous world of books";
   const buttonText = "Log in / Sign up";
+  const user = useSelector((state: RootState) => state.auth.user);
 
-  return (
-    <AuthWrapper>
-      <AuthImage src={authImage} />
-      <InfoWrapper>
-        <InfoContainer
-          paragraph={paragraph}
-          header={header}
-          buttonText={buttonText}
-          buttonProps={{
-            variant: "contained",
-            style: { marginTop: "50px", zIndex: 2 },
-          }}
-        />
-      </InfoWrapper>
-      <BackgroundImage src={winksImage}></BackgroundImage>
-    </AuthWrapper>
-  );
+  if (!user) {
+    return (
+      <AuthWrapper>
+        <AuthImage src={authImage} />
+        <InfoWrapper>
+          <InfoContainer
+            paragraph={paragraph}
+            header={header}
+            buttonText={buttonText}
+            buttonProps={{
+              variant: "contained",
+              style: { marginTop: "50px", zIndex: 2 },
+            }}
+          />
+        </InfoWrapper>
+        <BackgroundImage src={winksImage}></BackgroundImage>
+      </AuthWrapper>
+    );
+  }
 };
 
 export default AuthBanner;

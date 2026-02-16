@@ -1,29 +1,25 @@
-import { type ReactNode } from "react";
+import { type PropsWithChildren } from "react";
 import { Navigate } from "react-router-dom";
 import { type RootState } from "../store/store";
 import { useSelector } from "react-redux";
 
-type PrivateRouteProps = {
-  children: ReactNode;
-};
-
-export const PrivateRoute = ({ children }: PrivateRouteProps) => {
+export const PrivateRoute = ({ children }: PropsWithChildren) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   if (!user) {
     return <Navigate to="/auth/login" replace />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
-export const ProtectedAuthRoute = ({ children }: PrivateRouteProps) => {
+export const ProtectedAuthRoute = ({ children }: PropsWithChildren) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   if (user) {
     return <Navigate to="/profile" />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 export default PrivateRoute;

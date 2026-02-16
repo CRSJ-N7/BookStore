@@ -1,5 +1,15 @@
 import styled from "styled-components";
 
+export const StyledRoot = styled.div`
+  display: flex;
+  margin-bottom: 100px;
+
+  .some-item {
+    margin-left: 80px;
+    gap: 128px;
+  }
+`;
+
 export const UserProfileWrapper = styled.div`
   display: flex;
   margin-bottom: 100px;
@@ -9,6 +19,8 @@ export const UserProfileWrapper = styled.div`
 
 export const PhotoWrapper = styled.div`
   position: relative;
+  max-width: 305px;
+  max-height: 305px;
 `;
 
 export const ProfilePicture = styled.img`
@@ -20,7 +32,7 @@ export const ProfilePicture = styled.img`
 
 export const PhotoUploader = styled.img`
   position: absolute;
-  bottom: 150px;
+  bottom: 45px;
   right: 25px;
   z-index: 2;
   cursor: pointer;

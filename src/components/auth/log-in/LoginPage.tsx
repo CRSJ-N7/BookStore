@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { api } from "../../../axios/axios";
 import { setUser } from "../../../store/authSlice";
 import { tokenStorage } from "../../../storage/tokenStorage";
 import type { AxiosError } from "axios";
@@ -16,6 +15,7 @@ import { StyledInput } from "../../../shared/styles/styles";
 import mailIcon from "../../../assets/icons/mail.svg";
 import hideIcon from "../../../assets/icons/hide.svg";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
+import authApi from "../../../api/authApi";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -37,12 +37,12 @@ const SignUpPage = () => {
 
     onSubmit: async (values) => {
       try {
-        const loginResponse = await api.post("/users/auth/login", {
+        const data = await authApi.logIn({
           email: values.email,
           password: values.password,
         });
 
-        const { accessToken, refreshToken, safeUser } = loginResponse.data;
+        const { accessToken, refreshToken, safeUser } = data;
 
         tokenStorage.setAccess(accessToken);
         tokenStorage.setRefresh(refreshToken);
