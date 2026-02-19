@@ -56,6 +56,16 @@ type UpdateProfileResponse = {
   };
 };
 
+type UploadImageResponse = {
+  safeUser: {
+    id: number;
+    email: string;
+    name: string | null;
+    avatar: string | null;
+  };
+  message: string;
+};
+
 const signIn = async (data: SignInBody) => {
   const response = await api.post<SignInResponse>("/users/auth/sign-up", data);
 
@@ -90,10 +100,21 @@ const updateProfile = async (data: UpdateProfileBody) => {
   return response.data;
 };
 
+// WIP
+const uploadAvatar = async (image: string) => {
+  console.log("зашил в uploadAvatar");
+  const response = await api.put<UploadImageResponse>("users/upload-avatar", {
+    image,
+  });
+
+  return response.data;
+};
+
 export default {
   signIn,
   logIn,
   getMe,
   changePassword,
   updateProfile,
+  uploadAvatar,
 };

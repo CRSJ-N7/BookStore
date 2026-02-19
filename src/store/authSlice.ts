@@ -3,8 +3,9 @@ import { tokenStorage } from "../storage/tokenStorage";
 
 type User = {
   id: number;
-  name: string;
   email: string;
+  name: string | null;
+  avatar: string | null;
 };
 
 interface AuthState {

@@ -23,7 +23,7 @@ import type { RootState } from "../../store/store";
 import { BaseButton } from "../../shared/ui/Button/Button.styles";
 import { useNavigate } from "react-router-dom";
 import { logOut, setUser } from "../../store/authSlice";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import authApi from "../../api/authApi";
 
 const ProfilePage = () => {
@@ -147,12 +147,55 @@ const ProfilePage = () => {
     setIsEditProfile(true);
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onloadend = async () => {
+      if (!reader.result || typeof reader.result !== "string") return;
+
+      const base64 = reader.result as string;
+
+      const updatedUser = await authApi.uploadAvatar(base64);
+
+      console.log(">>>", updatedUser);
+      console.log(">>>> safeUser", updatedUser.safeUser);
+
+      dispatch(setUser(updatedUser.safeUser));
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div>
       <UserProfileWrapper>
         <PhotoWrapper>
-          <ProfilePicture src={userPicture} />
-          <PhotoUploader src={photoUploader} />
+          <ProfilePicture
+            src={
+              user?.avatar
+                ? `http://localhost:3000/uploads/${user.avatar}`
+                : userPicture
+            }
+          />
+
+          <PhotoUploader src={photoUploader} onClick={handleClick} />
+
+          <input
+            type="file"
+            hidden
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
         </PhotoWrapper>
         <ProfileDataContainer>
           <div style={{ display: "flex", gap: "12px" }}>
