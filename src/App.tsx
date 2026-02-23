@@ -12,6 +12,7 @@ import SignUpPage from "./components/auth/sign-up/SingUpPage";
 import { tokenStorage } from "./storage/tokenStorage";
 import PrivateRoute, { ProtectedAuthRoute } from "./routes/PrivateRoutes";
 import authApi from "./api/authApi";
+import Admin from "./components/admin/Admin";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/admin" element={<Admin />} />
       <Route element={<DefaultLayout />}>
         <Route path="/" element={<MainPage />} />
         <Route
