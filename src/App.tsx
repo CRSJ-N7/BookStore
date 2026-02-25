@@ -13,6 +13,8 @@ import { tokenStorage } from "./storage/tokenStorage";
 import PrivateRoute, { ProtectedAuthRoute } from "./routes/PrivateRoutes";
 import authApi from "./api/authApi";
 import Admin from "./components/admin/Admin";
+import bookApi from "./api/bookApi";
+import { getBooks } from "./store/bookSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +30,10 @@ function App() {
         console.log("зашли в clearAccess?");
         tokenStorage.clearAccess();
       });
+
+    bookApi.getBooks().then((data) => {
+      dispatch(getBooks(data));
+    });
   }, []);
 
   return (

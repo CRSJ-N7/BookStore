@@ -1,6 +1,7 @@
-import { api } from "./api";
+import axios from "axios";
 
-type UploadBookData = {
+type BookData = {
+  id?: string;
   author: string;
   cover: string;
   description: string;
@@ -9,10 +10,21 @@ type UploadBookData = {
   price: number;
 };
 
-const uploadBook = async (data: UploadBookData) => {
-  const response = await api.post<UploadBookData>("/books/shoot", data);
+const uploadBook = async (data: BookData) => {
+  console.log("Зашли в uploadBook");
+
+  const response = await axios.post<BookData>(
+    "http://localhost:3000/books/shoot",
+    data,
+  );
+  console.log(response);
+  return response.data;
+};
+
+const getBooks = async () => {
+  const response = await axios.get<BookData>("http://localhost:3000/books/");
 
   return response.data;
 };
 
-export default { uploadBook };
+export default { uploadBook, getBooks };

@@ -31,8 +31,8 @@ const Main = () => {
           }}
         />
       </InfoWrapper>
-      <MainImage src={mainImg}></MainImage>
       <BackgroundImage src={booksImg}></BackgroundImage>
+      <MainImage src={mainImg}></MainImage>
     </MainWrapper>
   );
 };

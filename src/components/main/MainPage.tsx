@@ -1,12 +1,12 @@
 import AuthBanner from "./AuthBanner/AuthBanner";
-// import Catalog from "./Catalog/Catalog";
+import Catalog from "./Catalog/Catalog";
 import Main from "./Main/Main";
 
 export const MainPage = () => {
   return (
     <>
       <Main />
-      {/* <Catalog /> */}
+      <Catalog />
       <AuthBanner />
     </>
   );

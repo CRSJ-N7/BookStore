@@ -9,7 +9,10 @@ export const MainWrapper = styled.div`
   padding: 108px;
 `;
 
-export const MainImage = styled.img``;
+export const MainImage = styled.img`
+  align-self: flex-end;
+`;
+
 export const BackgroundImage = styled.img`
   position: absolute;
   bottom: 0;
