@@ -12,19 +12,21 @@ const Catalog = () => {
   console.log(books);
 
   return (
-    <CatalogWrapper>
-      <BaseHeader>Catalog</BaseHeader>
+    <>
       {/* <CatalogNav>
         <GenreSelect />
         <SortSelect />
         <PriceSlider />
-      </CatalogNav> */}
-      <BooksWrapper>
-        {books?.map((book) => (
-          <BookItem key={book.id} book={book} />
-        ))}
-      </BooksWrapper>
-    </CatalogWrapper>
+        </CatalogNav> */}
+      <CatalogWrapper>
+        <BaseHeader>Catalog</BaseHeader>
+        <BooksWrapper>
+          {books?.map((book) => (
+            <BookItem key={book.id} book={book} />
+          ))}
+        </BooksWrapper>
+      </CatalogWrapper>
+    </>
   );
 };
 

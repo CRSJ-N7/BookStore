@@ -8,7 +8,7 @@ const SortSelect = () => {
   return (
     <Select value={sort} displayEmpty onChange={(e) => setSort(e.target.value)}>
       <MenuItem value="">
-        <em>Sort by</em>
+        <div>Sort by</div>
       </MenuItem>
 
       <MenuItem value="нахуй">тут потом шото будет</MenuItem>

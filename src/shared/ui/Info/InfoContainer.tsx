@@ -7,6 +7,7 @@ type Props = {
   header: string;
   buttonText?: string;
   buttonProps?: ButtonProps;
+  onButtonClick?: () => void;
 };
 
 const InfoContainer = ({
@@ -14,12 +15,17 @@ const InfoContainer = ({
   header,
   buttonText,
   buttonProps,
+  onButtonClick,
 }: Props) => {
   return (
     <>
       <BaseHeader>{header}</BaseHeader>
       <BaseParagraph>{paragraph}</BaseParagraph>
-      {buttonText && <Button {...buttonProps}>{buttonText}</Button>}
+      {buttonText && (
+        <Button {...buttonProps} onClick={onButtonClick}>
+          {buttonText}
+        </Button>
+      )}
     </>
   );
 };

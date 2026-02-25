@@ -4,9 +4,9 @@ export const BookItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  cursor: pointer;
   width: 100%;
   max-width: 305px;
+  position: relative;
 `;
 
 export const BookCover = styled.img`
@@ -15,6 +15,25 @@ export const BookCover = styled.img`
   aspect-ratio: 305/448;
   border-radius: 4px;
   margin-bottom: 30px;
+  cursor: pointer;
+  transition:
+    0.4s ease transform,
+    0.7s ease box-shadow;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 5px 10px 0px #68a268ff;
+  }
+`;
+
+export const FavouritesIcon = styled.img`
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 48px;
+  height: 48px;
+  z-index: 2;
+  cursor: pointer;
 `;
 
 export const BookTitle = styled.h3`

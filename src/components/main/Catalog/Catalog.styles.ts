@@ -4,10 +4,12 @@ export const CatalogWrapper = styled.div`
   margin: 24px;
 `;
 
-export const CatalogNav = styled.div``;
+export const CatalogNav = styled.div`
+  float: right;
+`;
 
 export const BooksWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 305px));
   gap: 20px;
 `;

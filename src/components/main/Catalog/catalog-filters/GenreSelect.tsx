@@ -6,13 +6,13 @@ import { useState } from "react";
 import genresList from "./genresList.ts";
 
 const GenreSelect = () => {
-  const [genres, setGenres] = useState<string[]>([]);
+  const [genres, setGenres] = useState<string | string[]>([]);
 
   return (
     <Select
       multiple
       value={genres}
-      onChange={(e) => setGenres(e.target.value as string[])}
+      onChange={(e) => setGenres(e.target.value)}
       displayEmpty
       renderValue={() => "Genre"}
     >

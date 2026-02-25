@@ -5,7 +5,9 @@ import {
   BookCover,
   BookTitle,
   BookAuthor,
+  FavouritesIcon,
 } from "./BookItem.styles";
+import favouritesIcon from "../../../../assets/icons/favourites.svg";
 
 type Book = {
   id: string;
@@ -28,6 +30,8 @@ const BookItem = ({ book }: BookItemProps) => {
         src={`http://localhost:3000/public/${book.cover}`}
         alt={book.name}
       />
+      <FavouritesIcon src={favouritesIcon} />
+
       <BookTitle>{book.name}</BookTitle>
       <BookAuthor>{book.author}</BookAuthor>
       <BaseButton style={{ alignSelf: "center", width: "100%" }}>
