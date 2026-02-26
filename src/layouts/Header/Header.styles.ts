@@ -5,8 +5,9 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 64px;
-  padding: 24px;
-  margin: 24px;
+  margin-inline: 80px;
+  margin-bottom: 40px;
+  margin-top: 24px;
 `;
 
 export const SearchBlock = styled.div`

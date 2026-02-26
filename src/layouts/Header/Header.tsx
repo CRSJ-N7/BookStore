@@ -13,10 +13,9 @@ import {
 import SearchIcon from "../../assets/icons/Search.svg";
 import profileIcon from "../../assets/icons/profileHeader.svg";
 import favouritesIcon from "../../assets/icons/favouritesHeader.svg";
-
 import CartIconMain from "../../assets/icons/Cart.svg";
-import ElipseDark from "../../assets/icons/ElipseDark.svg";
-import ElipseGreen from "../../assets/icons/ElipseGreen.svg";
+import ElipseDark from "../../assets/icons/EllipseLightBlue.svg";
+import ElipseGreen from "../../assets/icons/EllipseGreen.svg";
 import Button from "../../shared/ui/Button/Button";
 import {
   BaseLogo,
@@ -56,6 +55,7 @@ const Header = () => {
             <CartIconMainEllipse src={ElipseDark} />
             <CartIconSecondEllipse src={ElipseGreen} />
             <CartIcon src={CartIconMain} />
+            {/* <p>2</p> */}
           </SvgTestWrapper>
 
           <ProfileIcons src={favouritesIcon} />

@@ -7,6 +7,7 @@ export const FooterWrapper = styled.div`
   background: #0d1821;
   height: 341px;
   padding: 48px 64px;
+  margin-top: 30px;
 `;
 
 export const InfoWrapper = styled.div`

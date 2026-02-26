@@ -14,7 +14,8 @@ import PrivateRoute, { ProtectedAuthRoute } from "./routes/PrivateRoutes";
 import authApi from "./api/authApi";
 import Admin from "./components/admin/Admin";
 import bookApi from "./api/bookApi";
-import { getBooks } from "./store/bookSlice";
+import { setBooks, setGenres } from "./store/bookSlice";
+import { GlobalContainer } from "./App.styles";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,40 +31,46 @@ function App() {
         console.log("зашли в clearAccess?");
         tokenStorage.clearAccess();
       });
-
-    bookApi.getBooks().then((data) => {
-      dispatch(getBooks(data));
-    });
   }, []);
 
-  return (
-    <Routes>
-      <Route path="/admin" element={<Admin />} />
-      <Route element={<DefaultLayout />}>
-        <Route path="/" element={<MainPage />} />
-        <Route
-          path="/auth"
-          element={
-            <ProtectedAuthRoute>
-              <AuthPage />
-            </ProtectedAuthRoute>
-          }
-        >
-          <Route index element={<LogInPage />} />
-          <Route path="login" element={<LogInPage />} />
-          <Route path="signup" element={<SignUpPage />} />
-        </Route>
+  bookApi.getBooks().then((data) => {
+    dispatch(setBooks(data));
+  });
 
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <ProfilePage />
-            </PrivateRoute>
-          }
-        />
-      </Route>
-    </Routes>
+  bookApi.getGenres().then((data) => {
+    dispatch(setGenres(data));
+  });
+
+  return (
+    <GlobalContainer>
+      <Routes>
+        <Route path="/admin" element={<Admin />} />
+        <Route element={<DefaultLayout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route
+            path="/auth"
+            element={
+              <ProtectedAuthRoute>
+                <AuthPage />
+              </ProtectedAuthRoute>
+            }
+          >
+            <Route index element={<LogInPage />} />
+            <Route path="login" element={<LogInPage />} />
+            <Route path="signup" element={<SignUpPage />} />
+          </Route>
+
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
+              </PrivateRoute>
+            }
+          />
+        </Route>
+      </Routes>
+    </GlobalContainer>
   );
 }
 

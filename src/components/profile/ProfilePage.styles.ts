@@ -1,19 +1,9 @@
 import styled from "styled-components";
 
-export const StyledRoot = styled.div`
-  display: flex;
-  margin-bottom: 100px;
-
-  .some-item {
-    margin-left: 80px;
-    gap: 128px;
-  }
-`;
-
 export const UserProfileWrapper = styled.div`
   display: flex;
   margin-bottom: 100px;
-  margin-left: 80px;
+  margin-inline: 80px;
   gap: 128px;
 `;
 

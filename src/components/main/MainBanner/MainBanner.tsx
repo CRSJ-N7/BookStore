@@ -5,10 +5,10 @@ import {
   InfoWrapper,
   MainImage,
   MainWrapper,
-} from "./Main.styles";
+} from "./MainBanner.styles";
 import InfoContainer from "../../../shared/ui/Info/InfoContainer";
 
-const Main = () => {
+const MainBanner = () => {
   const paragraph = (
     <>
       Buy two books and <br />
@@ -37,4 +37,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MainBanner;

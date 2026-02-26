@@ -27,4 +27,10 @@ const getBooks = async () => {
   return response.data;
 };
 
-export default { uploadBook, getBooks };
+const getGenres = async () => {
+  const response = await axios.get("http://localhost:3000/books/genres");
+
+  return response.data;
+};
+
+export default { uploadBook, getBooks, getGenres };

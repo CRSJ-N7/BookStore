@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const MainWrapper = styled.div`
   display: flex;
   background: #f0f4ef;
-  margin: 24px;
+  margin-inline: 80px;
   justify-content: space-between;
   position: relative;
-  padding: 108px;
+  padding: 50px;
 `;
 
 export const MainImage = styled.img`

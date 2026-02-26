@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const AuthWrapper = styled.div`
   display: flex;
   background: #f0f4ef;
-  margin: 24px;
+  margin-inline: 56px;
+  margin-top: 30px;
   justify-content: space-between;
   position: relative;
   padding: 108px;

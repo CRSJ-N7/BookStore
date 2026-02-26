@@ -8,12 +8,16 @@ import * as Yup from "yup";
 import bookApi from "../../api/bookApi";
 import { setBook } from "../../store/bookSlice";
 import type { RootState } from "../../store/store";
+import { BaseButton } from "../../shared/ui/Button/Button.styles";
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const [bookCover, setBookCover] = useState<null | string>();
   const books = useSelector((state: RootState) => state.books.books);
+
+  const navigate = useNavigate();
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -112,8 +116,9 @@ const Admin = () => {
           value={formik.values.price}
           onChange={formik.handleChange}
         />
-        <button type="submit">SHOOT!</button>
+        <BaseButton type="submit">SHOOT!</BaseButton>
       </form>
+      <BaseButton onClick={() => navigate("/")}>Back to main page</BaseButton>
     </AdminWrapper>
   );
 };

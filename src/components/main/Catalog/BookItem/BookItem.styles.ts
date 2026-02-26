@@ -22,7 +22,7 @@ export const BookCover = styled.img`
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0px 5px 10px 0px #68a268ff;
+    box-shadow: 0px 25px 25px 0px #bfbfbfff;
   }
 `;
 
