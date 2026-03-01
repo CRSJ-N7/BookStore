@@ -1,16 +1,8 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import bookApi from "../../api/bookApi";
-import { useEffect } from "react";
 
 const BookProfile = () => {
   const book = useSelector((state: RootState) => state.books.currentBook);
-
-  useEffect(() => {
-    if (book) {
-      await bookApi.getBook(book.id);
-    }
-  }, [book]);
 
   if (book) {
     return (
