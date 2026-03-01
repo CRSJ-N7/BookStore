@@ -14,11 +14,13 @@ type Book = {
 type BookState = {
   books: Book[] | null;
   genres: string[];
+  currentBook: Book | null;
 };
 
 const initialState: BookState = {
   books: [],
   genres: [],
+  currentBook: null,
 };
 
 const bookSlice = createSlice({
@@ -34,9 +36,13 @@ const bookSlice = createSlice({
     setGenres(state, action) {
       state.genres = action.payload;
     },
+    setCurrentBook(state, action) {
+      state.currentBook = action.payload;
+    },
   },
 });
 
-export const { setBook, setBooks, setGenres } = bookSlice.actions;
+export const { setBook, setBooks, setGenres, setCurrentBook } =
+  bookSlice.actions;
 
 export default bookSlice.reducer;

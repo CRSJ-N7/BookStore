@@ -8,27 +8,20 @@ import {
   FavouritesIcon,
 } from "./BookItem.styles";
 import favouritesIcon from "../../../../assets/icons/favourites.svg";
-
-type Book = {
-  id: string;
-  author: string;
-  cover: string;
-  description: string;
-  genre: string;
-  name: string;
-  price: number;
-};
+import type { Book } from "../../../../types/types";
 
 type BookItemProps = {
   book: Book;
+  onClick: () => void;
 };
 
-const BookItem = ({ book }: BookItemProps) => {
+const BookItem = ({ book, onClick }: BookItemProps) => {
   return (
     <BookItemWrapper>
       <BookCover
         src={`http://localhost:3000/public/${book.cover}`}
         alt={book.name}
+        onClick={onClick}
       />
       <FavouritesIcon src={favouritesIcon} />
 

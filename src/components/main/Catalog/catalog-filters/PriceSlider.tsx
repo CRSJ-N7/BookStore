@@ -3,17 +3,19 @@ import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
 import { PriceValue, PriceWrapper } from "./PriceSlider.styles";
+import { useSearchParams } from "react-router-dom";
 
 const PriceSlider = () => {
   const [value, setValue] = useState<number[]>([0, 999]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleChange = (
-    event: Event,
-    newValue: number[],
-    activeThumb: number,
-  ) => {
-    console.log(activeThumb);
+  const handleChange = (_event: Event, newValue: number[]) => {
     setValue(newValue);
+
+    const params = new URLSearchParams(searchParams);
+    params.set("min", `${newValue[0]}`);
+    params.set("max", `${newValue[1]}`);
+    setSearchParams(params);
   };
   return (
     <Select value="Price" renderValue={() => "Price"}>

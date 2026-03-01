@@ -14,8 +14,9 @@ import PrivateRoute, { ProtectedAuthRoute } from "./routes/PrivateRoutes";
 import authApi from "./api/authApi";
 import Admin from "./components/admin/Admin";
 import bookApi from "./api/bookApi";
-import { setBooks, setGenres } from "./store/bookSlice";
+import { setGenres } from "./store/bookSlice";
 import { GlobalContainer } from "./App.styles";
+import BookProfile from "./components/book/BookProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,9 +34,9 @@ function App() {
       });
   }, []);
 
-  bookApi.getBooks().then((data) => {
-    dispatch(setBooks(data));
-  });
+  // bookApi.getBooks().then((data) => {
+  //   dispatch(setBooks(data));
+  // });
 
   bookApi.getGenres().then((data) => {
     dispatch(setGenres(data));
@@ -69,6 +70,8 @@ function App() {
             }
           />
         </Route>
+
+        <Route path="/books/:id" element={<BookProfile />} />
       </Routes>
     </GlobalContainer>
   );

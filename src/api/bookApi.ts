@@ -21,8 +21,10 @@ const uploadBook = async (data: BookData) => {
   return response.data;
 };
 
-const getBooks = async () => {
-  const response = await axios.get<BookData>("http://localhost:3000/books/");
+const getBooks = async (params?: object) => {
+  const response = await axios.get<BookData>("http://localhost:3000/books/", {
+    params: { ...params },
+  });
 
   return response.data;
 };
@@ -33,4 +35,9 @@ const getGenres = async () => {
   return response.data;
 };
 
-export default { uploadBook, getBooks, getGenres };
+const getBook = async (id: string) => {
+  const response = await axios.get(`http://localhost:3000/books/${id}`);
+
+  return response.data;
+};
+export default { uploadBook, getBooks, getGenres, getBook };

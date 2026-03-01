@@ -1,14 +1,25 @@
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const SortSelect = () => {
   const [sort, setSort] = useState("Price");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleChange = (value: string) => {
+    setSort(value);
+
+    const params = new URLSearchParams(searchParams);
+    params.set("sortBy", `${value}`);
+
+    setSearchParams(params);
+  };
 
   return (
     <Select
       value={sort}
-      onChange={(e) => setSort(e.target.value)}
+      onChange={(e) => handleChange(e.target.value as string)}
       renderValue={(value) => `Sort by ${value.toLowerCase()}`}
     >
       <MenuItem value="Price">Price</MenuItem>
