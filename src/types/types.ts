@@ -6,4 +6,7 @@ export type Book = {
   genre: string;
   name: string;
   price: number;
+
+  avgRating?: number;
+  ratingsCount?: number;
 };

@@ -34,6 +34,7 @@ const BookProfile = () => {
         <div>{book.author}</div>
         <div>{book.description}</div>
         <div>{book.price}</div>
+        <div>{book.avgRating}</div>
       </div>
     );
   } else {

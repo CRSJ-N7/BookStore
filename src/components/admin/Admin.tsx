@@ -15,6 +15,16 @@ const Admin = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const [bookCover, setBookCover] = useState<null | string>();
+  const [uploadBookForm, setUploadBookForm] = useState(false);
+
+  const handleUploadFormClick = () => {
+    setUploadBookForm((prev) => {
+      return !prev;
+    });
+  };
+
+  const currentUser = useSelector((state: RootState) => state.auth.user);
+  const currentUserCart = useSelector((state: RootState) => state.cart.cart);
   const books = useSelector((state: RootState) => state.books.books);
 
   const navigate = useNavigate();
@@ -76,48 +86,64 @@ const Admin = () => {
 
   return (
     <AdminWrapper>
-      <form onSubmit={formik.handleSubmit}>
-        <BookUploader src={photoUploader} onClick={handleClick} />
-        <input
-          type="file"
-          hidden
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
-        {bookCover ? <img src={bookCover} /> : null}
-        <StyledInput
-          name="name"
-          placeholder="name"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-        />
-        <StyledInput
-          name="description"
-          placeholder="description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-        />
-        <StyledInput
-          name="author"
-          placeholder="author"
-          value={formik.values.author}
-          onChange={formik.handleChange}
-        />
-        <StyledInput
-          name="genre"
-          placeholder="genre"
-          value={formik.values.genre}
-          onChange={formik.handleChange}
-        />
-        <StyledInput
-          name="price"
-          placeholder="price"
-          value={formik.values.price}
-          onChange={formik.handleChange}
-        />
-        <BaseButton type="submit">SHOOT!</BaseButton>
-      </form>
+      <h2>Current User:</h2>
+      <div>ID: {currentUser?.id}</div>
+      <div>NAME: {currentUser?.name}</div>
+      <h3>Current user Cart:</h3>
+      <div>
+        {currentUserCart?.map((item) => (
+          <div>
+            <p key={item.id}></p>
+            <p key={item.name}></p>
+          </div>
+        ))}
+      </div>
+      <div></div>
+      <BaseButton onClick={handleUploadFormClick}>Upload Book</BaseButton>
+      {uploadBookForm && (
+        <form onSubmit={formik.handleSubmit}>
+          <BookUploader src={photoUploader} onClick={handleClick} />
+          <input
+            type="file"
+            hidden
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
+          {bookCover ? <img src={bookCover} /> : null}
+          <StyledInput
+            name="name"
+            placeholder="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+          />
+          <StyledInput
+            name="description"
+            placeholder="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+          />
+          <StyledInput
+            name="author"
+            placeholder="author"
+            value={formik.values.author}
+            onChange={formik.handleChange}
+          />
+          <StyledInput
+            name="genre"
+            placeholder="genre"
+            value={formik.values.genre}
+            onChange={formik.handleChange}
+          />
+          <StyledInput
+            name="price"
+            placeholder="price"
+            value={formik.values.price}
+            onChange={formik.handleChange}
+          />
+          <BaseButton type="submit">SHOOT!</BaseButton>
+        </form>
+      )}
       <BaseButton onClick={() => navigate("/")}>Back to main page</BaseButton>
     </AdminWrapper>
   );

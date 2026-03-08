@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "./api";
 
 type BookData = {
   id?: string;
@@ -11,33 +11,44 @@ type BookData = {
 };
 
 const uploadBook = async (data: BookData) => {
-  console.log("Зашли в uploadBook");
-
-  const response = await axios.post<BookData>(
-    "http://localhost:3000/books/shoot",
-    data,
-  );
-  console.log(response);
+  const response = await api.post("/books/shoot", data);
   return response.data;
 };
 
 const getBooks = async (params?: object) => {
-  const response = await axios.get<BookData>("http://localhost:3000/books/", {
-    params: { ...params },
+  const response = await api.get("/books", { params });
+  return response.data;
+};
+
+const getGenres = async () => {
+  const response = await api.get("/books/genres");
+  return response.data;
+};
+
+const getBook = async (id: string) => {
+  const response = await api.get(`/books/${id}`);
+  return response.data;
+};
+
+const rateBook = async (bookId: number, value: number) => {
+  const response = await api.patch(`/books/rate/${bookId}`, {
+    bookId,
+    rateValue: value,
   });
 
   return response.data;
 };
 
-const getGenres = async () => {
-  const response = await axios.get("http://localhost:3000/books/genres");
-
+const toggleFavourite = async (bookId: number) => {
+  const response = await api.patch(`/books/favourites/${bookId}`);
   return response.data;
 };
 
-const getBook = async (id: string) => {
-  const response = await axios.get(`http://localhost:3000/books/${id}`);
-
-  return response.data;
+export default {
+  uploadBook,
+  getBooks,
+  getGenres,
+  getBook,
+  rateBook,
+  toggleFavourite,
 };
-export default { uploadBook, getBooks, getGenres, getBook };

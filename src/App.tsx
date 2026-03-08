@@ -17,6 +17,7 @@ import bookApi from "./api/bookApi";
 import { setBooks, setGenres } from "./store/bookSlice";
 import { GlobalContainer } from "./App.styles";
 import BookProfile from "./components/book/BookProfile";
+import Cart from "./components/cart/Cart";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,8 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<MainPage />} />
+          <Route path="/books/:id" element={<BookProfile />} />
+
           <Route
             path="/auth"
             element={
@@ -69,9 +72,9 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/favourites" element={<Cart />} />
         </Route>
-
-        <Route path="/books/:id" element={<BookProfile />} />
       </Routes>
     </GlobalContainer>
   );
