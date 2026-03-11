@@ -10,6 +10,11 @@ const addToCart = async (bookId: number) => {
   return response.data;
 };
 
+const updateQuantity = async (bookId: number, quantity: number) => {
+  const response = await api.patch("/cart", { bookId, quantity });
+  return response.data;
+};
+
 const removeFromCart = async (bookId: number) => {
   const response = await api.delete(`/cart/${bookId}`);
   return response.data;
@@ -19,4 +24,5 @@ export default {
   getCart,
   addToCart,
   removeFromCart,
+  updateQuantity,
 };

@@ -39,6 +39,13 @@ const rateBook = async (bookId: number, value: number) => {
   return response.data;
 };
 
+const getFavourites = async () => {
+  const response = await api.get("/books/favourites");
+
+  console.log(`User favourited::`, response);
+  return response.data;
+};
+
 const toggleFavourite = async (bookId: number) => {
   const response = await api.patch(`/books/favourites/${bookId}`);
   return response.data;
@@ -51,4 +58,5 @@ export default {
   getBook,
   rateBook,
   toggleFavourite,
+  getFavourites,
 };

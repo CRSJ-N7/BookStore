@@ -3,10 +3,14 @@ import type { Book } from "../types/types";
 
 type CartState = {
   cart: Book[];
+  totalPrice: number | null;
+  totalItems: number | null;
 };
 
 const initialState: CartState = {
   cart: [],
+  totalPrice: null,
+  totalItems: null,
 };
 
 const cartSlice = createSlice({
@@ -28,10 +32,13 @@ const cartSlice = createSlice({
     clearCart(state) {
       state.cart = [];
     },
+    setTotalItems(state, action) {
+      state.totalItems = action.payload;
+    },
   },
 });
 
-export const { setCart, addToCart, removeFromCart, clearCart } =
+export const { setCart, addToCart, removeFromCart, clearCart, setTotalItems } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -37,6 +37,7 @@ export const ProfileIcons = styled.img`
 
 export const SvgTestWrapper = styled.div`
   position: relative;
+  cursor: pointer;
 `;
 export const CartIconMainEllipse = styled.img`
   position: relative;
@@ -59,4 +60,15 @@ export const CartIcon = styled.img`
   z-index: 2;
   left: 11px;
   top: 11px;
+`;
+
+export const Quantity = styled.p`
+  position: absolute;
+  left: 38px;
+  top: -3px;
+  z-index: 5;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #344966;
 `;

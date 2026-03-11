@@ -7,20 +7,31 @@ import {
   FavouritesIcon,
 } from "./BookItem.styles";
 import favouritesIcon from "../../../../assets/icons/favourites.svg";
+import favouritesIconFilled from "../../../../assets/icons/favouritesFilled.svg";
 import type { Book } from "../../../../types/types";
 import StarRating from "./StarRating/StarRating";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../../store/store";
 import bookApi from "../../../../api/bookApi";
 import { useState } from "react";
+import cartApi from "../../../../api/cartApi";
+import { setCart, setTotalItems } from "../../../../store/cartSlice";
 
 type BookItemProps = {
   book: Book;
   onClick: () => void;
+  isFavourite: boolean;
+  toggleFavourite: (id: number) => void;
 };
 
-const BookItem = ({ book, onClick }: BookItemProps) => {
+const BookItem = ({
+  book,
+  onClick,
+  isFavourite,
+  toggleFavourite,
+}: BookItemProps) => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch();
 
   const [rating, setRating] = useState<number>(book.avgRating ?? 0);
 
@@ -39,6 +50,14 @@ const BookItem = ({ book, onClick }: BookItemProps) => {
     }
   };
 
+  const addToCartHandler = async (bookId: number) => {
+    const cart = await cartApi.addToCart(bookId);
+    dispatch(setCart(cart));
+
+    const cartItems = await cartApi.getCart();
+    dispatch(setTotalItems(cartItems.totalItems));
+  };
+
   return (
     <BookItemWrapper>
       <BookCover
@@ -47,7 +66,10 @@ const BookItem = ({ book, onClick }: BookItemProps) => {
         onClick={onClick}
       />
 
-      <FavouritesIcon src={favouritesIcon} />
+      <FavouritesIcon
+        src={isFavourite ? favouritesIconFilled : favouritesIcon}
+        onClick={() => toggleFavourite(+book.id)}
+      />
 
       <BookTitle>{book.name}</BookTitle>
 
@@ -66,7 +88,10 @@ const BookItem = ({ book, onClick }: BookItemProps) => {
         <span>{rating.toFixed(1)}</span>
       </div>
 
-      <BaseButton style={{ alignSelf: "center", width: "100%" }}>
+      <BaseButton
+        style={{ alignSelf: "center", width: "100%" }}
+        onClick={() => addToCartHandler(+book.id)}
+      >
         {book.price}€
       </BaseButton>
     </BookItemWrapper>

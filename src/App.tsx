@@ -4,7 +4,7 @@ import AuthPage from "./components/auth/AuthPage";
 import ProfilePage from "./components/profile/ProfilePage";
 import MainPage from "./components/main/MainPage";
 import DefaultLayout from "./layouts/DefaultLayout";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/authSlice";
 import LogInPage from "./components/auth/log-in/LoginPage";
@@ -18,22 +18,23 @@ import { setBooks, setGenres } from "./store/bookSlice";
 import { GlobalContainer } from "./App.styles";
 import BookProfile from "./components/book/BookProfile";
 import Cart from "./components/cart/Cart";
+import Favourites from "./components/favourites/Favourites";
 
 function App() {
   const dispatch = useDispatch();
+  const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
     authApi
       .getMe()
-      .then((data) => {
-        dispatch(setUser(data));
-        console.log(data);
-      })
-      .catch(() => {
-        console.log("зашли в clearAccess?");
-        tokenStorage.clearAccess();
-      });
-  }, []);
+      .then((data) => dispatch(setUser(data)))
+      .catch(() => tokenStorage.clearAccess())
+      .finally(() => setLoadingUser(false));
+  }, [dispatch]);
+
+  if (loadingUser) {
+    return <div>LOADING BLYAT</div>;
+  }
 
   bookApi.getBooks().then((data) => {
     dispatch(setBooks(data));
@@ -63,6 +64,14 @@ function App() {
             <Route path="login" element={<LogInPage />} />
             <Route path="signup" element={<SignUpPage />} />
           </Route>
+          <Route
+            path="/favourites"
+            element={
+              <PrivateRoute>
+                <Favourites />
+              </PrivateRoute>
+            }
+          />
 
           <Route
             path="/profile"
@@ -73,7 +82,6 @@ function App() {
             }
           />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/favourites" element={<Cart />} />
         </Route>
       </Routes>
     </GlobalContainer>

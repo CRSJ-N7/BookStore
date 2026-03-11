@@ -12,16 +12,47 @@ import {
   CatalogWrapper,
 } from "./Catalog.styles";
 import BookItem from "./BookItem/BookItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import bookApi from "../../../api/bookApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setBooks, setCurrentBook } from "../../../store/bookSlice";
+import type { Book } from "../../../types/types";
 
 const Catalog = () => {
   const books = useSelector((state: RootState) => state.books.books);
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [favourites, setFavourites] = useState<number[]>([]);
+
+  useEffect(() => {
+    const loadFavourites = async () => {
+      try {
+        const books = await bookApi.getFavourites();
+        console.log(books);
+
+        setFavourites(books.map((b: Book) => b.id));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    loadFavourites();
+  }, []);
+
+  const toggleFavourite = async (bookId: number) => {
+    try {
+      await bookApi.toggleFavourite(bookId);
+
+      setFavourites((prev) =>
+        prev.includes(bookId)
+          ? prev.filter((id) => id !== bookId)
+          : [...prev, bookId],
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
     const params = Object.fromEntries(new URLSearchParams(searchParams));
@@ -35,7 +66,6 @@ const Catalog = () => {
   }, [searchParams]);
 
   const clickHandler = async (id: string) => {
-    console.log(id);
     const book = await bookApi.getBook(id);
     dispatch(setCurrentBook(book));
 
@@ -60,6 +90,8 @@ const Catalog = () => {
               key={book.id}
               book={book}
               onClick={() => clickHandler(book.id)}
+              isFavourite={favourites.includes(+book.id)}
+              toggleFavourite={toggleFavourite}
             />
           ))}
         </BooksWrapper>

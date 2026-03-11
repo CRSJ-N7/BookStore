@@ -63,8 +63,6 @@ const Admin = () => {
     validationSchema: Yup.object({}),
 
     onSubmit: async (values) => {
-      console.log("submit нажат");
-      console.log(bookCover);
       try {
         const newBook = await bookApi.uploadBook({
           description: values.description || "coming soon",
@@ -74,7 +72,6 @@ const Admin = () => {
           name: values.name,
           cover: bookCover as string,
         });
-        console.log(newBook);
 
         dispatch(setBook(newBook));
         console.log(books);
@@ -89,7 +86,6 @@ const Admin = () => {
       <h2>Current User:</h2>
       <div>ID: {currentUser?.id}</div>
       <div>NAME: {currentUser?.name}</div>
-      <h3>Current user Cart:</h3>
       <div>
         {currentUserCart?.map((item) => (
           <div>

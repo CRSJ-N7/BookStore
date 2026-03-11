@@ -101,7 +101,6 @@ const updateProfile = async (data: UpdateProfileBody) => {
 };
 
 const uploadAvatar = async (image: string) => {
-  console.log("зашил в uploadAvatar");
   const response = await api.put<UploadImageResponse>("users/upload-avatar", {
     image,
   });
