@@ -1,7 +1,7 @@
 import { api } from "./api";
 
-const getComments = async (id: number) => {
-  const response = await api.get(`/books/comments/${id}`);
+const getComments = async (bookId: string) => {
+  const response = await api.get(`/books/comments/${bookId}`);
   return response.data;
 };
 

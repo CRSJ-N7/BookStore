@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const CartWrapper = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 24px;
+  margin: 80px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -12,7 +10,7 @@ export const CartWrapper = styled.div`
 export const BookTitle = styled.div`
   font-family: "Poppins", sans-serif;
   font-size: 40px;
-  font-weight: 500;
+  font-weight: 700;
 `;
 
 export const BookAuthorName = styled.div`
@@ -21,44 +19,74 @@ export const BookAuthorName = styled.div`
   font-weight: 400;
 `;
 
+export const BookDataWrapper = styled.div`
+  display: "flex";
+  flex-direction: "column";
+  align-items: "center";
+  margin-left: 20px;
+`;
+
 export const QuantityWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
-
-  button {
-    width: 24px;
-    height: 24px;
-    border: none;
-    background-color: #2c3e50;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-  }
+  gap: 20px;
+  margin-top: 50px;
+  max-width: 196px;
 
   p {
     margin: 0;
     width: 24px;
     text-align: center;
   }
+
+  img {
+    margin-left: 50px;
+    cursor: pointer;
+  }
+
+  span {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    line-height: 0.75px;
+    font-weight: 600;
+  }
+`;
+
+export const QuantityButton = styled.button`
+  border-radius: 50%;
+  background-color: #f0f4ef;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+  color: #0d1821;
 `;
 
 export const CheckoutWrapper = styled.div`
   display: flex;
   gap: 16px;
-
-  button {
-    flex: 1;
-  }
 `;
 
 export const BookItemContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const CartContainer = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+export const TotalPrice = styled.div`
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+`;
+
+export const ItemPrice = styled.div`
+  color: #0d1821;
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  margin-top: 50px;
 `;

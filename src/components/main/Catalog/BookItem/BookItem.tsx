@@ -65,29 +65,23 @@ const BookItem = ({
         alt={book.name}
         onClick={onClick}
       />
-
       <FavouritesIcon
         src={isFavourite ? favouritesIconFilled : favouritesIcon}
         onClick={() => toggleFavourite(+book.id)}
       />
-
       <BookTitle>{book.name}</BookTitle>
-
       <BookAuthor>{book.author}</BookAuthor>
-
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "8px",
-          justifyContent: "center",
+          gap: "15px",
+          justifyContent: "space-evenly",
         }}
       >
         <StarRating rating={rating} onRate={handleRate} />
-
         <span>{rating.toFixed(1)}</span>
       </div>
-
       <BaseButton
         style={{ alignSelf: "center", width: "100%" }}
         onClick={() => addToCartHandler(+book.id)}

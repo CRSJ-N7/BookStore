@@ -13,12 +13,11 @@ import { tokenStorage } from "./storage/tokenStorage";
 import PrivateRoute, { ProtectedAuthRoute } from "./routes/PrivateRoutes";
 import authApi from "./api/authApi";
 import Admin from "./components/admin/Admin";
-import bookApi from "./api/bookApi";
-import { setBooks, setGenres } from "./store/bookSlice";
-import { GlobalContainer } from "./App.styles";
+import { GlobalContainer, Loader } from "./App.styles";
 import BookProfile from "./components/book/BookProfile";
 import Cart from "./components/cart/Cart";
 import Favourites from "./components/favourites/Favourites";
+import PerfectLoader from "./assets/loader/perfect-loader.jpg";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,20 +28,17 @@ function App() {
       .getMe()
       .then((data) => dispatch(setUser(data)))
       .catch(() => tokenStorage.clearAccess())
-      .finally(() => setLoadingUser(false));
+      .finally(() => setTimeout(() => setLoadingUser(false), 300));
   }, [dispatch]);
 
   if (loadingUser) {
-    return <div>LOADING BLYAT</div>;
+    return (
+      <Loader>
+        <p> LOADING BLYAT</p>
+        <img src={PerfectLoader} />
+      </Loader>
+    );
   }
-
-  bookApi.getBooks().then((data) => {
-    dispatch(setBooks(data));
-  });
-
-  bookApi.getGenres().then((data) => {
-    dispatch(setGenres(data));
-  });
 
   return (
     <GlobalContainer>

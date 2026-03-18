@@ -10,6 +10,8 @@ import {
   CartIcon,
   SvgTestWrapper,
   Quantity,
+  SearchWrapper,
+  ProfileIconsBlanked,
 } from "./Header.styles";
 import SearchIcon from "../../assets/icons/Search.svg";
 import profileIcon from "../../assets/icons/profileHeader.svg";
@@ -20,19 +22,19 @@ import ElipseGreen from "../../assets/icons/EllipseGreen.svg";
 import Button from "../../shared/ui/Button/Button";
 import {
   BaseLogo,
-  InputWrapper,
   StyledAdornment,
   StyledInput,
 } from "../../shared/styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { type RootState } from "../../store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import cartApi from "../../api/cartApi";
 import { setTotalItems } from "../../store/cartSlice";
+import bookApi from "../../api/bookApi";
 
 const Header = () => {
-  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const user = useSelector((state: RootState) => state.auth.user);
   const totalCartItems = useSelector(
     (state: RootState) => state.cart.totalItems,
   );
@@ -48,21 +50,49 @@ const Header = () => {
     countItems();
   }, [dispatch]);
 
+  const [value, setValue] = useState("");
+
+  const handleChange = async (value: string) => {
+    setValue(value);
+  };
+  const handleKeyDown = (key: string) => {
+    if (key === "Enter") {
+      setValue("");
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (!value.trim()) {
+        return;
+      }
+
+      const books = await bookApi.searchBook(value);
+      console.log(books);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [value]);
+
   return (
     <HeaderWrapper>
       <BaseLogo src={logo} alt="logo" onClick={() => navigate("/")} />
-
       <SearchBlock>
         <CatalogText>Catalog</CatalogText>
-        <InputWrapper>
+        <SearchWrapper>
           <StyledAdornment>
             <img src={SearchIcon}></img>
           </StyledAdornment>
-          <StyledInput placeholder="Search books" />
-        </InputWrapper>
+          <StyledInput
+            variant="search"
+            placeholder="Search"
+            value={value}
+            onChange={(event) => handleChange(event?.target.value)}
+            onKeyDown={(e) => handleKeyDown(e.key)}
+          />
+        </SearchWrapper>
       </SearchBlock>
-
-      {!isAuth ? (
+      {!user ? (
         <Button variant="contained" onClick={() => navigate("/auth/login")}>
           Log in / Sign Up
         </Button>
@@ -70,19 +100,34 @@ const Header = () => {
         <ProfileWrapper>
           <SvgTestWrapper onClick={() => navigate("/cart")}>
             <CartIconMainEllipse src={ElipseDark} />
-            <CartIconSecondEllipse src={ElipseGreen} />
             <CartIcon src={CartIconMain} />
-            <Quantity>{totalCartItems}</Quantity>
+            {totalCartItems !== 0 && (
+              <>
+                <CartIconSecondEllipse src={ElipseGreen} />
+                <Quantity>{totalCartItems}</Quantity>
+              </>
+            )}
           </SvgTestWrapper>
 
           <ProfileIcons
             src={favouritesIcon}
             onClick={() => navigate("/favourites")}
           />
-          <ProfileIcons
-            src={profileIcon}
-            onClick={() => navigate("/profile")}
-          />
+
+          {user.name && !user.avatar ? (
+            <ProfileIconsBlanked onClick={() => navigate("/profile")}>
+              {user.name.charAt(0).toUpperCase()}
+            </ProfileIconsBlanked>
+          ) : (
+            <ProfileIcons
+              src={
+                user.avatar
+                  ? `http://localhost:3000/uploads/${user.avatar}`
+                  : profileIcon
+              }
+              onClick={() => navigate("/profile")}
+            />
+          )}
         </ProfileWrapper>
       )}
     </HeaderWrapper>

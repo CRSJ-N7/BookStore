@@ -16,7 +16,7 @@ const updateQuantity = async (bookId: number, quantity: number) => {
 };
 
 const removeFromCart = async (bookId: number) => {
-  const response = await api.delete(`/cart/${bookId}`);
+  const response = await api.delete(`/cart/`, { params: { bookId } });
   return response.data;
 };
 

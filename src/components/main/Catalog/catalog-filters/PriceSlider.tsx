@@ -21,7 +21,6 @@ const PriceSlider = () => {
     <Select value="Price" renderValue={() => "Price"}>
       <Box sx={{ width: 300, padding: "25px" }}>
         <Slider
-          getAriaLabel={() => "Price"}
           value={value}
           onChange={handleChange}
           min={0}

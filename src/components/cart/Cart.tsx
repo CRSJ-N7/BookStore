@@ -6,12 +6,22 @@ import {
   BookTitle,
   BookAuthorName,
   BookItemContainer,
+  QuantityWrapper,
+  BookDataWrapper,
+  QuantityButton,
+  CheckoutWrapper,
+  TotalPrice,
+  ItemPrice,
 } from "./Cart.styles";
 import type { Book } from "../../types/types";
+import { useDispatch } from "react-redux";
+import { setTotalItems } from "../../store/cartSlice";
+import DeleteIcon from "../../assets/icons/Delete.svg";
 
 const Cart = () => {
   const [items, setItems] = useState<(Book & { quantity: number })[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loadCart = async () => {
@@ -24,7 +34,7 @@ const Cart = () => {
       }
     };
     loadCart();
-  }, []);
+  }, [dispatch]);
 
   const handleQuantityChange = async (bookId: number, quantity: number) => {
     try {
@@ -33,8 +43,22 @@ const Cart = () => {
       const data = await cartApi.getCart();
       setItems(data.items);
       setTotalPrice(data.totalPrice);
+      dispatch(setTotalItems(data.totalItems));
+      console.log(data.totalItems);
     } catch (e) {
       console.error("Failed to update quantity", e);
+    }
+  };
+
+  const removeFromCartHandler = async (bookId: number) => {
+    try {
+      await cartApi.removeFromCart(bookId);
+      const data = await cartApi.getCart();
+      setItems(data.items);
+      setTotalPrice(data.totalPrice);
+      dispatch(setTotalItems(data.totalItems));
+    } catch (e) {
+      console.error("Failed to remove item", e);
     }
   };
 
@@ -48,38 +72,50 @@ const Cart = () => {
             src={`http://localhost:3000/public/${book.cover}`}
             style={{ width: "197px", height: "289px" }}
           />
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <BookDataWrapper>
             <BookTitle>{book.name}</BookTitle>
             <BookAuthorName>{book.author}</BookAuthorName>
-            <button
-              onClick={() =>
-                handleQuantityChange(+book.id, (book.quantity ?? 1) + 1)
-              }
-            >
-              +
-            </button>
-            <span>{book.quantity ?? 1}</span>
-            <button
-              onClick={() =>
-                handleQuantityChange(
-                  +book.id,
-                  Math.max((book.quantity ?? 1) - 1, 0),
-                )
-              }
-            >
-              -
-            </button>
-            {book.price}€
-          </div>
+            <QuantityWrapper>
+              <QuantityButton
+                onClick={() =>
+                  handleQuantityChange(+book.id, (book.quantity ?? 1) + 1)
+                }
+              >
+                <span>+</span>
+              </QuantityButton>
+              <span>{book.quantity ?? 1}</span>
+              <QuantityButton
+                onClick={() =>
+                  handleQuantityChange(
+                    +book.id,
+                    Math.max((book.quantity ?? 1) - 1, 0),
+                  )
+                }
+              >
+                <span>-</span>
+              </QuantityButton>
+              <img
+                src={DeleteIcon}
+                onClick={() => removeFromCartHandler(+book.id)}
+              />
+            </QuantityWrapper>
+            <ItemPrice>€ {book.price} EUR</ItemPrice>
+          </BookDataWrapper>
         </BookItemContainer>
       ))}
 
-      <div style={{ marginTop: "16px" }}>
-        <strong>Total: {totalPrice}€</strong>
-      </div>
+      <TotalPrice>
+        Total: <strong>{totalPrice}€</strong>
+      </TotalPrice>
 
-      <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
+      <CheckoutWrapper>
         <BaseButton
+          option="secondary"
+          sx={{
+            "& .MuiTouchRipple-root span": {
+              backgroundColor: "rgba(70, 180, 190, 0.636)",
+            },
+          }}
           onClick={async () => {
             for (const book of items) {
               await cartApi.updateQuantity(+book.id, 0);
@@ -92,7 +128,7 @@ const Cart = () => {
           Clear Cart
         </BaseButton>
         <BaseButton>Checkout</BaseButton>
-      </div>
+      </CheckoutWrapper>
     </CartWrapper>
   );
 };

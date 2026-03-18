@@ -1,9 +1,11 @@
 import {
-  ChangeParagraph,
+  ChangeInfo,
+  ChangeInfoWrapper,
   FloatingLabel,
   PhotoUploader,
   PhotoWrapper,
   ProfileDataContainer,
+  ProfileHeaderWrapper,
   ProfilePicture,
   UserProfileWrapper,
 } from "./ProfilePage.styles";
@@ -198,23 +200,23 @@ const ProfilePage = () => {
           />
         </PhotoWrapper>
         <ProfileDataContainer>
-          <div style={{ display: "flex", gap: "12px" }}>
+          <ProfileHeaderWrapper>
             <BaseHeader fontSize="20px">Personal information</BaseHeader>
             {!isEditProfile ? (
-              <ChangeParagraph onClick={handleStartEditingProfile}>
+              <ChangeInfo onClick={handleStartEditingProfile}>
                 Change information
-              </ChangeParagraph>
+              </ChangeInfo>
             ) : (
-              <>
-                <ChangeParagraph onClick={handleAcceptUpdatingProfile}>
+              <ChangeInfoWrapper>
+                <ChangeInfo onClick={handleAcceptUpdatingProfile}>
                   Accept
-                </ChangeParagraph>
-                <ChangeParagraph onClick={handleCancelEditingProfile}>
+                </ChangeInfo>
+                <ChangeInfo onClick={handleCancelEditingProfile}>
                   Back
-                </ChangeParagraph>
-              </>
+                </ChangeInfo>
+              </ChangeInfoWrapper>
             )}
-          </div>
+          </ProfileHeaderWrapper>
           <InputWrapper>
             <FloatingLabel>Your name</FloatingLabel>
             <StyledAdornment>
@@ -222,6 +224,7 @@ const ProfilePage = () => {
             </StyledAdornment>
 
             <StyledInput
+              variant="profile"
               name="name"
               disabled={!isEditProfile}
               value={isEditProfile ? profileData.name : (user?.name ?? "")}
@@ -234,32 +237,36 @@ const ProfilePage = () => {
               <img src={emailIcon}></img>
             </StyledAdornment>
             <StyledInput
+              variant="profile"
               name="email"
               disabled={!isEditProfile}
               value={isEditProfile ? profileData.email : (user?.email ?? "")}
               onChange={handleProfileChange}
+              style={{ width: "522px" }}
             ></StyledInput>
           </InputWrapper>{" "}
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <ProfileHeaderWrapper>
             <BaseHeader fontSize="20px">Password</BaseHeader>
-            <ChangeParagraph
-              onClick={() => {
-                if (isEditPassword) {
-                  handleAcceptPassword();
-                } else {
-                  setIsEditPassword(true);
-                }
-              }}
-            >
-              {isEditPassword ? "Accept" : "Change Password"}
-            </ChangeParagraph>
-            {isEditPassword && (
-              <ChangeParagraph onClick={handleCancelEditingPassword}>
-                Back
-              </ChangeParagraph>
-            )}
-          </div>
-          {/* Old password */}
+            <ChangeInfoWrapper>
+              <ChangeInfo
+                onClick={() => {
+                  if (isEditPassword) {
+                    handleAcceptPassword();
+                  } else {
+                    setIsEditPassword(true);
+                  }
+                }}
+              >
+                {isEditPassword ? "Accept" : "Change password"}
+              </ChangeInfo>
+              {isEditPassword && (
+                <ChangeInfo onClick={handleCancelEditingPassword}>
+                  Back
+                </ChangeInfo>
+              )}
+            </ChangeInfoWrapper>
+          </ProfileHeaderWrapper>
+          {/* старый пароль */}
           <InputWrapper>
             <FloatingLabel>
               {isEditPassword ? "Old password" : "Your password"}
@@ -282,14 +289,15 @@ const ProfilePage = () => {
               />
             </StyledAdornment>
             <StyledInput
+              variant="profile"
               name="password"
               type={showPassword.oldPassword ? "text" : "password"}
               disabled={!isEditPassword}
-              value={isEditPassword ? passwords.password : "*********"}
+              value={isEditPassword ? passwords.password : "******************"}
               onChange={handlePasswordChange}
             />
           </InputWrapper>
-          {/* New password */}
+          {/* новый пароль */}
           {isEditPassword && (
             <>
               <InputWrapper>
@@ -304,13 +312,14 @@ const ProfilePage = () => {
                   />
                 </StyledAdornment>
                 <StyledInput
+                  variant="profile"
                   name="newPassword"
                   type={showPassword.newPassword ? "text" : "password"}
                   value={passwords.newPassword}
                   onChange={handlePasswordChange}
                 />
               </InputWrapper>
-
+              {/*"repeat password"*/}
               <InputWrapper>
                 <FloatingLabel>Repeat password</FloatingLabel>
                 <StyledAdornment>
@@ -323,6 +332,7 @@ const ProfilePage = () => {
                   />
                 </StyledAdornment>
                 <StyledInput
+                  variant="profile"
                   name="repeatedPassword"
                   type={showPassword.repeatedPassword ? "text" : "password"}
                   value={passwords.repeatedPassword}

@@ -15,23 +15,32 @@ import {
   RatingWrapper,
   Description,
   ButtonsWrapper,
-  PriceButton,
-  NotAvailableButton,
   CommentsWrapper,
   CommentInputWrapper,
   CommentInput,
   CommentButton,
   CommentItem,
+  CommentUserProfile,
+  CommentContainer,
+  CommentUserName,
+  CommentUserText,
+  CommentUserProfilePlaceholder,
+  CommentsDate,
 } from "./BookProfile.style";
 import StarRating from "../main/Catalog/BookItem/StarRating/StarRating";
 import commentApi from "../../api/commentApi";
+import { BaseButton } from "../../shared/ui/Button/Button.styles";
+import getDate from "../../utilities/getDate";
+import { BaseParagraph } from "../../shared/styles/styles";
 
 type Comment = {
   id: number;
   text: string;
+  createdAt: string;
   user: {
     id: string;
     name: string;
+    avatar: string;
   };
 };
 
@@ -54,9 +63,8 @@ const BookProfile = () => {
         dispatch(setCurrentBook(loadedBook));
         setRating(loadedBook.avgRating ?? 0);
 
-        const bookComments = await commentApi.getComments(+id);
+        const bookComments = await commentApi.getComments(id);
         setComments(bookComments);
-        console.log(bookComments);
       } catch (e) {
         console.error(e);
       }
@@ -113,8 +121,14 @@ const BookProfile = () => {
         <Description>{book.description}</Description>
 
         <ButtonsWrapper>
-          <NotAvailableButton>Not Available</NotAvailableButton>
-          <PriceButton>{book.price}€</PriceButton>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <BaseParagraph>Paperback</BaseParagraph>
+            <BaseButton available={false}>Not Available</BaseButton>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <BaseParagraph>Hardcover</BaseParagraph>
+            <BaseButton>{book.price}€</BaseButton>
+          </div>
         </ButtonsWrapper>
 
         <CommentsWrapper>
@@ -130,10 +144,25 @@ const BookProfile = () => {
             </CommentInputWrapper>
           )}
 
-          {comments.map((c) => (
-            <CommentItem key={c.id}>
-              <strong>{c.user.name}</strong>: {c.text}
-            </CommentItem>
+          {comments.map((item) => (
+            <CommentContainer key={item.id}>
+              {item.user.avatar ? (
+                <CommentUserProfile
+                  src={`http://localhost:3000/uploads/${item.user.avatar}`}
+                />
+              ) : (
+                <CommentUserProfilePlaceholder>
+                  {item.user.name?.charAt(0).toUpperCase() || "?"}
+                </CommentUserProfilePlaceholder>
+              )}
+              <CommentItem>
+                <CommentUserName>{item.user.name}</CommentUserName>
+                <CommentsDate>
+                  Left a comment {getDate(item.createdAt)}
+                </CommentsDate>
+                <CommentUserText>{item.text}</CommentUserText>
+              </CommentItem>
+            </CommentContainer>
           ))}
         </CommentsWrapper>
       </InfoWrapper>

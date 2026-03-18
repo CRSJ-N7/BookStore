@@ -15,7 +15,7 @@ import BookItem from "./BookItem/BookItem";
 import { useEffect, useState } from "react";
 import bookApi from "../../../api/bookApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { setBooks, setCurrentBook } from "../../../store/bookSlice";
+import { setBooks, setCurrentBook, setGenres } from "../../../store/bookSlice";
 import type { Book } from "../../../types/types";
 
 const Catalog = () => {
@@ -59,11 +59,15 @@ const Catalog = () => {
 
     async function getBooksData() {
       const booksData = await bookApi.getBooks(params);
-      dispatch(setBooks(booksData));
+      console.log(booksData);
+      dispatch(setBooks(booksData.filteredBooks));
+
+      const genresData = await bookApi.getGenres();
+      dispatch(setGenres(genresData));
     }
 
     getBooksData();
-  }, [searchParams]);
+  }, [dispatch, searchParams]);
 
   const clickHandler = async (id: string) => {
     const book = await bookApi.getBook(id);

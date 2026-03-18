@@ -51,32 +51,6 @@ export const ButtonsWrapper = styled.div`
   gap: 16px;
 `;
 
-export const PriceButton = styled.button`
-  flex: 1;
-  padding: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  border: 1px solid #2c3e50;
-  border-radius: 4px;
-  background-color: #fff;
-
-  &:hover {
-    background-color: #f0f0f0;
-  }
-`;
-
-export const NotAvailableButton = styled.button`
-  flex: 1;
-  padding: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: not-allowed;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #eee;
-`;
-
 export const CommentsWrapper = styled.div`
   margin-top: 32px;
   display: flex;
@@ -90,7 +64,6 @@ export const CommentInputWrapper = styled.div`
 `;
 
 export const CommentInput = styled.input`
-  flex: 1;
   padding: 8px;
   font-size: 14px;
 `;
@@ -102,8 +75,58 @@ export const CommentButton = styled.button`
 `;
 
 export const CommentItem = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 8px;
   border-radius: 6px;
   background-color: #f5f5f5;
   font-size: 14px;
+`;
+
+export const CommentUserProfile = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 60%;
+`;
+
+export const CommentUserProfilePlaceholder = styled.span`
+  width: 60px;
+  height: 60px;
+  border-radius: 60%;
+  outline: 1px solid green;
+  align-content: center;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 900;
+`;
+
+export const CommentContainer = styled.div`
+  display: flex;
+  background: #f0f4ef;
+  border-radius: 12px;
+  padding: 15px;
+  gap: 15px;
+`;
+
+export const CommentUserName = styled.span`
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.75px;
+  color: #0d1821;
+`;
+
+export const CommentUserText = styled.span`
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.75px;
+  color: #344966;
+  margin-top: 20px;
+`;
+
+export const CommentsDate = styled.div`
+  color: #b9bac3;
+  letter-spacing: 0.75px;
+  font-size: 12px;
 `;

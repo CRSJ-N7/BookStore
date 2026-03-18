@@ -6,7 +6,10 @@ import { setUser } from "../../../store/authSlice";
 import { tokenStorage } from "../../../storage/tokenStorage";
 import type { AxiosError } from "axios";
 import {
+  BaseHeader,
+  BaseInputToolTip,
   BaseParagraph,
+  FormWrapper,
   InputWrapper,
   StyledAdornment,
 } from "../../../shared/styles/styles";
@@ -60,12 +63,14 @@ const SignUpPage = () => {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      <BaseHeader>Log in</BaseHeader>
+      <FormWrapper onSubmit={formik.handleSubmit}>
         <InputWrapper>
           <StyledAdornment>
             <img src={mailIcon} alt="email" />
           </StyledAdornment>
           <StyledInput
+            variant="auth"
             name="email"
             placeholder="Email"
             onChange={formik.handleChange}
@@ -74,6 +79,7 @@ const SignUpPage = () => {
           {formik.touched.email && formik.errors.email && (
             <div>{formik.errors.email}</div>
           )}
+          <BaseInputToolTip>Enter your email</BaseInputToolTip>
         </InputWrapper>
 
         <InputWrapper>
@@ -81,6 +87,7 @@ const SignUpPage = () => {
             <img src={hideIcon} alt="email" />
           </StyledAdornment>
           <StyledInput
+            variant="auth"
             name="password"
             type="password"
             placeholder="Password"
@@ -90,17 +97,19 @@ const SignUpPage = () => {
           {formik.touched.password && formik.errors.password && (
             <div>{formik.errors.password}</div>
           )}
+          <BaseInputToolTip>Enter your password</BaseInputToolTip>
         </InputWrapper>
 
-        <BaseButton type="submit">Log in</BaseButton>
-      </form>
+        <BaseButton style={{ marginTop: "50px" }} type="submit">
+          Log in
+        </BaseButton>
+      </FormWrapper>
       <BaseParagraph style={{ marginTop: "25px" }}>
         Don't have an account?
         <SwitchAuth onClick={() => navigate("/auth/signup")}>
           Sign Up
         </SwitchAuth>
       </BaseParagraph>
-      ;
     </>
   );
 };

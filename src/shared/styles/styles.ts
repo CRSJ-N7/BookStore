@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const BaseHeader = styled.h1<{ fontSize?: string }>`
   color: #0d1821;
@@ -18,10 +18,25 @@ export const BaseParagraph = styled.p`
 
 export const BaseLogo = styled.img`
   height: 40px;
+  cursor: pointer;
+`;
+
+export const BaseInputToolTip = styled.p`
+  margin-top: 9px;
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
+  color: #344966;
+  letter-spacing: 0.75px;
 `;
 
 export const StyledButton = styled(Button)`
   text-transform: none;
+`;
+
+export const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const InputWrapper = styled.div`
@@ -43,32 +58,56 @@ export const StyledAdornment = styled.div`
   z-index: 1;
 `;
 
-export const StyledInput = styled.input<{
-  error?: boolean;
-  success?: boolean;
-}>`
-  border-color: ${({ error, success }) =>
-    error ? "#e53935" : success ? "#43a047" : "transparent"};
+type InputVariant = "search" | "profile" | "auth";
 
-  background-color: #f5f5f5;
+export const StyledInput = styled.input<{ variant?: InputVariant }>`
   font-size: 16px;
+  height: 64px;
+  padding-inline: 50px;
+
+  background-color: #f0f4ef;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  outline: none;
+  letter-spacing: 0.75px;
+  font-family: "Poppins", sans-serif;
+
+  color: #344966;
 
   &:focus {
-    outline: none;
-    border-color: ${({ error, success }) =>
-      error ? "#e53935" : success ? "#43a047" : "#000"};
+    outline: 1px solid #0d1821;
+    background-color: white;
   }
 
   &::placeholder {
     color: #999;
   }
-  width: 100%;
-  position: relative;
-  height: 64px;
-  padding-inline: 50px;
-  background-color: #f0f4ef;
-  border-radius: 16px;
-  border: none;
-  outline: none;
-  color: #344966;
+
+  ${({ variant }) => {
+    switch (variant) {
+      case "search":
+        return css`
+          min-width: 0;
+          max-width: 630px;
+          width: 100%;
+        `;
+
+      case "auth":
+        return css`
+          width: 413px;
+        `;
+
+      case "profile":
+        return css`
+          width: 522px;
+          padding-top: 15px;
+          font-weight: 400;
+        `;
+
+      default:
+        return css`
+          width: 100%;
+        `;
+    }
+  }}
 `;

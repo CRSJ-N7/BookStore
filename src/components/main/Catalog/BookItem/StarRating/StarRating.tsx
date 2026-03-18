@@ -8,7 +8,7 @@ type Props = {
 
 const StarRating = ({ rating, onRate }: Props) => {
   return (
-    <div style={{ display: "flex", gap: "4px" }}>
+    <div style={{ display: "flex", gap: "20px" }}>
       {[1, 2, 3, 4, 5].map((value) => (
         <img
           key={value}

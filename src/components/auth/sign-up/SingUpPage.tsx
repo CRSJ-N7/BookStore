@@ -6,15 +6,19 @@ import { setUser } from "../../../store/authSlice";
 import { tokenStorage } from "../../../storage/tokenStorage";
 import type { AxiosError } from "axios";
 import {
+  BaseHeader,
+  BaseInputToolTip,
   BaseParagraph,
+  FormWrapper,
   InputWrapper,
   StyledAdornment,
 } from "../../../shared/styles/styles";
 import { SwitchAuth } from "../AuthPage.styles";
 import { StyledInput } from "../../../shared/styles/styles";
 import mailIcon from "../../../assets/icons/mail.svg";
-import hideIcon from "../../../assets/icons/mail.svg";
+import hideIcon from "../../../assets/icons/hide.svg";
 import authApi from "../../../api/authApi";
+import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -67,61 +71,67 @@ const SignUpPage = () => {
     },
   });
 
-  const hasError = formik.touched.password && Boolean(formik.errors.password);
+  // const hasError = formik.touched.password && Boolean(formik.errors.password);
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      <BaseHeader>Sign Up</BaseHeader>
+      <FormWrapper onSubmit={formik.handleSubmit}>
         <InputWrapper>
           <StyledAdornment>
             <img src={mailIcon} alt="email" />
           </StyledAdornment>
           <StyledInput
+            variant="auth"
             name="email"
             placeholder="Email"
             onChange={formik.handleChange}
             value={formik.values.email}
-            error={hasError}
           />
           {formik.touched.email && formik.errors.email && (
             <div>{formik.errors.email}</div>
           )}
+          <BaseInputToolTip>Enter your email</BaseInputToolTip>
         </InputWrapper>
         <InputWrapper>
           <StyledAdornment>
             <img src={hideIcon} alt="email" />
           </StyledAdornment>
           <StyledInput
+            variant="auth"
             name="password"
             type="password"
             placeholder="Password"
             onChange={formik.handleChange}
             value={formik.values.password}
-            error={hasError}
           />
           {formik.touched.password && formik.errors.password && (
             <div>{formik.errors.password}</div>
           )}
+          <BaseInputToolTip>Enter your password</BaseInputToolTip>
         </InputWrapper>
         <InputWrapper>
           <StyledAdornment>
             <img src={hideIcon} alt="email" />
           </StyledAdornment>
           <StyledInput
+            variant="auth"
             name="confirmPassword"
             type="password"
             placeholder="Repeat password"
             onChange={formik.handleChange}
             value={formik.values.confirmPassword}
-            error={hasError}
           />
           {formik.touched.confirmPassword && formik.errors.confirmPassword && (
             <div>{formik.errors.confirmPassword}</div>
           )}
+          <BaseInputToolTip>
+            Repeat your password without errors
+          </BaseInputToolTip>
         </InputWrapper>
 
-        <button type="submit">Register</button>
-      </form>
+        <BaseButton type="submit">Register</BaseButton>
+      </FormWrapper>
       <BaseParagraph>
         Already have an account?
         <SwitchAuth onClick={() => navigate("/auth/login")}>Log In</SwitchAuth>
