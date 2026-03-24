@@ -8,8 +8,7 @@ export const api = axios.create({
 
 async function refreshToken() {
   const refreshToken = tokenStorage.getRefresh();
-
-  console.log("МЫ ЗАШЛИ В REFRESH");
+  console.log("refreshToken called, refreshToken =", refreshToken);
 
   if (!refreshToken) {
     throw new Error("No refresh token");
@@ -20,6 +19,7 @@ async function refreshToken() {
   });
 
   const newAccessToken = response.data.accessToken;
+  console.log("Got new access token:", newAccessToken);
 
   tokenStorage.setAccess(newAccessToken);
 
@@ -28,7 +28,6 @@ async function refreshToken() {
 
 api.interceptors.response.use(undefined, async (error) => {
   const originalRequest = error.config;
-  console.log("зашли в get interceptor");
   if (error.response?.status === 401 && !originalRequest.retries) {
     originalRequest.retries = true;
     try {
@@ -45,7 +44,7 @@ api.interceptors.response.use(undefined, async (error) => {
 
 api.interceptors.request.use((config) => {
   const token = tokenStorage.getAccess();
-  console.log(token);
+  console.log("Request interceptor: TOKEN =", token, "url:", config.url);
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

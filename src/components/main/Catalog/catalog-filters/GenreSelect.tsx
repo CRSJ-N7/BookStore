@@ -24,6 +24,8 @@ const GenreSelect = () => {
     setSearchParams(params);
   };
 
+  // const selectedGenres = searchParams.get('genres')
+
   return (
     <Select
       multiple

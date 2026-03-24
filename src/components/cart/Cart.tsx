@@ -44,7 +44,6 @@ const Cart = () => {
       setItems(data.items);
       setTotalPrice(data.totalPrice);
       dispatch(setTotalItems(data.totalItems));
-      console.log(data.totalItems);
     } catch (e) {
       console.error("Failed to update quantity", e);
     }

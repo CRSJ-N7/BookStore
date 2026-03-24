@@ -1,0 +1,30 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import authApi from "../api/authApi";
+import { tokenStorage } from "../storage/tokenStorage";
+
+export const getMeThunk = createAsyncThunk(
+  "auth/getMe",
+  async (_, { rejectWithValue }) => {
+    const token = tokenStorage.getAccess();
+    console.log("getMeThunk: token =", token);
+
+    if (!token) {
+      return rejectWithValue("No access token");
+    }
+    try {
+      const data = await authApi.getMe();
+      console.log("getMeThunk: data =", data);
+
+      return {
+        id: data.id,
+        email: data.email,
+        name: data.name,
+        avatar: data.avatar || null,
+      };
+    } catch (error) {
+      console.log("getMeThunk error:", error);
+      tokenStorage.clearAccess();
+      return rejectWithValue(error);
+    }
+  },
+);

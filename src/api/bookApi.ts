@@ -17,7 +17,6 @@ const uploadBook = async (data: BookData) => {
 
 const getBooks = async (params?: object) => {
   const response = await api.get("/books", { params });
-  console.log("GetBooks:", response.data);
   return response.data;
 };
 
@@ -43,7 +42,6 @@ const rateBook = async (bookId: number, value: number) => {
 const getFavourites = async () => {
   const response = await api.get("/books/favourites");
 
-  console.log(`User favourited::`, response);
   return response.data;
 };
 
@@ -53,9 +51,7 @@ const toggleFavourite = async (bookId: number) => {
 };
 
 const searchBook = async (name: string) => {
-  console.log("зашли в search");
   const response = await api.get("/books/search", { params: { name } });
-  console.log(response.data);
   return response.data;
 };
 

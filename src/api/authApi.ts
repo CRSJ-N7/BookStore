@@ -27,12 +27,11 @@ type LogInResponse = {
   refreshToken: string;
 };
 
-type GetMeResponse = {
-  user: {
-    id: number;
-    email: string;
-    name: string;
-  };
+export type GetMeResponse = {
+  id: number;
+  email: string;
+  name: string;
+  avatar: string | null;
 };
 
 type ChangePasswordBody = {
@@ -81,7 +80,6 @@ const logIn = async (data: LogInBody) => {
 const getMe = async () => {
   const response = await api.get<GetMeResponse>("/users/me");
 
-  console.log(response.data);
   return response.data;
 };
 

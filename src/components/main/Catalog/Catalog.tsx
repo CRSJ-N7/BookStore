@@ -29,7 +29,6 @@ const Catalog = () => {
     const loadFavourites = async () => {
       try {
         const books = await bookApi.getFavourites();
-        console.log(books);
 
         setFavourites(books.map((b: Book) => b.id));
       } catch (e) {
@@ -59,7 +58,6 @@ const Catalog = () => {
 
     async function getBooksData() {
       const booksData = await bookApi.getBooks(params);
-      console.log(booksData);
       dispatch(setBooks(booksData.filteredBooks));
 
       const genresData = await bookApi.getGenres();
