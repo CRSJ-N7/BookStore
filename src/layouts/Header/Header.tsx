@@ -68,7 +68,6 @@ const Header = () => {
       }
 
       const books = await bookApi.searchBook(value);
-      console.log(books);
     }, 500);
 
     return () => clearTimeout(timer);

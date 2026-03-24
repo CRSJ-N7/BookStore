@@ -32,6 +32,8 @@ import commentApi from "../../api/commentApi";
 import { BaseButton } from "../../shared/ui/Button/Button.styles";
 import getDate from "../../utilities/getDate";
 import { BaseParagraph } from "../../shared/styles/styles";
+import type { Book } from "../../types/types";
+import React from "react";
 
 type Comment = {
   id: number;
@@ -45,7 +47,7 @@ type Comment = {
 };
 
 const BookProfile = () => {
-  const book = useSelector((state: RootState) => state.books.currentBook);
+  // const book = useSelector((state: RootState) => state.books.currentBook);
   const user = useSelector((state: RootState) => state.auth.user);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -54,13 +56,23 @@ const BookProfile = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
 
+  const [book, setBook] = React.useState<Book | null>();
+
+  // const updateRating = (avr: number) => {
+  //   setBook({
+  //     ...book,
+  //     avgRating: value,
+  //   })
+  // }
+
   useEffect(() => {
     const loadBook = async () => {
       if (!id) return;
 
       try {
-        const loadedBook = await bookApi.getBook(id);
+        const loadedBook = await bookApi.getBook(+id);
         dispatch(setCurrentBook(loadedBook));
+        setBook(loadedBook);
         setRating(loadedBook.avgRating ?? 0);
 
         const bookComments = await commentApi.getComments(id);
@@ -79,7 +91,7 @@ const BookProfile = () => {
       return;
     }
     try {
-      const data = await bookApi.rateBook(+book!.id, value);
+      const data = await bookApi.rateBook(book!.id, value);
       setRating(data.avgRating ?? 0);
     } catch (e) {
       console.error(e);

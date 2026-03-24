@@ -16,7 +16,6 @@ import { useEffect, useState } from "react";
 import bookApi from "../../../api/bookApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setBooks, setCurrentBook, setGenres } from "../../../store/bookSlice";
-import type { Book } from "../../../types/types";
 
 const Catalog = () => {
   const books = useSelector((state: RootState) => state.books.books);
@@ -30,7 +29,7 @@ const Catalog = () => {
       try {
         const books = await bookApi.getFavourites();
 
-        setFavourites(books.map((b: Book) => b.id));
+        setFavourites(books.map((b) => b.id));
       } catch (e) {
         console.error(e);
       }
@@ -67,7 +66,7 @@ const Catalog = () => {
     getBooksData();
   }, [dispatch, searchParams]);
 
-  const clickHandler = async (id: string) => {
+  const clickHandler = async (id: number) => {
     const book = await bookApi.getBook(id);
     dispatch(setCurrentBook(book));
 

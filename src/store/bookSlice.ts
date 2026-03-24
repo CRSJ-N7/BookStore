@@ -1,20 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-type Book = {
-  id: string;
-  author: string;
-  cover: string;
-  description: string;
-  genre: string;
-  name: string;
-  price: number;
-  avgRating?: number;
-  ratingsCount?: number;
-};
+import type { Book, Genres } from "../types/types";
 
 type BookState = {
   books: Book[];
-  genres: string[];
+  genres: Genres;
   currentBook: Book | null;
   currentFavourites: Book[];
 };

@@ -15,12 +15,7 @@ export const getMeThunk = createAsyncThunk(
       const data = await authApi.getMe();
       console.log("getMeThunk: data =", data);
 
-      return {
-        id: data.id,
-        email: data.email,
-        name: data.name,
-        avatar: data.avatar || null,
-      };
+      return data;
     } catch (error) {
       console.log("getMeThunk error:", error);
       tokenStorage.clearAccess();

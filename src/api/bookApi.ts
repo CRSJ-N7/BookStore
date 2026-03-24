@@ -1,37 +1,46 @@
+import type { Book } from "../types/types";
 import { api } from "./api";
 
-type BookData = {
-  id?: string;
-  author: string;
-  cover: string;
-  description: string;
-  genre: string;
-  name: string;
-  price: number;
+type GetBooksParmas = {
+  page?: number;
+  min?: number;
+  max?: number;
+  genre?: string;
+  sortBy?: string;
 };
 
-const uploadBook = async (data: BookData) => {
-  const response = await api.post("/books/shoot", data);
+type GetBooks = {
+  filteredBooks: Book[];
+  total: number;
+  totalPages: number;
+};
+
+type GetGenres = {
+  genres: string[];
+};
+
+const uploadBook = async (data: Omit<Book, "id">) => {
+  const response = await api.post<Book>("/books/shoot", data);
   return response.data;
 };
 
-const getBooks = async (params?: object) => {
-  const response = await api.get("/books", { params });
+const getBooks = async (params: GetBooksParmas) => {
+  const response = await api.get<GetBooks>("/books", { params });
   return response.data;
 };
 
 const getGenres = async () => {
-  const response = await api.get("/books/genres");
+  const response = await api.get<GetGenres>("/books/genres");
   return response.data;
 };
 
 const getBook = async (bookId: string) => {
-  const response = await api.get(`/books/${bookId}`);
+  const response = await api.get<Book>(`/books/${bookId}`);
   return response.data;
 };
 
 const rateBook = async (bookId: number, value: number) => {
-  const response = await api.patch(`/books/rate/${bookId}`, {
+  const response = await api.patch<Book>(`/books/rate/${bookId}`, {
     bookId,
     rateValue: value,
   });
@@ -40,7 +49,7 @@ const rateBook = async (bookId: number, value: number) => {
 };
 
 const getFavourites = async () => {
-  const response = await api.get("/books/favourites");
+  const response = await api.get<Book[]>("/books/favourites");
 
   return response.data;
 };

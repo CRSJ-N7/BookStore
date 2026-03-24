@@ -56,6 +56,7 @@ export const BaseButton = styled(MuiButton)<ButtonStyled>`
   }
 
   &:focus {
+    box-shadow: 0 0 0 8px rgba(214, 216, 231, 0.5);
     background: white !important;
   }
   `}

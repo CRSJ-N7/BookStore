@@ -1,5 +1,5 @@
 export type Book = {
-  id: string;
+  id: number;
   author: string;
   cover: string;
   description: string;
@@ -10,3 +10,5 @@ export type Book = {
   ratingsCount?: number;
   quantity?: number;
 };
+
+export type Genres = string[];
