@@ -55,12 +55,14 @@ const getFavourites = async () => {
 };
 
 const toggleFavourite = async (bookId: number) => {
-  const response = await api.patch(`/books/favourites/${bookId}`);
+  const response = await api.patch<{ message: string }>(
+    `/books/favourites/${bookId}`,
+  );
   return response.data;
 };
 
 const searchBook = async (name: string) => {
-  const response = await api.get("/books/search", { params: { name } });
+  const response = await api.get<Book[]>("/books/search", { params: { name } });
   return response.data;
 };
 

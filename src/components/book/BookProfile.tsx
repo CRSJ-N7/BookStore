@@ -32,19 +32,8 @@ import commentApi from "../../api/commentApi";
 import { BaseButton } from "../../shared/ui/Button/Button.styles";
 import getDate from "../../utilities/getDate";
 import { BaseParagraph } from "../../shared/styles/styles";
-import type { Book } from "../../types/types";
+import type { Book, Comment } from "../../types/types";
 import React from "react";
-
-type Comment = {
-  id: number;
-  text: string;
-  createdAt: string;
-  user: {
-    id: string;
-    name: string;
-    avatar: string;
-  };
-};
 
 const BookProfile = () => {
   // const book = useSelector((state: RootState) => state.books.currentBook);
@@ -115,7 +104,7 @@ const BookProfile = () => {
   return (
     <ProfileWrapper>
       <CoverWrapper>
-        {/*костыльнули привязку к книжке на серве */}
+        {/*костыльнули привязку к cover книжки на серве */}
         <BookCover src={book.cover} alt={book.name} />
       </CoverWrapper>
 

@@ -19,7 +19,7 @@ import { setTotalItems } from "../../store/cartSlice";
 import DeleteIcon from "../../assets/icons/Delete.svg";
 
 const Cart = () => {
-  const [items, setItems] = useState<(Book & { quantity: number })[]>([]);
+  const [items, setItems] = useState<Book[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
 
