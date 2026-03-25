@@ -6,6 +6,7 @@ type BookState = {
   genres: Genres;
   currentBook: Book | null;
   currentFavourites: Book[];
+  loading: boolean;
 };
 
 const initialState: BookState = {
@@ -13,6 +14,7 @@ const initialState: BookState = {
   genres: [],
   currentBook: null,
   currentFavourites: [],
+  loading: true,
 };
 
 const bookSlice = createSlice({

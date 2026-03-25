@@ -33,13 +33,7 @@ const AvatarSection = () => {
 
   return (
     <PhotoWrapper>
-      <ProfilePicture
-        src={
-          user?.avatar
-            ? `http://localhost:3000/uploads/${user.avatar}`
-            : userPicture
-        }
-      />
+      <ProfilePicture src={user?.avatar ? user.avatar : userPicture} />
       <PhotoUploader src={photoUploader} onClick={handleClick} />
       <input
         type="file"

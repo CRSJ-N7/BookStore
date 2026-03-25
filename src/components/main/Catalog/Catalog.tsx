@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import bookApi from "../../../api/bookApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setBooks, setCurrentBook, setGenres } from "../../../store/bookSlice";
+import Pagination from "./Pagination/Pagination";
 
 const Catalog = () => {
   const books = useSelector((state: RootState) => state.books.books);
@@ -97,6 +98,7 @@ const Catalog = () => {
           ))}
         </BooksWrapper>
       </CatalogBooksWrapper>
+      <Pagination></Pagination>
     </CatalogWrapper>
   );
 };

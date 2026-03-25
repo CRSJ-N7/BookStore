@@ -115,10 +115,8 @@ const BookProfile = () => {
   return (
     <ProfileWrapper>
       <CoverWrapper>
-        <BookCover
-          src={`http://localhost:3000/public/${book.cover}`}
-          alt={book.name}
-        />
+        {/*костыльнули привязку к книжке на серве */}
+        <BookCover src={book.cover} alt={book.name} />
       </CoverWrapper>
 
       <InfoWrapper>

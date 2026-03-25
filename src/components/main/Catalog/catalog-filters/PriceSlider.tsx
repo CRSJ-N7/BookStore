@@ -18,7 +18,7 @@ const PriceSlider = () => {
     setSearchParams(params);
   };
   return (
-    <Select value="Price" renderValue={() => "Price"}>
+    <Select displayEmpty value="Price" renderValue={() => "Price"}>
       <Box sx={{ width: 300, padding: "25px" }}>
         <Slider
           value={value}

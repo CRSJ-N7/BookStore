@@ -11,13 +11,11 @@ type User = {
 
 interface AuthState {
   user: User | null;
-  isAuth: boolean;
   loading: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
-  isAuth: false,
   loading: true,
 };
 
@@ -27,11 +25,9 @@ const authSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.user = action.payload;
-      state.isAuth = true;
     },
     logOut(state) {
       state.user = null;
-      state.isAuth = false;
       tokenStorage.clear();
     },
   },
@@ -43,12 +39,10 @@ const authSlice = createSlice({
       .addCase(getMeThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        state.isAuth = true;
       })
       .addCase(getMeThunk.rejected, (state) => {
         state.loading = false;
         state.user = null;
-        state.isAuth = false;
       });
   },
 });

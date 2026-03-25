@@ -68,6 +68,7 @@ const Header = () => {
       }
 
       const books = await bookApi.searchBook(value);
+      console.log(books);
     }, 500);
 
     return () => clearTimeout(timer);
@@ -77,7 +78,7 @@ const Header = () => {
     <HeaderWrapper>
       <BaseLogo src={logo} alt="logo" onClick={() => navigate("/")} />
       <SearchBlock>
-        <CatalogText>Catalog</CatalogText>
+        <CatalogText onClick={() => navigate("/")}>Catalog</CatalogText>
         <SearchWrapper>
           <StyledAdornment>
             <img src={SearchIcon}></img>
@@ -119,11 +120,7 @@ const Header = () => {
             </ProfileIconsBlanked>
           ) : (
             <ProfileIcons
-              src={
-                user.avatar
-                  ? `http://localhost:3000/uploads/${user.avatar}`
-                  : profileIcon
-              }
+              src={user.avatar ? user.avatar : profileIcon}
               onClick={() => navigate("/profile")}
             />
           )}

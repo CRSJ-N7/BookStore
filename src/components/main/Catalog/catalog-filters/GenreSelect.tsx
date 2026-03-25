@@ -3,17 +3,22 @@ import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
 import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../../../store/store";
 import { useSearchParams } from "react-router-dom";
+import { useAppSelector } from "../../../../hooks/hooks";
 
 const GenreSelect = () => {
-  const [genres, setGenres] = useState<string | string[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const genresData = useSelector((state: RootState) => state.books.genres);
+  const currentGenres = searchParams.get("genres");
+  const g = currentGenres?.split(","); // GENIUS BLYAT
+
+  const [genres, setGenres] = useState<string | string[]>(g ?? []);
+
+  const genresData = useAppSelector((state) => state.books.genres);
 
   const handleGenreChange = (selectedGenres: string[]) => {
     setGenres(selectedGenres);
+
+    console.log("selectedGenres =", selectedGenres);
 
     const params = new URLSearchParams(searchParams);
     if (selectedGenres.length > 0) {
@@ -23,8 +28,6 @@ const GenreSelect = () => {
     }
     setSearchParams(params);
   };
-
-  // const selectedGenres = searchParams.get('genres')
 
   return (
     <Select

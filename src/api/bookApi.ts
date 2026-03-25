@@ -1,7 +1,7 @@
 import type { Book } from "../types/types";
 import { api } from "./api";
 
-type GetBooksParmas = {
+export type GetBooksParmas = {
   page?: number;
   min?: number;
   max?: number;
@@ -9,7 +9,7 @@ type GetBooksParmas = {
   sortBy?: string;
 };
 
-type GetBooks = {
+export type GetBooks = {
   filteredBooks: Book[];
   total: number;
   totalPages: number;
@@ -24,7 +24,7 @@ const uploadBook = async (data: Omit<Book, "id">) => {
   return response.data;
 };
 
-const getBooks = async (params: GetBooksParmas) => {
+const getBooks = async (params: GetBooksParmas | null) => {
   const response = await api.get<GetBooks>("/books", { params });
   return response.data;
 };
@@ -34,7 +34,7 @@ const getGenres = async () => {
   return response.data;
 };
 
-const getBook = async (bookId: string) => {
+const getBook = async (bookId: number) => {
   const response = await api.get<Book>(`/books/${bookId}`);
   return response.data;
 };

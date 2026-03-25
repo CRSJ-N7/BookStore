@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import authApi from "../api/authApi";
 import { tokenStorage } from "../storage/tokenStorage";
+import bookApi, { type GetBooksParmas } from "../api/bookApi";
 
 export const getMeThunk = createAsyncThunk(
   "auth/getMe",
@@ -21,5 +22,17 @@ export const getMeThunk = createAsyncThunk(
       tokenStorage.clearAccess();
       return rejectWithValue(error);
     }
+  },
+);
+
+export const getBooksThunk = createAsyncThunk(
+  "books/getBooks",
+  async (filterParams: GetBooksParmas | null, { rejectWithValue }) => {
+    const data = await bookApi.getBooks(filterParams);
+
+    if (!data.filteredBooks) {
+      return rejectWithValue("No books found");
+    }
+    return data;
   },
 );

@@ -29,4 +29,4 @@ export const ROUTES = {
   admin: {
     path: "/admin",
   },
-} as const;
+};

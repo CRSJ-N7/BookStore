@@ -3,7 +3,7 @@ import starFilled from "../../../../../assets/icons/Star.svg";
 
 type Props = {
   rating: number;
-  onRate?: (value: number) => void;
+  onRate: (value: number) => void;
 };
 
 const StarRating = ({ rating, onRate }: Props) => {
@@ -18,7 +18,7 @@ const StarRating = ({ rating, onRate }: Props) => {
             height: "20px",
             cursor: "pointer",
           }}
-          onClick={() => onRate?.(value)}
+          onClick={() => onRate(value)}
         />
       ))}
     </div>
