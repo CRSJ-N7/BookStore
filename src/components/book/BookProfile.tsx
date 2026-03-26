@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import type { RootState } from "../../store/store";
-import { setCurrentBook } from "../../store/bookSlice";
 import bookApi from "../../api/bookApi";
 
 import {
@@ -27,61 +24,60 @@ import {
   CommentUserProfilePlaceholder,
   CommentsDate,
 } from "./BookProfile.style";
+
 import StarRating from "../main/Catalog/BookItem/StarRating/StarRating";
 import commentApi from "../../api/commentApi";
 import { BaseButton } from "../../shared/ui/Button/Button.styles";
 import getDate from "../../utilities/getDate";
 import { BaseParagraph } from "../../shared/styles/styles";
 import type { Book, Comment } from "../../types/types";
-import React from "react";
+import { useAppSelector } from "../../hooks/hooks";
 
 const BookProfile = () => {
-  // const book = useSelector((state: RootState) => state.books.currentBook);
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
   const { id } = useParams();
-  const dispatch = useDispatch();
 
-  const [rating, setRating] = useState<number>(0);
+  const [book, setBook] = useState<Book | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
 
-  const [book, setBook] = React.useState<Book | null>();
-
-  // const updateRating = (avr: number) => {
-  //   setBook({
-  //     ...book,
-  //     avgRating: value,
-  //   })
-  // }
-
   useEffect(() => {
-    const loadBook = async () => {
+    const loadBookAndComments = async () => {
       if (!id) return;
 
       try {
-        const loadedBook = await bookApi.getBook(+id);
-        dispatch(setCurrentBook(loadedBook));
-        setBook(loadedBook);
-        setRating(loadedBook.avgRating ?? 0);
+        const [loadedBook, bookComments] = await Promise.all([
+          bookApi.getBook(+id),
+          commentApi.getComments(id),
+        ]);
 
-        const bookComments = await commentApi.getComments(id);
+        setBook(loadedBook);
         setComments(bookComments);
       } catch (e) {
         console.error(e);
       }
     };
 
-    loadBook();
-  }, [id, dispatch]);
+    loadBookAndComments();
+  }, [id]);
 
   const handleRate = async (value: number) => {
-    if (!user) {
+    if (!user || !book) {
       alert("Login first");
       return;
     }
+
     try {
-      const data = await bookApi.rateBook(book!.id, value);
-      setRating(data.avgRating ?? 0);
+      const data = await bookApi.rateBook(book.id, value);
+
+      setBook((prev) => {
+        if (!prev) return prev;
+
+        return {
+          ...prev,
+          avgRating: data.avgRating ?? 0,
+        };
+      });
     } catch (e) {
       console.error(e);
     }
@@ -92,6 +88,7 @@ const BookProfile = () => {
 
     try {
       const created = await commentApi.createComment(+id, newComment);
+
       setComments((prev) => [...prev, created]);
       setNewComment("");
     } catch (e) {
@@ -104,7 +101,6 @@ const BookProfile = () => {
   return (
     <ProfileWrapper>
       <CoverWrapper>
-        {/*костыльнули привязку к cover книжки на серве */}
         <BookCover src={book.cover} alt={book.name} />
       </CoverWrapper>
 
@@ -113,8 +109,8 @@ const BookProfile = () => {
         <BookAuthor>{book.author}</BookAuthor>
 
         <RatingWrapper>
-          <StarRating rating={rating} onRate={handleRate} />
-          <span>{rating.toFixed(1)}</span>
+          <StarRating rating={book.avgRating ?? 0} onRate={handleRate} />
+          <span>{(book.avgRating ?? 0).toFixed(1)}</span>
         </RatingWrapper>
 
         <Description>{book.description}</Description>
@@ -132,6 +128,7 @@ const BookProfile = () => {
 
         <CommentsWrapper>
           <h2>Comments</h2>
+
           {user && (
             <CommentInputWrapper>
               <CommentInput
@@ -154,6 +151,7 @@ const BookProfile = () => {
                   {item.user.name?.charAt(0).toUpperCase() || "?"}
                 </CommentUserProfilePlaceholder>
               )}
+
               <CommentItem>
                 <CommentUserName>{item.user.name}</CommentUserName>
                 <CommentsDate>
