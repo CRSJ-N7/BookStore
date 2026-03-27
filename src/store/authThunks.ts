@@ -1,7 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import authApi from "../api/authApi";
 import { tokenStorage } from "../storage/tokenStorage";
-import bookApi, { type GetBooksParmas } from "../api/bookApi";
+
+class ValidationError extends Error {
+  constructor() {
+    super();
+    this.message = "validation_error";
+  }
+}
 
 export const getMeThunk = createAsyncThunk(
   "auth/getMe",
@@ -10,7 +16,7 @@ export const getMeThunk = createAsyncThunk(
     console.log("getMeThunk: token =", token);
 
     if (!token) {
-      return rejectWithValue("No access token");
+      throw new ValidationError();
     }
     try {
       const data = await authApi.getMe();
@@ -18,21 +24,12 @@ export const getMeThunk = createAsyncThunk(
 
       return data;
     } catch (error) {
+      if (error instanceof ValidationError) {
+        return rejectWithValue(error);
+      }
       console.log("getMeThunk error:", error);
       tokenStorage.clearAccess();
       return rejectWithValue(error);
     }
-  },
-);
-
-export const getBooksThunk = createAsyncThunk(
-  "books/getBooks",
-  async (filterParams: GetBooksParmas | null, { rejectWithValue }) => {
-    const data = await bookApi.getBooks(filterParams);
-
-    if (!data.filteredBooks) {
-      return rejectWithValue("No books found");
-    }
-    return data;
   },
 );

@@ -1,6 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
 import { BaseHeader } from "../../../shared/styles/styles";
-import type { RootState } from "../../../store/store";
 import GenreSelect from "./catalog-filters/GenreSelect";
 import PriceSlider from "./catalog-filters/PriceSlider";
 import SortSelect from "./catalog-filters/SortSelect";
@@ -15,13 +13,15 @@ import BookItem from "./BookItem/BookItem";
 import { useEffect, useState } from "react";
 import bookApi from "../../../api/bookApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { setBooks, setCurrentBook, setGenres } from "../../../store/bookSlice";
+import { setCurrentBook } from "../../../store/bookSlice";
 import Pagination from "./Pagination/Pagination";
+import { getBooksThunk } from "../../../store/getBookThunks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
 const Catalog = () => {
-  const books = useSelector((state: RootState) => state.books.books);
+  const books = useAppSelector((state) => state.books.books);
   const [searchParams] = useSearchParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [favourites, setFavourites] = useState<number[]>([]);
 
@@ -52,19 +52,10 @@ const Catalog = () => {
       console.error(e);
     }
   };
-
   useEffect(() => {
     const params = Object.fromEntries(new URLSearchParams(searchParams));
 
-    async function getBooksData() {
-      const booksData = await bookApi.getBooks(params);
-      dispatch(setBooks(booksData.filteredBooks));
-
-      const genresData = await bookApi.getGenres();
-      dispatch(setGenres(genresData));
-    }
-
-    getBooksData();
+    dispatch(getBooksThunk(params));
   }, [dispatch, searchParams]);
 
   const clickHandler = async (id: number) => {
@@ -98,7 +89,7 @@ const Catalog = () => {
           ))}
         </BooksWrapper>
       </CatalogBooksWrapper>
-      <Pagination></Pagination>
+      <Pagination />
     </CatalogWrapper>
   );
 };

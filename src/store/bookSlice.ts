@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Book, Genres } from "../types/types";
+import { getBooksThunk } from "./getBookThunks";
 
 type BookState = {
   books: Book[];
@@ -54,6 +55,20 @@ const bookSlice = createSlice({
     clearCurrentBook(state) {
       state.currentBook = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getBooksThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getBooksThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.books = action.payload.books;
+        state.genres = action.payload.genres;
+      })
+      .addCase(getBooksThunk.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 

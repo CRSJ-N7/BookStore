@@ -1,12 +1,10 @@
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import DefaultLayout from "./layouts/DefaultLayout";
 import { useEffect } from "react";
 import { GlobalContainer, Loader } from "./App.styles";
 import PerfectLoader from "./assets/loader/perfect-loader.jpg";
-import appRoutes from "./routes/appRoutes";
 import { getMeThunk } from "./store/authThunks";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,20 +23,9 @@ function App() {
     );
   }
 
-  console.log("App render, location:", window.location.pathname);
-
   return (
     <GlobalContainer>
-      <Routes>
-        <Route element={<DefaultLayout />}>
-          {appRoutes.map((route, index) => (
-            <Route key={index} {...route}>
-              {route.children &&
-                route.children.map((child, i) => <Route key={i} {...child} />)}
-            </Route>
-          ))}
-        </Route>
-      </Routes>
+      <Outlet />
     </GlobalContainer>
   );
 }
