@@ -1,35 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import bookApi from "../../api/bookApi";
-
-import {
-  ProfileWrapper,
-  CoverWrapper,
-  BookCover,
-  InfoWrapper,
-  BookTitle,
-  BookAuthor,
-  RatingWrapper,
-  Description,
-  ButtonsWrapper,
-  CommentsWrapper,
-  CommentInputWrapper,
-  CommentInput,
-  CommentButton,
-  CommentItem,
-  CommentUserProfile,
-  CommentContainer,
-  CommentUserName,
-  CommentUserText,
-  CommentUserProfilePlaceholder,
-  CommentsDate,
-} from "./BookProfile.style";
-
-import StarRating from "../main/Catalog/BookItem/StarRating/StarRating";
 import commentApi from "../../api/commentApi";
-import { BaseButton } from "../../shared/ui/Button/Button.styles";
-import getDate from "../../utilities/getDate";
-import { BaseParagraph } from "../../shared/styles/styles";
+
+import { ProfileWrapper, TopSection } from "./BookProfile.style";
+
+import BookDetails from "./BookDetails/BookDetails";
+import CommentsSection from "./CommentsSection/CommentsSection";
+
 import type { Book, Comment } from "../../types/types";
 import { useAppSelector } from "../../hooks/hooks";
 
@@ -70,14 +49,14 @@ const BookProfile = () => {
     try {
       const data = await bookApi.rateBook(book.id, value);
 
-      setBook((prev) => {
-        if (!prev) return prev;
-
-        return {
-          ...prev,
-          avgRating: data.avgRating ?? 0,
-        };
-      });
+      setBook((prev) =>
+        prev
+          ? {
+              ...prev,
+              avgRating: data.avgRating ?? 0,
+            }
+          : prev,
+      );
     } catch (e) {
       console.error(e);
     }
@@ -88,7 +67,6 @@ const BookProfile = () => {
 
     try {
       const created = await commentApi.createComment(+id, newComment);
-
       setComments((prev) => [...prev, created]);
       setNewComment("");
     } catch (e) {
@@ -100,69 +78,17 @@ const BookProfile = () => {
 
   return (
     <ProfileWrapper>
-      <CoverWrapper>
-        <BookCover src={book.cover} alt={book.name} />
-      </CoverWrapper>
+      <TopSection>
+        <BookDetails book={book} onRate={handleRate} />
+      </TopSection>
 
-      <InfoWrapper>
-        <BookTitle>{book.name}</BookTitle>
-        <BookAuthor>{book.author}</BookAuthor>
-
-        <RatingWrapper>
-          <StarRating rating={book.avgRating ?? 0} onRate={handleRate} />
-          <span>{(book.avgRating ?? 0).toFixed(1)}</span>
-        </RatingWrapper>
-
-        <Description>{book.description}</Description>
-
-        <ButtonsWrapper>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <BaseParagraph>Paperback</BaseParagraph>
-            <BaseButton available={false}>Not Available</BaseButton>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <BaseParagraph>Hardcover</BaseParagraph>
-            <BaseButton>{book.price}€</BaseButton>
-          </div>
-        </ButtonsWrapper>
-
-        <CommentsWrapper>
-          <h2>Comments</h2>
-
-          {user && (
-            <CommentInputWrapper>
-              <CommentInput
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Leave a comment..."
-              />
-              <CommentButton onClick={handleCommentSubmit}>Send</CommentButton>
-            </CommentInputWrapper>
-          )}
-
-          {comments.map((item) => (
-            <CommentContainer key={item.id}>
-              {item.user.avatar ? (
-                <CommentUserProfile
-                  src={`http://localhost:3000/uploads/${item.user.avatar}`}
-                />
-              ) : (
-                <CommentUserProfilePlaceholder>
-                  {item.user.name?.charAt(0).toUpperCase() || "?"}
-                </CommentUserProfilePlaceholder>
-              )}
-
-              <CommentItem>
-                <CommentUserName>{item.user.name}</CommentUserName>
-                <CommentsDate>
-                  Left a comment {getDate(item.createdAt)}
-                </CommentsDate>
-                <CommentUserText>{item.text}</CommentUserText>
-              </CommentItem>
-            </CommentContainer>
-          ))}
-        </CommentsWrapper>
-      </InfoWrapper>
+      <CommentsSection
+        comments={comments}
+        user={user}
+        newComment={newComment}
+        setNewComment={setNewComment}
+        onSubmit={handleCommentSubmit}
+      />
     </ProfileWrapper>
   );
 };

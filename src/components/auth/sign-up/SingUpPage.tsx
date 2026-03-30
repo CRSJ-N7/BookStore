@@ -59,7 +59,6 @@ const SignUpPage = () => {
 
         tokenStorage.setAccess(accessToken);
         tokenStorage.setRefresh(refreshToken);
-        console.log(safeUser);
 
         dispatch(setUser(safeUser));
 

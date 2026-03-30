@@ -2,10 +2,15 @@ import styled from "styled-components";
 
 export const ProfileWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 32px;
   padding: 24px;
-  flex-wrap: wrap;
 `;
+
+export const TopSection = styled.div`
+  display: flex;
+  gap: 32px;
+  `;
 
 export const CoverWrapper = styled.div`
   flex: 0 0 300px;
