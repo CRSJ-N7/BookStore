@@ -19,6 +19,7 @@ import mailIcon from "../../../assets/icons/mail.svg";
 import hideIcon from "../../../assets/icons/hide.svg";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 import authApi from "../../../api/authApi";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -52,10 +53,12 @@ const SignUpPage = () => {
 
         dispatch(setUser(safeUser));
 
+        toast.success("Login succesfull!");
+
         navigate("/");
       } catch (error) {
         const err = error as AxiosError<{ message: string }>;
-        console.log(err.response?.data?.message);
+        toast.error(`${err.response?.data?.message}`);
       }
     },
   });

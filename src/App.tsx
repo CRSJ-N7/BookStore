@@ -5,6 +5,7 @@ import PerfectLoader from "./assets/loader/perfect-loader.jpg";
 import { getMeThunk } from "./store/authThunks";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <GlobalContainer>
+      <ToastContainer position="top-right" autoClose={3000} theme="dark" />
       <Outlet />
     </GlobalContainer>
   );

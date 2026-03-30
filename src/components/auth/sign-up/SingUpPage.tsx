@@ -19,6 +19,7 @@ import mailIcon from "../../../assets/icons/mail.svg";
 import hideIcon from "../../../assets/icons/hide.svg";
 import authApi from "../../../api/authApi";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,8 @@ const SignUpPage = () => {
         tokenStorage.setRefresh(refreshToken);
 
         dispatch(setUser(safeUser));
+
+        toast.success("Sign up successfull!");
 
         navigate("/");
       } catch (error) {

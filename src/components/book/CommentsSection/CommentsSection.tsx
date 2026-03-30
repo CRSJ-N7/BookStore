@@ -48,9 +48,7 @@ const CommentsSection = ({
       {comments.map((item) => (
         <CommentContainer key={item.id}>
           {item.user.avatar ? (
-            <CommentUserProfile
-              src={`http://localhost:3000/uploads/${item.user.avatar}`}
-            />
+            <CommentUserProfile src={item.user.avatar} />
           ) : (
             <CommentUserProfilePlaceholder>
               {item.user.name?.charAt(0).toUpperCase() || "?"}

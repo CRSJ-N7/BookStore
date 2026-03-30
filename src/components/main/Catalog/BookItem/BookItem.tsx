@@ -16,6 +16,7 @@ import bookApi from "../../../../api/bookApi";
 import { useState } from "react";
 import cartApi from "../../../../api/cartApi";
 import { setCart, setTotalItems } from "../../../../store/cartSlice";
+import { toast } from "react-toastify";
 
 type BookItemProps = {
   book: Book;
@@ -54,17 +55,15 @@ const BookItem = ({
     const cart = await cartApi.addToCart(bookId);
     dispatch(setCart(cart));
 
+    toast.success(`Book ${book.name} added to cart`);
+
     const cartItems = await cartApi.getCart();
     dispatch(setTotalItems(cartItems.totalItems));
   };
 
   return (
     <BookItemWrapper>
-      <BookCover
-        src={`http://localhost:3000/public/${book.cover}`}
-        alt={book.name}
-        onClick={onClick}
-      />
+      <BookCover src={book.cover} alt={book.name} onClick={onClick} />
       <FavouritesIcon
         src={isFavourite ? favouritesIconFilled : favouritesIcon}
         onClick={() => toggleFavourite(+book.id)}

@@ -40,7 +40,7 @@ const Favourites = () => {
     <BooksWrapper>
       {favourites.map((book) => (
         <BookItemWrapper key={book.id}>
-          <BookCover src={`http://localhost:3000/public/${book.cover}`} />
+          <BookCover src={book.cover} />
           <FavouritesIcon
             src={favouritesIconFilled}
             onClick={() => toggleFavourite(+book.id)}
