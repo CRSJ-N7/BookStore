@@ -72,6 +72,11 @@ export const BookItemContainer = styled.div`
   align-items: flex-start;
 `;
 
+export const BookCover = styled.img`
+  width: 197px;
+  height: 289px;
+`;
+
 export const CartContainer = styled.div`
   display: flex;
   flex-direction: row;

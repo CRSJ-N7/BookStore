@@ -12,6 +12,7 @@ export const getBooksThunk = createAsyncThunk(
       return {
         books: booksData.filteredBooks,
         genres: genresData,
+        totalPages: booksData.totalPages,
       };
     } catch (error) {
       return rejectWithValue(error);

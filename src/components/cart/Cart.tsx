@@ -12,6 +12,7 @@ import {
   CheckoutWrapper,
   TotalPrice,
   ItemPrice,
+  BookCover,
 } from "./Cart.styles";
 import type { Book } from "../../types/types";
 import { useDispatch } from "react-redux";
@@ -67,10 +68,7 @@ const Cart = () => {
     <CartWrapper>
       {items.map((book) => (
         <BookItemContainer key={book.id}>
-          <img
-            src={`http://localhost:3000/public/${book.cover}`}
-            style={{ width: "197px", height: "289px" }}
-          />
+          <BookCover src={book.cover} />
           <BookDataWrapper>
             <BookTitle>{book.name}</BookTitle>
             <BookAuthorName>{book.author}</BookAuthorName>

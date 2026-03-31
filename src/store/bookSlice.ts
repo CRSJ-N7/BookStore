@@ -8,6 +8,7 @@ type BookState = {
   currentBook: Book | null;
   currentFavourites: Book[];
   loading: boolean;
+  totalPages: number;
 };
 
 const initialState: BookState = {
@@ -16,6 +17,7 @@ const initialState: BookState = {
   currentBook: null,
   currentFavourites: [],
   loading: true,
+  totalPages: 1,
 };
 
 const bookSlice = createSlice({
@@ -65,6 +67,7 @@ const bookSlice = createSlice({
         state.loading = false;
         state.books = action.payload.books;
         state.genres = action.payload.genres;
+        state.totalPages = action.payload.totalPages;
       })
       .addCase(getBooksThunk.rejected, (state) => {
         state.loading = false;
