@@ -18,11 +18,16 @@ import type { Book } from "../../types/types";
 import { useDispatch } from "react-redux";
 import { setTotalItems } from "../../store/cartSlice";
 import DeleteIcon from "../../assets/icons/Delete.svg";
+import { useNavigate } from "react-router-dom";
+import { setCurrentBook } from "../../store/bookSlice";
+import bookApi from "../../api/bookApi";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const [items, setItems] = useState<Book[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadCart = async () => {
@@ -31,7 +36,7 @@ const Cart = () => {
         setItems(data.items);
         setTotalPrice(data.totalPrice);
       } catch (e) {
-        console.error("Failed to load cart", e);
+        toast.error(`Failed to load cart, Error: ${e}`);
       }
     };
     loadCart();
@@ -46,7 +51,7 @@ const Cart = () => {
       setTotalPrice(data.totalPrice);
       dispatch(setTotalItems(data.totalItems));
     } catch (e) {
-      console.error("Failed to update quantity", e);
+      toast.error(`Failed to update quantity, Error: ${e}`);
     }
   };
 
@@ -58,8 +63,14 @@ const Cart = () => {
       setTotalPrice(data.totalPrice);
       dispatch(setTotalItems(data.totalItems));
     } catch (e) {
-      console.error("Failed to remove item", e);
+      toast.error(`Failed to remove itme, Error: ${e}`);
     }
+  };
+  const clickHandler = async (id: number) => {
+    const book = await bookApi.getBook(id);
+    dispatch(setCurrentBook(book));
+
+    navigate(`/books/${id}`);
   };
 
   if (items.length === 0) return <div>Your cart is empty</div>;
@@ -68,7 +79,7 @@ const Cart = () => {
     <CartWrapper>
       {items.map((book) => (
         <BookItemContainer key={book.id}>
-          <BookCover src={book.cover} />
+          <BookCover src={book.cover} onClick={() => clickHandler(book.id)} />
           <BookDataWrapper>
             <BookTitle>{book.name}</BookTitle>
             <BookAuthorName>{book.author}</BookAuthorName>

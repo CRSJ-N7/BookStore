@@ -5,6 +5,7 @@ import {
   BookTitle,
   BookAuthor,
   FavouritesIcon,
+  Price,
 } from "./BookItem.styles";
 import favouritesIcon from "../../../../assets/icons/favourites.svg";
 import favouritesIconFilled from "../../../../assets/icons/favouritesFilled.svg";
@@ -17,6 +18,7 @@ import { useState } from "react";
 import cartApi from "../../../../api/cartApi";
 import { setCart, setTotalItems } from "../../../../store/cartSlice";
 import { toast } from "react-toastify";
+import RateArrow from "../../../../assets/icons/RateArrow.svg";
 
 type BookItemProps = {
   book: Book;
@@ -70,22 +72,13 @@ const BookItem = ({
       />
       <BookTitle>{book.name}</BookTitle>
       <BookAuthor>{book.author}</BookAuthor>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "15px",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <StarRating rating={rating} onRate={handleRate} />
-        <span>{rating.toFixed(1)}</span>
-      </div>
+
+      <StarRating rating={rating} onRate={handleRate} />
       <BaseButton
-        style={{ alignSelf: "center", width: "100%" }}
+        style={{ width: "100%" }}
         onClick={() => addToCartHandler(+book.id)}
       >
-        {book.price}€
+        <Price>{book.price} €</Price>
       </BaseButton>
     </BookItemWrapper>
   );

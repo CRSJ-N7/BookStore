@@ -1,27 +1,33 @@
+import {
+  StarRatingWrapper,
+  StarsContainer,
+  Star,
+  Rating,
+} from "./StarRating.style";
 import star from "../../../../../assets/icons/StarBlanked.svg";
 import starFilled from "../../../../../assets/icons/Star.svg";
 
 type Props = {
   rating: number;
   onRate: (value: number) => void;
+  noMargin?: boolean;
 };
 
-const StarRating = ({ rating, onRate }: Props) => {
+const StarRating = ({ rating, onRate, noMargin }: Props) => {
   return (
-    <div style={{ display: "flex", gap: "20px" }}>
-      {[1, 2, 3, 4, 5].map((value) => (
-        <img
-          key={value}
-          src={value <= rating ? starFilled : star}
-          style={{
-            width: "20px",
-            height: "20px",
-            cursor: "pointer",
-          }}
-          onClick={() => onRate(value)}
-        />
-      ))}
-    </div>
+    <StarRatingWrapper noMargin={noMargin}>
+      <StarsContainer>
+        {[1, 2, 3, 4, 5].map((value) => (
+          <Star
+            key={value}
+            src={value <= rating ? starFilled : star}
+            filled={value <= rating}
+            onClick={() => onRate(value)}
+          />
+        ))}
+      </StarsContainer>
+      <Rating>{rating.toFixed(1)}</Rating>
+    </StarRatingWrapper>
   );
 };
 

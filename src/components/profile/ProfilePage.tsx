@@ -1,7 +1,7 @@
 import { ProfileDataContainer, UserProfileWrapper } from "./ProfilePage.styles";
-import AvatarSection from "./AvatarSection";
-import ProfileInfoSection from "./ProfileInfoSection";
-import PasswordSection from "./PasswordSection";
+import AvatarSection from "./AvatarSection/AvatarSection";
+import ProfileInfoSection from "./ProfileInfoSection/ProfileInfoSection";
+import PasswordSection from "./PasswordSection/PasswordSection";
 import { BaseButton } from "../../shared/ui/Button/Button.styles";
 import { useAppDispatch } from "../../hooks/hooks";
 import { logOut } from "../../store/authSlice";

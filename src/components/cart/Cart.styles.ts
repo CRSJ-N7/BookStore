@@ -75,6 +75,7 @@ export const BookItemContainer = styled.div`
 export const BookCover = styled.img`
   width: 197px;
   height: 289px;
+  cursor: pointer;
 `;
 
 export const CartContainer = styled.div`

@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
 import bookApi from "../../api/bookApi";
 import type { Book } from "../../types/types";
-import { BookCover } from "../book/BookProfile.style";
-import {
-  BookItemWrapper,
-  FavouritesIcon,
-} from "../main/Catalog/BookItem/BookItem.styles";
+
 import favouritesIconFilled from "../../assets/icons/favouritesFilled.svg";
-import { BooksWrapper } from "../main/Catalog/Catalog.styles";
+import { useAppDispatch } from "../../hooks/hooks";
+import { setCurrentBook } from "../../store/bookSlice";
+import { useNavigate } from "react-router-dom";
+
+import {
+  StyledBookCover,
+  StyledBookTitle,
+  StyledBookAuthor,
+  StyledFavouriteIcon,
+  FavouritesContainer,
+  FavouritesWrapper,
+  BookItemWrapper,
+  FavouritesHeader,
+} from "./Favourites.style";
 
 const Favourites = () => {
   const [favourites, setFavourites] = useState<Book[]>([]);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const loadFavourites = async () => {
     try {
@@ -34,22 +45,38 @@ const Favourites = () => {
     }
   };
 
+  const clickHandler = async (id: number) => {
+    const book = await bookApi.getBook(id);
+    dispatch(setCurrentBook(book));
+
+    navigate(`/books/${id}`);
+  };
+
   if (favourites.length === 0) return <div>No favourites yet.</div>;
 
   return (
-    <BooksWrapper>
-      {favourites.map((book) => (
-        <BookItemWrapper key={book.id}>
-          <BookCover src={book.cover} />
-          <FavouritesIcon
-            src={favouritesIconFilled}
-            onClick={() => toggleFavourite(+book.id)}
-          />
-          <div>{book.name}</div>
-          <div>{book.author}</div>
-        </BookItemWrapper>
-      ))}
-    </BooksWrapper>
+    <FavouritesContainer>
+      <FavouritesHeader>My Favourites</FavouritesHeader>
+
+      <FavouritesWrapper>
+        {favourites.map((book) => (
+          <BookItemWrapper key={book.id}>
+            <StyledBookCover
+              src={book.cover}
+              onClick={() => clickHandler(book.id)}
+            />
+
+            <StyledFavouriteIcon
+              src={favouritesIconFilled}
+              onClick={() => toggleFavourite(book.id)}
+            />
+
+            <StyledBookTitle>{book.name}</StyledBookTitle>
+            <StyledBookAuthor>{book.author}</StyledBookAuthor>
+          </BookItemWrapper>
+        ))}
+      </FavouritesWrapper>
+    </FavouritesContainer>
   );
 };
 

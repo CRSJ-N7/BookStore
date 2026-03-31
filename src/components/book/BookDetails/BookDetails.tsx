@@ -4,15 +4,15 @@ import {
   InfoWrapper,
   BookTitle,
   BookAuthor,
-  RatingWrapper,
   Description,
   ButtonsWrapper,
 } from "../BookProfile.style";
-
+import Arrow from "../../../assets/icons/RateArrow.svg";
 import StarRating from "../../main/Catalog/BookItem/StarRating/StarRating";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 import { BaseParagraph } from "../../../shared/styles/styles";
 import type { Book } from "../../../types/types";
+import { RateArrow, RatingWrapper } from "./BookDetails.styles";
 
 type Props = {
   book: Book;
@@ -23,7 +23,11 @@ const BookDetails = ({ book, onRate }: Props) => {
   return (
     <>
       <CoverWrapper>
-        <BookCover src={book.cover} alt={book.name} />
+        <BookCover
+          style={{ width: "522px", height: "779px" }}
+          src={book.cover}
+          alt={book.name}
+        />
       </CoverWrapper>
 
       <InfoWrapper>
@@ -31,10 +35,15 @@ const BookDetails = ({ book, onRate }: Props) => {
         <BookAuthor>{book.author}</BookAuthor>
 
         <RatingWrapper>
-          <StarRating rating={book.avgRating ?? 0} onRate={onRate} />
-          <span>{(book.avgRating ?? 0).toFixed(1)}</span>
+          <StarRating rating={book.avgRating ?? 0} onRate={onRate} noMargin />
+          <RateArrow src={Arrow} />
+          <BaseParagraph style={{ color: "#B9BAC3", fontSize: "16px" }}>
+            {" "}
+            Rate this book
+          </BaseParagraph>
         </RatingWrapper>
 
+        <BookAuthor>Description</BookAuthor>
         <Description>{book.description}</Description>
 
         <ButtonsWrapper>

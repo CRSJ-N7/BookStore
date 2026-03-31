@@ -1,8 +1,6 @@
 import {
   CommentsWrapper,
   CommentInputWrapper,
-  CommentInput,
-  CommentButton,
   CommentItem,
   CommentUserProfile,
   CommentContainer,
@@ -14,6 +12,8 @@ import {
 
 import getDate from "../../../utilities/getDate";
 import type { Comment, User } from "../../../types/types";
+import { BaseHeader, StyledInput } from "../../../shared/styles/styles";
+import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 
 type Props = {
   comments: Comment[];
@@ -32,18 +32,7 @@ const CommentsSection = ({
 }: Props) => {
   return (
     <CommentsWrapper>
-      <h2>Comments</h2>
-
-      {user && (
-        <CommentInputWrapper>
-          <CommentInput
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Leave a comment..."
-          />
-          <CommentButton onClick={onSubmit}>Send</CommentButton>
-        </CommentInputWrapper>
-      )}
+      <BaseHeader>Comments</BaseHeader>
 
       {comments.map((item) => (
         <CommentContainer key={item.id}>
@@ -64,6 +53,17 @@ const CommentsSection = ({
           </CommentItem>
         </CommentContainer>
       ))}
+
+      {user && (
+        <CommentInputWrapper>
+          <StyledInput
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Share a comment"
+          />
+          <BaseButton onClick={onSubmit}>Post a comment</BaseButton>
+        </CommentInputWrapper>
+      )}
     </CommentsWrapper>
   );
 };

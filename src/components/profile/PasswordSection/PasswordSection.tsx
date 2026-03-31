@@ -1,18 +1,18 @@
 import { useState } from "react";
-import authApi from "../../api/authApi";
+import authApi from "../../../api/authApi";
 import {
   ProfileHeaderWrapper,
   ChangeInfoWrapper,
   ChangeInfo,
   FloatingLabel,
-} from "./ProfilePage.styles";
+} from "../ProfilePage.styles";
 import {
   BaseHeader,
   InputWrapper,
   StyledAdornment,
   StyledInput,
-} from "../../shared/styles/styles";
-import hideIcon from "../../assets/icons/hide.svg";
+} from "../../../shared/styles/styles";
+import hideIcon from "../../../assets/icons/hide.svg";
 
 const PasswordSection = () => {
   const [isEditPassword, setIsEditPassword] = useState(false);

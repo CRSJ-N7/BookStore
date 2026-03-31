@@ -1,14 +1,14 @@
 import { useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { setUser } from "../../store/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { setUser } from "../../../store/authSlice";
 import {
   PhotoWrapper,
   ProfilePicture,
   PhotoUploader,
-} from "./ProfilePage.styles";
-import userPicture from "../../assets/profile/user.png";
-import photoUploader from "../../assets/profile/photoUpload.png";
-import authApi from "../../api/authApi";
+} from "../ProfilePage.styles";
+import userPicture from "../../../assets/profile/user.png";
+import photoUploader from "../../../assets/profile/photoUpload.png";
+import authApi from "../../../api/authApi";
 
 const AvatarSection = () => {
   const user = useAppSelector((state) => state.auth.user);

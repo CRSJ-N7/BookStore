@@ -59,3 +59,10 @@ export const BookPrice = styled.p`
   color: #2c3e50;
   margin: 8px 0;
 `;
+
+export const Price = styled.p`
+  color: #f0f4ef;
+  letter-spacing: 0.75px;
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+`;

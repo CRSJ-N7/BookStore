@@ -9,8 +9,9 @@ export const ProfileWrapper = styled.div`
 
 export const TopSection = styled.div`
   display: flex;
-  gap: 32px;
-  `;
+  max-width: 400px;
+  gap: 128px;
+`;
 
 export const CoverWrapper = styled.div`
   flex: 0 0 300px;
@@ -40,15 +41,11 @@ export const BookAuthor = styled.h3`
   color: #555;
 `;
 
-export const RatingWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
 export const Description = styled.p`
   font-size: 16px;
   line-height: 1.5;
+  font-family: "Poppins", sans-serif;
+  color: #344966;
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -57,6 +54,7 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const CommentsWrapper = styled.div`
+  max-width: 727px;
   margin-top: 32px;
   display: flex;
   flex-direction: column;
@@ -65,6 +63,8 @@ export const CommentsWrapper = styled.div`
 
 export const CommentInputWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  margin-top: 60px;
   gap: 8px;
 `;
 
@@ -77,6 +77,7 @@ export const CommentButton = styled.button`
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
+  max-width: 150px;
 `;
 
 export const CommentItem = styled.div`

@@ -11,6 +11,7 @@ import CommentsSection from "./CommentsSection/CommentsSection";
 
 import type { Book, Comment } from "../../types/types";
 import { useAppSelector } from "../../hooks/hooks";
+import { toast } from "react-toastify";
 
 const BookProfile = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -42,7 +43,7 @@ const BookProfile = () => {
 
   const handleRate = async (value: number) => {
     if (!user || !book) {
-      alert("Login first");
+      toast.error("You have to login first");
       return;
     }
 
@@ -70,7 +71,7 @@ const BookProfile = () => {
       setComments((prev) => [...prev, created]);
       setNewComment("");
     } catch (e) {
-      console.error(e);
+      toast.error(`Error: ${e}`);
     }
   };
 

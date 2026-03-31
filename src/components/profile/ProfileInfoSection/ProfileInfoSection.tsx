@@ -1,24 +1,21 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { setUser } from "../../store/authSlice";
-import authApi from "../../api/authApi";
-
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { setUser } from "../../../store/authSlice";
+import authApi from "../../../api/authApi";
 import {
   ProfileHeaderWrapper,
   ChangeInfo,
   ChangeInfoWrapper,
   FloatingLabel,
-} from "./ProfilePage.styles";
-
+} from "../ProfilePage.styles";
 import {
   BaseHeader,
   InputWrapper,
   StyledAdornment,
   StyledInput,
-} from "../../shared/styles/styles";
-
-import profileIcon from "../../assets/icons/profile.svg";
-import emailIcon from "../../assets/icons/mail.svg";
+} from "../../../shared/styles/styles";
+import profileIcon from "../../../assets/icons/profile.svg";
+import emailIcon from "../../../assets/icons/mail.svg";
 
 const ProfileInfoSection = () => {
   const user = useAppSelector((state) => state.auth.user);
