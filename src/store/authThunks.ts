@@ -25,7 +25,7 @@ export const getMeThunk = createAsyncThunk(
       return data;
     } catch (error) {
       if (error instanceof ValidationError) {
-        return rejectWithValue(error);
+        throw new ValidationError();
       }
       console.log("getMeThunk error:", error);
       tokenStorage.clearAccess();

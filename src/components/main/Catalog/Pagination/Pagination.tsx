@@ -43,6 +43,7 @@ const Pagination = () => {
             key={page}
             onClick={() => changePage(page)}
             src={isActive ? Page : PageFilled}
+            style={{ cursor: "pointer" }}
           />
         );
       })}
