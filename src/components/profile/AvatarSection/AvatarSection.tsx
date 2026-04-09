@@ -24,7 +24,7 @@ const AvatarSection = () => {
     const reader = new FileReader();
     reader.onloadend = async () => {
       if (!reader.result || typeof reader.result !== "string") return;
-      const base64 = reader.result as string;
+      const base64 = reader.result;
       const updatedUser = await authApi.uploadAvatar(base64);
       dispatch(setUser(updatedUser.safeUser));
     };

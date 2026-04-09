@@ -111,3 +111,8 @@ export const StyledInput = styled.input<{ variant?: InputVariant }>`
     }
   }}
 `;
+
+export const FlexWrapper = styled.div<{ variant?: string }>`
+  display: flex;
+  flex-direction: ${({ variant }) => variant ?? "row"};
+`;

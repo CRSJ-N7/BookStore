@@ -14,6 +14,9 @@ export const ROUTES = {
     signup: "/auth/signup",
   },
 
+  test: {
+    path: "/test",
+  },
   profile: {
     path: "/profile",
   },

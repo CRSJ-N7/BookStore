@@ -15,6 +15,7 @@ import PrivateRoute, { ProtectedAuthRoute } from "./PrivateRoutes";
 import { ROUTES } from "./routes";
 
 import App from "../App";
+import { TestPage } from "../components/test/TestPage";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.admin.path,
             element: <Admin />,
+          },
+          {
+            path: ROUTES.test.path,
+            element: <TestPage />,
           },
         ],
       },

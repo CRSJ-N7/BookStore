@@ -10,7 +10,7 @@ import {
 import Arrow from "../../../assets/icons/RateArrow.svg";
 import StarRating from "../../main/Catalog/BookItem/StarRating/StarRating";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
-import { BaseParagraph } from "../../../shared/styles/styles";
+import { BaseParagraph, FlexWrapper } from "../../../shared/styles/styles";
 import type { Book } from "../../../types/types";
 import { RateArrow, RatingWrapper } from "./BookDetails.styles";
 
@@ -47,15 +47,15 @@ const BookDetails = ({ book, onRate }: Props) => {
         <Description>{book.description}</Description>
 
         <ButtonsWrapper>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <FlexWrapper variant="column">
             <BaseParagraph>Paperback</BaseParagraph>
             <BaseButton available={false}>Not Available</BaseButton>
-          </div>
+          </FlexWrapper>
 
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <FlexWrapper variant="column">
             <BaseParagraph>Hardcover</BaseParagraph>
             <BaseButton>{book.price}€</BaseButton>
-          </div>
+          </FlexWrapper>
         </ButtonsWrapper>
       </InfoWrapper>
     </>
