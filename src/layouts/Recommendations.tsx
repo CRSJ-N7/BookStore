@@ -8,6 +8,8 @@ import { useAppSelector } from "../hooks/hooks";
 import { BookItemWrapper } from "../components/main/Catalog/BookItem/BookItem.styles";
 import { BooksWrapper } from "../components/main/Catalog/Catalog.styles";
 import { BaseHeader } from "../shared/styles/styles";
+import { ROUTES } from "../routes/routes";
+import styled from "@emotion/styled";
 
 type Props = {
   bookId: number;
@@ -30,12 +32,12 @@ const Recommendations = ({ bookId }: Props) => {
 
   return (
     <>
-      <BaseHeader style={{ margin: "80px" }}>Recommendations</BaseHeader>
+      <StyledBaseHeader>Recommendations</StyledBaseHeader>
       <BooksWrapper>
         {recommendations?.map((book) => {
           return (
             <BookItemWrapper>
-              <Link to={`/books/${book.id}`}>
+              <Link to={ROUTES.bookProfile.getUrl(book.id)}>
                 <BookCover src={book.cover} />
               </Link>
             </BookItemWrapper>
@@ -45,5 +47,9 @@ const Recommendations = ({ bookId }: Props) => {
     </>
   );
 };
+
+const StyledBaseHeader = styled(BaseHeader)`
+  margin: 80px;
+`;
 
 export default Recommendations;

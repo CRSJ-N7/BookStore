@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const CatalogWrapper = styled.div`
   margin-top: 110px;

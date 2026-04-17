@@ -23,10 +23,7 @@ const ListItem = ({ book, onToggleFavourite }: Props) => {
 
       <StyledFavouriteIcon
         src={favouritesIconFilled}
-        onClick={(e) => {
-          onToggleFavourite();
-          // e.stopPropagation();
-        }}
+        onClick={onToggleFavourite}
       />
 
       <StyledBookTitle>{book.name}</StyledBookTitle>
