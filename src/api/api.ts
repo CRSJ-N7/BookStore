@@ -18,8 +18,12 @@ async function refreshToken() {
   });
 
   const newAccessToken = response.data.accessToken;
+  const newRefreshToken = response.data.updatedRefreshToken;
+  console.log(`ACCESS TOKEN >>>>>`, newAccessToken);
+  console.log(`REFRESH TOKEN >>>>>`, newRefreshToken);
 
   tokenStorage.setAccess(newAccessToken);
+  tokenStorage.setRefresh(newRefreshToken);
 
   return newAccessToken;
 }

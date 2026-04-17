@@ -11,7 +11,7 @@ export const StarsContainer = styled.div`
   gap: 30px;
 `;
 
-export const Star = styled.img<{ filled: boolean }>`
+export const Star = styled.img<{ filled?: boolean }>`
   width: 24px;
   height: 24px;
   cursor: pointer;

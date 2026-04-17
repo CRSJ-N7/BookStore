@@ -5,6 +5,8 @@ import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppSelector } from "../../../../hooks/hooks";
+import checkedIcon from "../../../../assets/main-page/filters/checked.svg";
+import uncheckedIcon from "../../../../assets/main-page/filters/unchecked.svg";
 
 const GenreSelect = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,8 +19,6 @@ const GenreSelect = () => {
 
   const handleGenreChange = (selectedGenres: string[]) => {
     setGenres(selectedGenres);
-
-    console.log("selectedGenres =", selectedGenres);
 
     const params = new URLSearchParams(searchParams);
     if (selectedGenres.length > 0) {
@@ -41,6 +41,8 @@ const GenreSelect = () => {
         return (
           <MenuItem key={item} value={item}>
             <Checkbox
+              icon={<img src={uncheckedIcon} />}
+              checkedIcon={<img src={checkedIcon} />}
               checked={genres.includes(item)}
               sx={{ borderRadius: 0 }}
             />

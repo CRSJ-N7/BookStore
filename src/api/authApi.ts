@@ -22,6 +22,7 @@ type LogInResponse = {
     id: number;
     name: string;
     email: string;
+    avatar?: string;
   };
   accessToken: string;
   refreshToken: string;
@@ -53,6 +54,7 @@ type UpdateProfileResponse = {
     email: string;
     avatar?: string;
   };
+  message?: string;
 };
 
 type UploadImageResponse = {
@@ -94,7 +96,6 @@ const updateProfile = async (data: UpdateProfileBody) => {
     "/users/me/update",
     data,
   );
-
   return response.data;
 };
 

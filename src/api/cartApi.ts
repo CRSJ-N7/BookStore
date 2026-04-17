@@ -1,4 +1,4 @@
-import type { Book, User } from "../types/types";
+import type { Book } from "../types/types";
 import { api } from "./api";
 
 type GetCartResponse = {
@@ -9,10 +9,8 @@ type GetCartResponse = {
 
 type AddToCartResponse = {
   cartItem: {
-    user: User;
     book: Book;
   };
-  message: string;
 };
 
 type UpdateQuantityResponse = {
@@ -45,7 +43,7 @@ const updateQuantity = async (bookId: number, quantity: number) => {
 };
 
 const removeFromCart = async (bookId: number) => {
-  const response = await api.delete<RemoveFromCart>(`/cart/`, {
+  const response = await api.delete<RemoveFromCart>(`/cart`, {
     params: { bookId },
   });
   return response.data;

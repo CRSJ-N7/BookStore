@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Book, Genres } from "../types/types";
 import { getBooksThunk } from "./getBookThunks";
 
@@ -24,38 +24,24 @@ const bookSlice = createSlice({
   name: "books",
   initialState,
   reducers: {
-    setBook(state, action) {
+    setBook(state, action: PayloadAction<Book>) {
       state.books.push(action.payload);
     },
 
-    setBooks(state, action) {
+    setBooks(state, action: PayloadAction<Book[]>) {
       state.books = action.payload;
     },
 
-    setGenres(state, action) {
+    setGenres(state, action: PayloadAction<Genres>) {
       state.genres = action.payload;
     },
 
-    setCurrentBook(state, action) {
-      state.currentBook = action.payload;
-    },
-
-    setFavourites(state, action) {
+    setFavourites(state, action: PayloadAction<Book[]>) {
       state.currentFavourites = action.payload;
     },
 
-    addFavourite(state, action) {
+    addFavourite(state, action: PayloadAction<Book>) {
       state.currentFavourites.push(action.payload);
-    },
-
-    removeFavourite(state, action) {
-      state.currentFavourites = state.currentFavourites.filter(
-        (book) => book.id !== action.payload,
-      );
-    },
-
-    clearCurrentBook(state) {
-      state.currentBook = null;
     },
   },
   extraReducers: (builder) => {
@@ -75,15 +61,7 @@ const bookSlice = createSlice({
   },
 });
 
-export const {
-  setBook,
-  setBooks,
-  setGenres,
-  setCurrentBook,
-  setFavourites,
-  addFavourite,
-  removeFavourite,
-  clearCurrentBook,
-} = bookSlice.actions;
+export const { setBook, setBooks, setGenres, setFavourites, addFavourite } =
+  bookSlice.actions;
 
 export default bookSlice.reducer;

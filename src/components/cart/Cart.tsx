@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+
 import { BaseButton } from "../../shared/ui/Button/Button.styles";
-import cartApi from "../../api/cartApi";
 import {
   CartWrapper,
   BookTitle,
@@ -14,42 +15,33 @@ import {
   ItemPrice,
   BookCover,
 } from "./Cart.styles";
-import type { Book } from "../../types/types";
-import { useDispatch } from "react-redux";
-import { setTotalItems } from "../../store/cartSlice";
+
+import cartApi from "../../api/cartApi";
+
+import { setCart } from "../../store/cartSlice";
+
 import DeleteIcon from "../../assets/icons/Delete.svg";
-import { useNavigate } from "react-router-dom";
-import { setCurrentBook } from "../../store/bookSlice";
-import bookApi from "../../api/bookApi";
-import { toast } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import Divider from "@mui/material/Divider";
 
 const Cart = () => {
-  const [items, setItems] = useState<Book[]>([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const loadCart = async () => {
-      try {
-        const data = await cartApi.getCart();
-        setItems(data.items);
-        setTotalPrice(data.totalPrice);
-      } catch (e) {
-        toast.error(`Failed to load cart, Error: ${e}`);
-      }
-    };
-    loadCart();
-  }, [dispatch]);
+  const { items, totalPrice } = useAppSelector((state) => state.cart);
+
+  const loadCart = async () => {
+    try {
+      const data = await cartApi.getCart();
+      dispatch(setCart(data));
+    } catch (e) {
+      toast.error(`Failed to load cart, Error: ${e}`);
+    }
+  };
 
   const handleQuantityChange = async (bookId: number, quantity: number) => {
     try {
       await cartApi.updateQuantity(bookId, quantity);
-
-      const data = await cartApi.getCart();
-      setItems(data.items);
-      setTotalPrice(data.totalPrice);
-      dispatch(setTotalItems(data.totalItems));
+      await loadCart();
     } catch (e) {
       toast.error(`Failed to update quantity, Error: ${e}`);
     }
@@ -58,58 +50,73 @@ const Cart = () => {
   const removeFromCartHandler = async (bookId: number) => {
     try {
       await cartApi.removeFromCart(bookId);
-      const data = await cartApi.getCart();
-      setItems(data.items);
-      setTotalPrice(data.totalPrice);
-      dispatch(setTotalItems(data.totalItems));
+      await loadCart();
     } catch (e) {
-      toast.error(`Failed to remove itme, Error: ${e}`);
+      toast.error(`Failed to remove item, Error: ${e}`);
     }
   };
-  const clickHandler = async (id: number) => {
-    const book = await bookApi.getBook(id);
-    dispatch(setCurrentBook(book));
 
-    navigate(`/books/${id}`);
+  const clearCartHandler = async () => {
+    try {
+      for (const book of items) {
+        await cartApi.updateQuantity(book.id, 0);
+      }
+      await loadCart();
+    } catch {
+      toast.error(`Failed to clear cart`);
+    }
   };
 
-  if (items.length === 0) return <div>Your cart is empty</div>;
+  if (items.length === 0) {
+    return <div>Your cart is empty</div>;
+  }
 
   return (
     <CartWrapper>
       {items.map((book) => (
-        <BookItemContainer key={book.id}>
-          <BookCover src={book.cover} onClick={() => clickHandler(book.id)} />
-          <BookDataWrapper>
-            <BookTitle>{book.name}</BookTitle>
-            <BookAuthorName>{book.author}</BookAuthorName>
-            <QuantityWrapper>
-              <QuantityButton
-                onClick={() =>
-                  handleQuantityChange(+book.id, (book.quantity ?? 1) + 1)
-                }
-              >
-                <span>+</span>
-              </QuantityButton>
-              <span>{book.quantity ?? 1}</span>
-              <QuantityButton
-                onClick={() =>
-                  handleQuantityChange(
-                    +book.id,
-                    Math.max((book.quantity ?? 1) - 1, 0),
-                  )
-                }
-              >
-                <span>-</span>
-              </QuantityButton>
-              <img
-                src={DeleteIcon}
-                onClick={() => removeFromCartHandler(+book.id)}
-              />
-            </QuantityWrapper>
-            <ItemPrice>€ {book.price} EUR</ItemPrice>
-          </BookDataWrapper>
-        </BookItemContainer>
+        <>
+          <BookItemContainer key={book.id}>
+            <Link to={`/books/${book.id}`}>
+              <BookCover src={book.cover} />
+            </Link>
+
+            <BookDataWrapper>
+              <BookTitle>{book.name}</BookTitle>
+              <BookAuthorName>{book.author}</BookAuthorName>
+
+              <QuantityWrapper>
+                <QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(book.id, (book.quantity ?? 1) + 1)
+                  }
+                >
+                  +
+                </QuantityButton>
+
+                <span>{book.quantity ?? 1}</span>
+
+                <QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(
+                      book.id,
+                      Math.max((book.quantity ?? 1) - 1, 0),
+                    )
+                  }
+                >
+                  -
+                </QuantityButton>
+
+                <img
+                  src={DeleteIcon}
+                  onClick={() => removeFromCartHandler(book.id)}
+                />
+              </QuantityWrapper>
+
+              <ItemPrice>€ {book.price} EUR</ItemPrice>
+            </BookDataWrapper>
+          </BookItemContainer>
+          <Divider />
+        </>
       ))}
 
       <TotalPrice>
@@ -117,24 +124,10 @@ const Cart = () => {
       </TotalPrice>
 
       <CheckoutWrapper>
-        <BaseButton
-          option="secondary"
-          sx={{
-            "& .MuiTouchRipple-root span": {
-              backgroundColor: "rgba(70, 180, 190, 0.636)",
-            },
-          }}
-          onClick={async () => {
-            for (const book of items) {
-              await cartApi.updateQuantity(+book.id, 0);
-            }
-            const data = await cartApi.getCart();
-            setItems(data.items);
-            setTotalPrice(data.totalPrice);
-          }}
-        >
+        <BaseButton option="secondary" onClick={clearCartHandler}>
           Clear Cart
         </BaseButton>
+
         <BaseButton>Checkout</BaseButton>
       </CheckoutWrapper>
     </CartWrapper>

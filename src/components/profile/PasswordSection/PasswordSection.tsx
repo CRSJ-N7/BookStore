@@ -13,6 +13,7 @@ import {
   StyledInput,
 } from "../../../shared/styles/styles";
 import hideIcon from "../../../assets/icons/hide.svg";
+import { toast } from "react-toastify";
 
 const PasswordSection = () => {
   const [isEditPassword, setIsEditPassword] = useState(false);
@@ -62,9 +63,9 @@ const PasswordSection = () => {
         repeatedPassword: "",
       });
 
-      alert("Password changed successfully");
+      toast.success("Password changed successfully");
     } catch (error) {
-      console.log(error);
+      toast.error(error as string);
     }
   };
 

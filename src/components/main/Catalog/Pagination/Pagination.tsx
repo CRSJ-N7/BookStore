@@ -4,8 +4,10 @@ import { PaginationWrapper } from "./Pagination.styles";
 import Arrow from "../../../../assets/pagination/arrow.svg";
 import Page from "../../../../assets/pagination/Ellipse.svg";
 import PageFilled from "../../../../assets/pagination/EllipseFilled.svg";
+import { useEffect } from "react";
 
 const Pagination = () => {
+  const books = useAppSelector((state) => state.books.books);
   const [searchParams, setSearchParams] = useSearchParams();
   const totalPages = useAppSelector((state) => state.books.totalPages);
 
@@ -18,6 +20,13 @@ const Pagination = () => {
     params.set("page", String(newPage));
     setSearchParams(params);
   };
+
+  useEffect(() => {
+    if (!books.length) {
+      changePage(currentPage - 1);
+    }
+    return;
+  }, [changePage]);
 
   return (
     <PaginationWrapper>

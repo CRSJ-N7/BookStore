@@ -26,7 +26,12 @@ function App() {
 
   return (
     <GlobalContainer>
-      <ToastContainer position="top-right" autoClose={3000} theme="dark" />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        toastStyle={{ backgroundColor: "#384a65", color: "white" }}
+        theme="colored"
+      />
       <Outlet />
     </GlobalContainer>
   );

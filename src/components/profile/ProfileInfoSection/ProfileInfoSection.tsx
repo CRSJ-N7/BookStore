@@ -16,6 +16,7 @@ import {
 } from "../../../shared/styles/styles";
 import profileIcon from "../../../assets/icons/profile.svg";
 import emailIcon from "../../../assets/icons/mail.svg";
+import { toast } from "react-toastify";
 
 const ProfileInfoSection = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -56,16 +57,14 @@ const ProfileInfoSection = () => {
         email: "",
       });
 
-      alert("Profile changed successfully");
+      toast.success("Profile changed successfully");
     } catch (error) {
-      alert(error);
+      toast.error(error as string);
 
       setProfileData({
         name: user?.name ?? "",
         email: user?.email ?? "",
       });
-
-      console.log(error);
     }
   };
 

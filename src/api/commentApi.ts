@@ -1,13 +1,5 @@
-import type { Book, Comment, User } from "../types/types";
+import type { Comment } from "../types/types";
 import { api } from "./api";
-
-type CreateCommentResponse = {
-  text: string;
-  id: number;
-  createdAt: string;
-  user: User;
-  book: Book;
-};
 
 const getComments = async (bookId: string) => {
   const response = await api.get<Comment[]>(`/books/comments/${bookId}`);
@@ -16,7 +8,7 @@ const getComments = async (bookId: string) => {
 };
 
 const createComment = async (bookId: number, text: string) => {
-  const response = await api.post<CreateCommentResponse>("/books/comments", {
+  const response = await api.post<Comment>("/books/comments", {
     bookId,
     text,
   });

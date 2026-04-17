@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { tokenStorage } from "../storage/tokenStorage";
 import { getMeThunk } from "./authThunks";
 
 type User = {
   id: number;
   email: string;
-  name: string | null;
-  avatar: string | null;
+  name?: string;
+  avatar?: string;
 };
 
 interface AuthState {
@@ -23,7 +23,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser(state, action) {
+    setUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
     },
     logOut(state) {

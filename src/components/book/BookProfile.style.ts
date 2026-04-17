@@ -4,7 +4,7 @@ export const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding: 24px;
+  margin-inline: 80px;
 `;
 
 export const TopSection = styled.div`
@@ -49,13 +49,14 @@ export const Description = styled.p`
 `;
 
 export const ButtonsWrapper = styled.div`
+  margin-top: 70px;
+  margin-bottom: 14px;
   display: flex;
   gap: 16px;
 `;
 
 export const CommentsWrapper = styled.div`
   max-width: 727px;
-  margin-top: 32px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -121,6 +122,8 @@ export const CommentUserName = styled.span`
   letter-spacing: 0.75px;
   color: #0d1821;
 `;
+
+// color: ${(p) => p.theme.color.greenMain};
 
 export const CommentUserText = styled.span`
   font-family: "Poppins", sans-serif;

@@ -5,8 +5,8 @@ export const CatalogWrapper = styled.div`
 `;
 
 export const CatalogBooksWrapper = styled.div`
+  display: flex;
   margin-top: 30px;
-  margin-inline: 80px;
 `;
 
 export const CatalogNav = styled.div`
@@ -19,7 +19,8 @@ export const SelectWrapper = styled.div``;
 
 export const BooksWrapper = styled.div`
   margin-top: 38px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(280px, 305px));
+  display: flex;
+  flex-wrap: wrap;
   gap: 21px;
+  margin-inline: 80px;
 `;

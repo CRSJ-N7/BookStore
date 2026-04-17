@@ -8,6 +8,7 @@ export const HeaderWrapper = styled.header`
   margin-inline: 80px;
   margin-bottom: 40px;
   margin-top: 24px;
+  gap: 25px;
 `;
 
 export const SearchWrapper = styled.div`
@@ -16,6 +17,7 @@ export const SearchWrapper = styled.div`
   gap: 50px;
   width: 100%;
   position: relative;
+  margin-inline: 5px;
 `;
 
 export const SearchBlock = styled.div`

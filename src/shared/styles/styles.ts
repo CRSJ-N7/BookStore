@@ -9,10 +9,10 @@ export const BaseHeader = styled.h1<{ fontSize?: string }>`
   cursor: pointer;
 `;
 
-export const BaseParagraph = styled.p`
+export const BaseParagraph = styled.p<{ fontSize?: string }>`
   color: #344966;
   font-family: "Poppins", sans-serif;
-  font-size: 20px;
+  font-size: ${({ fontSize }) => fontSize ?? "20px"};
   font-weight: 400;
 `;
 
@@ -114,5 +114,6 @@ export const StyledInput = styled.input<{ variant?: InputVariant }>`
 
 export const FlexWrapper = styled.div<{ variant?: string }>`
   display: flex;
+  gap: 14px;
   flex-direction: ${({ variant }) => variant ?? "row"};
 `;

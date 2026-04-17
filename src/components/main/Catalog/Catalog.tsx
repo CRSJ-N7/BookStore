@@ -12,17 +12,17 @@ import {
 import BookItem from "./BookItem/BookItem";
 import { useEffect, useState } from "react";
 import bookApi from "../../../api/bookApi";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { setCurrentBook } from "../../../store/bookSlice";
+import { useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
 import { getBooksThunk } from "../../../store/getBookThunks";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { toast } from "react-toastify";
 
 const Catalog = () => {
   const books = useAppSelector((state) => state.books.books);
+  const user = useAppSelector((state) => state.auth.user);
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [favourites, setFavourites] = useState<number[]>([]);
 
   useEffect(() => {
@@ -30,9 +30,9 @@ const Catalog = () => {
       try {
         const books = await bookApi.getFavourites();
 
-        setFavourites(books.map((b) => b.id));
+        setFavourites(books.map((book) => book.id));
       } catch (e) {
-        console.error(e);
+        toast.error(`Failed to load favourites, ${e}`);
       }
     };
 
@@ -40,6 +40,10 @@ const Catalog = () => {
   }, []);
 
   const toggleFavourite = async (bookId: number) => {
+    if (!user) {
+      toast.info("You have to Log In first");
+      return;
+    }
     try {
       await bookApi.toggleFavourite(bookId);
 
@@ -49,7 +53,7 @@ const Catalog = () => {
           : [...prev, bookId],
       );
     } catch (e) {
-      console.error(e);
+      toast.error(`Failed to toggle favourite, ${e}`);
     }
   };
   useEffect(() => {
@@ -57,13 +61,6 @@ const Catalog = () => {
 
     dispatch(getBooksThunk(params));
   }, [dispatch, searchParams]);
-
-  const clickHandler = async (id: number) => {
-    const book = await bookApi.getBook(id);
-    dispatch(setCurrentBook(book));
-
-    navigate(`/books/${id}`);
-  };
 
   return (
     <CatalogWrapper>
@@ -82,7 +79,6 @@ const Catalog = () => {
             <BookItem
               key={book.id}
               book={book}
-              onClick={() => clickHandler(book.id)}
               isFavourite={favourites.includes(+book.id)}
               toggleFavourite={toggleFavourite}
             />

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export type Comment = {
   id: string;
@@ -20,15 +20,15 @@ const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {
-    setComments(state, action) {
+    setComments(state, action: PayloadAction<Comment[]>) {
       state.comments = action.payload;
     },
 
-    addComment(state, action) {
+    addComment(state, action: PayloadAction<Comment>) {
       state.comments.push(action.payload);
     },
 
-    removeComment(state, action) {
+    removeComment(state, action: PayloadAction<null>) {
       state.comments = state.comments.filter(
         (comment) => comment.id !== action.payload,
       );

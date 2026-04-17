@@ -63,6 +63,13 @@ const searchBook = async (name: string) => {
   return response.data;
 };
 
+const getRecommendations = async (bookId: number) => {
+  const response = await api.get<Book[]>("books/recommendations", {
+    params: { bookId },
+  });
+  return response.data;
+};
+
 export default {
   uploadBook,
   getBooks,
@@ -72,4 +79,5 @@ export default {
   toggleFavourite,
   getFavourites,
   searchBook,
+  getRecommendations,
 };

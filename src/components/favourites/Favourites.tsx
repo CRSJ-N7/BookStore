@@ -2,57 +2,42 @@ import { useEffect, useState } from "react";
 import bookApi from "../../api/bookApi";
 import type { Book } from "../../types/types";
 
-import favouritesIconFilled from "../../assets/icons/favouritesFilled.svg";
-import { useAppDispatch } from "../../hooks/hooks";
-import { setCurrentBook } from "../../store/bookSlice";
-import { useNavigate } from "react-router-dom";
-
 import {
-  StyledBookCover,
-  StyledBookTitle,
-  StyledBookAuthor,
-  StyledFavouriteIcon,
   FavouritesContainer,
   FavouritesWrapper,
-  BookItemWrapper,
   FavouritesHeader,
 } from "./Favourites.style";
+import ListItem from "./ListItem/ListItem";
+import { toast } from "react-toastify";
 
 const Favourites = () => {
   const [favourites, setFavourites] = useState<Book[]>([]);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const loadFavourites = async () => {
     try {
       const data = await bookApi.getFavourites();
       setFavourites(data);
     } catch (err) {
-      console.error("Failed to load favourites:", err);
+      toast.error(err as string);
     }
   };
 
   useEffect(() => {
-    setTimeout(() => loadFavourites());
+    loadFavourites();
   }, []);
 
-  const toggleFavourite = async (bookId: number) => {
+  const handleToggleFavourite = async (id: number) => {
     try {
-      await bookApi.toggleFavourite(bookId);
+      await bookApi.toggleFavourite(id);
       await loadFavourites();
     } catch (err) {
-      console.error("Failed to toggle favourite:", err);
+      toast.error(err as string);
     }
   };
 
-  const clickHandler = async (id: number) => {
-    const book = await bookApi.getBook(id);
-    dispatch(setCurrentBook(book));
-
-    navigate(`/books/${id}`);
-  };
-
-  if (favourites.length === 0) return <div>No favourites yet.</div>;
+  if (!favourites.length) {
+    return <div>No favourites yet.</div>;
+  }
 
   return (
     <FavouritesContainer>
@@ -60,20 +45,11 @@ const Favourites = () => {
 
       <FavouritesWrapper>
         {favourites.map((book) => (
-          <BookItemWrapper key={book.id}>
-            <StyledBookCover
-              src={book.cover}
-              onClick={() => clickHandler(book.id)}
-            />
-
-            <StyledFavouriteIcon
-              src={favouritesIconFilled}
-              onClick={() => toggleFavourite(book.id)}
-            />
-
-            <StyledBookTitle>{book.name}</StyledBookTitle>
-            <StyledBookAuthor>{book.author}</StyledBookAuthor>
-          </BookItemWrapper>
+          <ListItem
+            key={book.id}
+            book={book}
+            onToggleFavourite={() => handleToggleFavourite(book.id)}
+          />
         ))}
       </FavouritesWrapper>
     </FavouritesContainer>

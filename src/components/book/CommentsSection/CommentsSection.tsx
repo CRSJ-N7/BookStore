@@ -1,3 +1,9 @@
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+import commentApi from "../../../api/commentApi";
+import { useAppSelector } from "../../../hooks/hooks";
+
 import {
   CommentsWrapper,
   CommentInputWrapper,
@@ -11,25 +17,46 @@ import {
 } from "../BookProfile.style";
 
 import getDate from "../../../utilities/getDate";
-import type { Comment, User } from "../../../types/types";
+import type { Comment } from "../../../types/types";
 import { BaseHeader, StyledInput } from "../../../shared/styles/styles";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 
 type Props = {
-  comments: Comment[];
-  user: User | null;
-  newComment: string;
-  setNewComment: (value: string) => void;
-  onSubmit: () => void;
+  bookId: number;
 };
 
-const CommentsSection = ({
-  comments,
-  user,
-  newComment,
-  setNewComment,
-  onSubmit,
-}: Props) => {
+const CommentsSection = ({ bookId }: Props) => {
+  const user = useAppSelector((state) => state.auth.user);
+
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState("");
+
+  useEffect(() => {
+    const loadComments = async () => {
+      try {
+        const data = await commentApi.getComments(bookId.toString());
+        setComments(data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    loadComments();
+  }, [bookId]);
+
+  const handleSubmit = async () => {
+    if (!user || !newComment.trim()) return;
+
+    try {
+      const created = await commentApi.createComment(bookId, newComment);
+
+      setComments((prev) => [...prev, created]);
+      setNewComment("");
+    } catch (e) {
+      toast.error(`Error: ${e}`);
+    }
+  };
+
   return (
     <CommentsWrapper>
       <BaseHeader>Comments</BaseHeader>
@@ -61,7 +88,7 @@ const CommentsSection = ({
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Share a comment"
           />
-          <BaseButton onClick={onSubmit}>Post a comment</BaseButton>
+          <BaseButton onClick={handleSubmit}>Post a comment</BaseButton>
         </CommentInputWrapper>
       )}
     </CommentsWrapper>

@@ -15,15 +15,16 @@ export const BookTitle = styled.div`
 
 export const BookAuthorName = styled.div`
   font-family: "Poppins", sans-serif;
+  margin-top: 5px;
   font-size: 24px;
   font-weight: 400;
 `;
 
 export const BookDataWrapper = styled.div`
-  display: "flex";
-  flex-direction: "column";
-  align-items: "center";
+  display: flex;
+  flex-direction: column;
   margin-left: 20px;
+  height: 100%;
 `;
 
 export const QuantityWrapper = styled.div`

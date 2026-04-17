@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import theme from "../../theme/theme";
 
 export const FooterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0d1821;
+  background: ${theme.colors.primary.dark}; // - tuta
   height: 341px;
   padding: 48px 64px;
   margin-top: 30px;
