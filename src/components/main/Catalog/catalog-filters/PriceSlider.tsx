@@ -13,19 +13,33 @@ import filterArrow from "../../../../assets/main-page/filters/FilterArrow.svg";
 import { FlexWrapper } from "../../../../shared/styles/styles";
 
 const PriceSlider = () => {
-  const [value, setValue] = useState<number[]>([0, 999]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
 
+  const getInitialValue = (): number[] => {
+    const min = searchParams.get("min");
+    const max = searchParams.get("max");
+
+    if (min && max) {
+      return [Number(min), Number(max)];
+    }
+
+    return [0, 999];
+  };
+
+  const [value, setValue] = useState<number[]>(getInitialValue);
+
   const handleChange = (_: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
-  }; // pizdec
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const params = new URLSearchParams(searchParams);
+
       params.set("min", `${value[0]}`);
       params.set("max", `${value[1]}`);
+
       setSearchParams(params);
     }, 500);
 

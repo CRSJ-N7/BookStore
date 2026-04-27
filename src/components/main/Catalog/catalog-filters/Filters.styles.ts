@@ -4,13 +4,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 
-export const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)<{ sortFilter?: boolean }>`
   && {
     max-width: 250px;
     min-width: 196px;
     height: 44px;
     border-radius: 16px;
-    background: #f0f4ef;
+    background: ${({ sortFilter }) => (sortFilter ? "unset" : "#f0f4ef")};
   }
 
   && .MuiSelect-select {
@@ -64,7 +64,11 @@ export const StyledMenuItem = styled(MenuItem)`
   && {
     background: transparent;
     transition: 0.2s;
-    color: #b9bac3;
+  }
+
+  &&.MuiMenuItem-root {
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.75px;
   }
 
   &&:hover {

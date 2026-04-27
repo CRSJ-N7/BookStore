@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   ArrowIcon,
@@ -24,12 +24,20 @@ const SortSelect = () => {
     setSearchParams(params);
   };
 
+  useEffect(() => {
+    const currentSort = searchParams.get("sortBy");
+    if (currentSort) {
+      setSort(currentSort);
+    }
+  }, []);
+
   return (
     <StyledSelect
       value={sort}
       onChange={(e) => handleChange(e.target.value as string)}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
+      sortFilter
       renderValue={() => (
         <FlexWrapper
           justify="space-between"
