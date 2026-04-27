@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 
 export const GlobalContainer = styled.div`
-  width: 100%;
+  max-width: 1445px;
   margin: 0 auto;
-  box-sizing: border-box;
+  width: 100%;
 `;
 
 export const Loader = styled.div`

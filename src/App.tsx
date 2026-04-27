@@ -6,6 +6,7 @@ import { getMeThunk } from "./store/authThunks";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Footer from "./layouts/Footer/Footer";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,15 +26,18 @@ function App() {
   }
 
   return (
-    <GlobalContainer>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        toastStyle={{ backgroundColor: "#384a65", color: "white" }}
-        theme="colored"
-      />
-      <Outlet />
-    </GlobalContainer>
+    <>
+      <GlobalContainer>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          toastStyle={{ backgroundColor: "#384a65", color: "white" }}
+          theme="colored"
+        />
+        <Outlet />
+      </GlobalContainer>
+      <Footer />
+    </>
   );
 }
 
