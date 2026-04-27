@@ -1,56 +1,86 @@
-import Select from "@mui/material/Select";
+import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
 import ListItemText from "@mui/material/ListItemText";
-import { useState } from "react";
+import checked from "../../../../assets/main-page/filters/checked.svg";
+import unchecked from "../../../../assets/main-page/filters/unchecked.svg";
 import { useSearchParams } from "react-router-dom";
 import { useAppSelector } from "../../../../hooks/hooks";
-import checkedIcon from "../../../../assets/main-page/filters/checked.svg";
-import uncheckedIcon from "../../../../assets/main-page/filters/unchecked.svg";
+
+import { ArrowIcon, GenreText, StyledSelect } from "./Filters.styles";
+import filterArrow from "../../../../assets/main-page/filters/filterArrow.svg";
+import { FlexWrapper } from "../../../../shared/styles/styles";
 
 const GenreSelect = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentGenres = searchParams.get("genres");
-  const g = currentGenres?.split(","); // GENIUS BLYAT
+  const g = currentGenres?.split(",");
 
-  const [genres, setGenres] = useState<string | string[]>(g ?? []);
+  const [genres, setGenres] = useState<string[]>(g ?? []);
+  const [open, setOpen] = useState(false);
 
   const genresData = useAppSelector((state) => state.books.genres);
 
-  const handleGenreChange = (selectedGenres: string[]) => {
-    setGenres(selectedGenres);
+  const handleGenreChange = (selected: string[]) => {
+    setGenres(selected);
 
     const params = new URLSearchParams(searchParams);
-    if (selectedGenres.length > 0) {
-      params.set("genres", selectedGenres.join(","));
+
+    if (selected.length) {
+      params.set("genres", selected.join(","));
     } else {
       params.delete("genres");
     }
+
     setSearchParams(params);
   };
 
   return (
-    <Select
+    <StyledSelect
       multiple
       value={genres}
+      open={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
       onChange={(e) => handleGenreChange(e.target.value as string[])}
       displayEmpty
-      renderValue={() => "Genre"}
+      renderValue={() => (
+        <FlexWrapper
+          justify="space-between"
+          align="center"
+          style={{ width: "100%" }}
+        >
+          <GenreText>Genre</GenreText>
+
+          <ArrowIcon
+            src={filterArrow}
+            style={{
+              transform: open ? "rotate(90deg)" : "rotate(0deg)",
+            }}
+          />
+        </FlexWrapper>
+      )}
+      MenuProps={{
+        PaperProps: {
+          sx: {
+            mt: 1,
+            borderRadius: "12px",
+            background: "#F0F4EF",
+          },
+        },
+      }}
     >
-      {genresData.map((item) => {
-        return (
-          <MenuItem key={item} value={item}>
-            <Checkbox
-              icon={<img src={uncheckedIcon} />}
-              checkedIcon={<img src={checkedIcon} />}
-              checked={genres.includes(item)}
-              sx={{ borderRadius: 0 }}
-            />
-            <ListItemText primary={item} />
-          </MenuItem>
-        );
-      })}
-    </Select>
+      {genresData.map((item) => (
+        <MenuItem key={item} value={item}>
+          <Checkbox
+            icon={<img src={unchecked} />}
+            checkedIcon={<img src={checked} />}
+            checked={genres.includes(item)}
+          />
+          <ListItemText primary={item} />
+        </MenuItem>
+      ))}
+    </StyledSelect>
   );
 };
 

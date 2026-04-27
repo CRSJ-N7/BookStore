@@ -15,7 +15,10 @@ export const CatalogNav = styled.div`
   margin-inline: 80px;
 `;
 
-export const SelectWrapper = styled.div``;
+export const SelectWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 
 export const BooksWrapper = styled.div`
   margin-top: 38px;

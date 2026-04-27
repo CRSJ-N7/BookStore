@@ -25,41 +25,51 @@ export const BaseButton = styled(MuiButton)<ButtonStyled>`
     opacity: 0.9;
     background: #0d1821;
   }
+
   &&:focus {
     box-shadow: 0 0 0 8px rgba(214, 216, 231, 0.5);
     background: #344966;
   }
+
   ${(props) =>
     props.disabled &&
     `
-    && { background: #e0e0e0;
-    color: #9e9e9e;
-    cursor: not-allowed;
-  }
+    && {
+      background: #e0e0e0 !important;
+      color: #9e9e9e !important;
+      cursor: not-allowed;
+      opacity: 1 !important;
+    }
 
     &&:hover {
-      background: #e0e0e0;
+      background: #e0e0e0 !important;
       opacity: 1;
     }
   `}
 
+  &&.Mui-disabled {
+    pointer-events: auto;
+    cursor: not-allowed;
+  }
+
   ${(props) =>
     props.option === "secondary" &&
     `
-  && { background: white;
-  color: #0D1821;
-  border: 1px solid #0D1821;
-  }
+    && {
+      background: white;
+      color: #0D1821;
+      border: 1px solid #0D1821;
+    }
 
-  &&:hover:not(:focus) {
-    border: 3px solid #0D1821;
-    background: white;
-    transition: none;
-  }
+    &&:hover:not(:focus) {
+      border: 3px solid #0D1821;
+      background: white;
+      transition: none;
+    }
 
-  &&:focus {
-    box-shadow: 0 0 0 8px rgba(214, 216, 231, 0.5);
-    background: white !important;
-  }
+    &&:focus {
+      box-shadow: 0 0 0 8px rgba(214, 216, 231, 0.5);
+      background: white;
+    }
   `}
 `;

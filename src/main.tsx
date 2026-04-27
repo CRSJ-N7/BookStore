@@ -4,9 +4,13 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/routes.tsx";
+import { ThemeProvider } from "@emotion/react";
+import theme from "./theme/theme.ts";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </Provider>,
 );

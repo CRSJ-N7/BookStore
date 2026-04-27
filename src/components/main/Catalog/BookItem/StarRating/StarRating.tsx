@@ -21,7 +21,6 @@ const StarRating = ({ rating, onRate, noMargin }: Props) => {
           <Star
             key={value}
             src={value <= rating ? starFilled : star}
-            filled={value <= rating}
             onClick={() => onRate(value)}
           />
         ))}

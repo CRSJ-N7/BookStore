@@ -112,8 +112,14 @@ export const StyledInput = styled.input<{ variant?: InputVariant }>`
   }}
 `;
 
-export const FlexWrapper = styled.div<{ variant?: string }>`
+export const FlexWrapper = styled.div<{
+  variant?: string;
+  justify?: string;
+  align?: string;
+}>`
   display: flex;
   gap: 14px;
   flex-direction: ${({ variant }) => variant ?? "row"};
+  justify-content: ${({ justify }) => justify ?? "flex-start"};
+  align-items: ${({ align }) => align ?? "stretch"};
 `;

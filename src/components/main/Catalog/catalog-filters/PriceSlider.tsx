@@ -1,21 +1,25 @@
-import Box from "@mui/material/Box";
-import Select from "@mui/material/Select";
-import Slider from "@mui/material/Slider";
 import { useEffect, useState } from "react";
-import { PriceValue, PriceWrapper } from "./PriceSlider.styles";
 import { useSearchParams } from "react-router-dom";
+import {
+  ArrowIcon,
+  GenreText,
+  PriceValue,
+  PriceWrapper,
+  SliderBox,
+  StyledSelect,
+  StyledSlider,
+} from "./Filters.styles";
+import filterArrow from "../../../../assets/main-page/filters/FilterArrow.svg";
+import { FlexWrapper } from "../../../../shared/styles/styles";
 
 const PriceSlider = () => {
   const [value, setValue] = useState<number[]>([0, 999]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [open, setOpen] = useState(false);
 
-  const handleChange = (_event: Event, newValue: number[]) => {
-    setValue(newValue);
-    // const params = new URLSearchParams(searchParams);
-    // params.set("min", `${newValue[0]}`);
-    // params.set("max", `${newValue[1]}`);
-    // setSearchParams(params);
-  };
+  const handleChange = (_: Event, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+  }; // pizdec
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,9 +33,43 @@ const PriceSlider = () => {
   }, [value]);
 
   return (
-    <Select displayEmpty value="Price" renderValue={() => "Price"}>
-      <Box sx={{ width: 300, padding: "25px" }}>
-        <Slider
+    <StyledSelect
+      displayEmpty
+      value="Price"
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      renderValue={() => (
+        <FlexWrapper
+          justify="space-between"
+          align="center"
+          style={{ width: "100%" }}
+        >
+          <GenreText>Price</GenreText>
+
+          <ArrowIcon
+            src={filterArrow}
+            style={{
+              transform: open ? "rotate(90deg)" : "rotate(0deg)",
+            }}
+          />
+        </FlexWrapper>
+      )}
+      MenuProps={{
+        MenuListProps: {
+          sx: {
+            paddingTop: 0,
+            paddingBottom: 0,
+          },
+        },
+        PaperProps: {
+          sx: {
+            marginTop: "10px",
+          },
+        },
+      }}
+    >
+      <SliderBox>
+        <StyledSlider
           value={value}
           onChange={handleChange}
           min={0}
@@ -39,12 +77,13 @@ const PriceSlider = () => {
           onMouseDown={(e) => e.stopPropagation()}
           onClick={(e) => e.stopPropagation()}
         />
+
         <PriceWrapper>
           <PriceValue>€ {value[0]}</PriceValue>
           <PriceValue>€ {value[1]}</PriceValue>
         </PriceWrapper>
-      </Box>
-    </Select>
+      </SliderBox>
+    </StyledSelect>
   );
 };
 

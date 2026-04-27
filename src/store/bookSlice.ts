@@ -5,7 +5,7 @@ import { getBooksThunk } from "./getBookThunks";
 type BookState = {
   books: Book[];
   genres: Genres;
-  currentBook: Book | null;
+  currentBook: Book | null;//
   currentFavourites: Book[];
   loading: boolean;
   totalPages: number;

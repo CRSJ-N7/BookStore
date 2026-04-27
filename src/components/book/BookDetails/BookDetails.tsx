@@ -23,6 +23,7 @@ import { RateArrow, RatingWrapper } from "./BookDetails.styles";
 import type { Book } from "../../../types/types";
 import cartApi from "../../../api/cartApi";
 import { setCart } from "../../../store/cartSlice";
+import Button from "../../../shared/ui/Button/Button";
 
 type Props = {
   bookId: number;
@@ -48,7 +49,7 @@ const BookDetails = ({ bookId }: Props) => {
 
   const handleRate = async (value: number) => {
     if (!user || !book) {
-      toast.error("You have to login first");
+      toast.error("You have to login first"); // navigate login
       return;
     }
 
@@ -60,7 +61,7 @@ const BookDetails = ({ bookId }: Props) => {
     }
   };
 
-  const addToCartHandler = async (bookId: number) => {
+  const addToCartHandler = async () => {
     try {
       await cartApi.addToCart(bookId);
       const data = await cartApi.getCart();
@@ -106,14 +107,12 @@ const BookDetails = ({ bookId }: Props) => {
         <ButtonsWrapper>
           <FlexWrapper variant="column">
             <BaseParagraph fontSize="16px">Paperback</BaseParagraph>
-            <BaseButton available={false}>Not Available</BaseButton>
+            <Button available={false}>Not Available</Button>
           </FlexWrapper>
 
           <FlexWrapper variant="column">
             <BaseParagraph fontSize="16px">Hardcover</BaseParagraph>
-            <BaseButton onClick={() => addToCartHandler(book.id)}>
-              {book.price}€
-            </BaseButton>
+            <BaseButton onClick={addToCartHandler}>{book.price}€</BaseButton>
           </FlexWrapper>
         </ButtonsWrapper>
       </InfoWrapper>

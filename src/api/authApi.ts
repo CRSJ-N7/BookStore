@@ -31,8 +31,8 @@ type LogInResponse = {
 export type GetMeResponse = {
   id: number;
   email: string;
-  name: string;
-  avatar: string | null;
+  name?: string;
+  avatar?: string;
 };
 
 type ChangePasswordBody = {

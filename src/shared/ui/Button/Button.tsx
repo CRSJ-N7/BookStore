@@ -9,7 +9,7 @@ type Props = ButtonProps & {
 };
 
 const Button = ({ option, available = true, ...props }: Props) => {
-  return <BaseButton option={option} available={available} {...props} />;
+  return <BaseButton option={option} disabled={!available} {...props} />;
 };
 
 export default Button;

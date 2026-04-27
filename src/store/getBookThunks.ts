@@ -7,7 +7,7 @@ export const getBooksThunk = createAsyncThunk(
   async (params: GetBooksParmas | null, { rejectWithValue }) => {
     try {
       const booksData = await bookApi.getBooks(params);
-      const genresData = await bookApi.getGenres();
+      const genresData = await bookApi.getGenres(); // жанры не нужно постоянно запрашивать
 
       return {
         books: booksData.filteredBooks,

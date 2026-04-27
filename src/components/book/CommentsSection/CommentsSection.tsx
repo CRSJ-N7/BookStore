@@ -48,7 +48,10 @@ const CommentsSection = ({ bookId }: Props) => {
     if (!user || !newComment.trim()) return;
 
     try {
-      const created = await commentApi.createComment(bookId, newComment);
+      const created = await commentApi.createComment(
+        bookId,
+        newComment
+      );
 
       setComments((prev) => [...prev, created]);
       setNewComment("");
@@ -88,7 +91,9 @@ const CommentsSection = ({ bookId }: Props) => {
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Share a comment"
           />
-          <BaseButton onClick={handleSubmit}>Post a comment</BaseButton>
+          <BaseButton onClick={handleSubmit}>
+            Post a comment
+          </BaseButton>
         </CommentInputWrapper>
       )}
     </CommentsWrapper>
