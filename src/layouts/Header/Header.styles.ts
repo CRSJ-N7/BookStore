@@ -9,36 +9,80 @@ export const HeaderWrapper = styled.header`
   margin-bottom: 40px;
   margin-top: 24px;
   gap: 25px;
+
+  @media (max-width: 834px) {
+    margin-inline: 16px;
+  }
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    height: auto;
+    row-gap: 16px;
+    margin-inline: 16px;
+  }
+
+  @media (max-width: 350px) {
+    margin-inline: 8px;
+    gap: 6px;
+    row-gap: 8px;
+  }
 `;
 
 export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 12px;
   width: 100%;
   position: relative;
   margin-inline: 5px;
+
+  @media (max-width: 834px) {
+    width: 100%;
+  }
 `;
 
 export const SearchBlock = styled.div`
   display: flex;
-  max-width: 800px;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
   flex: 1;
-`;
+  min-width: 0;
+  max-width: 800px;
+  align-items: center;
 
+  @media (max-width: 480px) {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+`;
 export const CatalogText = styled.p`
   font-weight: 500;
   font-family: "Poppins";
   cursor: pointer;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    order: 1;
+  }
+
+  @media (max-width: 350px) {
+    font-size: 12px;
+  }
 `;
 
 export const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 27px;
+
+  @media (max-width: 480px) {
+    order: 2;
+    gap: 17px;
+  }
+
+  @media (max-width: 350px) {
+    gap: 10px;
+  }
 `;
 
 export const ProfileIcons = styled.img`
@@ -46,6 +90,11 @@ export const ProfileIcons = styled.img`
   height: 48px;
   cursor: pointer;
   border-radius: 60%;
+
+  @media (max-width: 480px) {
+    width: 33px;
+    height: 32px;
+  }
 `;
 
 export const ProfileIconsBlanked = styled.div`
@@ -61,6 +110,11 @@ export const ProfileIconsBlanked = styled.div`
   font-family: "Poppins", sans-serif;
   color: white;
   cursor: pointer;
+
+  @media (max-width: 480px) {
+    width: 33px;
+    height: 32px;
+  }
 `;
 
 export const SvgTestWrapper = styled.div`
@@ -71,6 +125,11 @@ export const CartIconMainEllipse = styled.img`
   position: relative;
   width: 48px;
   height: 48px;
+
+  @media (max-width: 480px) {
+    width: 33px;
+    height: 32px;
+  }
 `;
 
 export const CartIconSecondEllipse = styled.img`
@@ -79,6 +138,13 @@ export const CartIconSecondEllipse = styled.img`
   height: 26px;
   right: -7px;
   top: -7px;
+
+  @media (max-width: 480px) {
+    width: 14px;
+    height: 14px;
+    right: -3px;
+    top: -3px;
+  }
 `;
 
 export const CartIcon = styled.img`
@@ -88,6 +154,13 @@ export const CartIcon = styled.img`
   z-index: 2;
   left: 11px;
   top: 11px;
+
+  @media screen and (max-width: 480px) {
+    left: 7.5px;
+    top: 7.5px;
+    width: 17px;
+    height: 17px;
+  }
 `;
 
 export const Quantity = styled.p`
@@ -99,4 +172,11 @@ export const Quantity = styled.p`
   font-size: 12px;
   font-weight: 700;
   color: #344966;
+
+  @media screen and (max-width: 480px) {
+    left: 26px;
+    top: -3px;
+    width: 17px;
+    height: 17px;
+  }
 `;

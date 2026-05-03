@@ -72,4 +72,7 @@ export const BaseButton = styled(MuiButton)<ButtonStyled>`
       background: white;
     }
   `}
+  @media screen and (max-width: 320px) {
+    font-size: 14px;
+  }
 `;

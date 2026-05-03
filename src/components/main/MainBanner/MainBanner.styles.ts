@@ -7,10 +7,18 @@ export const MainWrapper = styled.div`
   justify-content: space-between;
   position: relative;
   padding: 50px;
+
+  @media screen and (max-width: 1111px) {
+    margin-inline: 16px;
+  }
 `;
 
 export const MainImage = styled.img`
   align-self: flex-end;
+
+  @media screen and (max-width: 864px) {
+    aspect-ratio: 364/328;
+  }
 `;
 
 export const BackgroundImage = styled.img`

@@ -24,7 +24,6 @@ const Admin = () => {
   };
 
   const currentUser = useSelector((state: RootState) => state.auth.user);
-  const currentUserCart = useSelector((state: RootState) => state.cart.cart);
   const books = useSelector((state: RootState) => state.books.books);
 
   const navigate = useNavigate();
@@ -86,14 +85,7 @@ const Admin = () => {
       <h2>Current User:</h2>
       <div>ID: {currentUser?.id}</div>
       <div>NAME: {currentUser?.name}</div>
-      <div>
-        {currentUserCart?.map((item) => (
-          <div>
-            <p key={item.id}></p>
-            <p key={item.name}></p>
-          </div>
-        ))}
-      </div>
+
       <div></div>
       <BaseButton onClick={handleUploadFormClick}>Upload Book</BaseButton>
       {uploadBookForm && (

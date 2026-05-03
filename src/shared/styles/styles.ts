@@ -7,6 +7,13 @@ export const BaseHeader = styled.h1<{ fontSize?: string }>`
   font-size: ${({ fontSize }) => fontSize ?? "40px"};
   font-weight: 700;
   cursor: pointer;
+
+  @media screen and (max-width: 834px) {
+    font-size: 24px;
+  }
+  @media screen and (max-width: 320px) {
+    font-size: 18px;
+  }
 `;
 
 export const BaseParagraph = styled.p<{ fontSize?: string }>`
@@ -14,6 +21,10 @@ export const BaseParagraph = styled.p<{ fontSize?: string }>`
   font-family: "Poppins", sans-serif;
   font-size: ${({ fontSize }) => fontSize ?? "20px"};
   font-weight: 400;
+
+  @media screen and (max-width: 834px) {
+    font-size: 16px;
+  }
 `;
 
 export const BaseLogo = styled.img`

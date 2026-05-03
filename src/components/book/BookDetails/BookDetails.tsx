@@ -6,8 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
 import {
   CoverWrapper,
-  BookCover,
-  InfoWrapper,
+  // InfoWrapper,
   BookTitle,
   BookAuthor,
   Description,
@@ -18,7 +17,11 @@ import Arrow from "../../../assets/icons/RateArrow.svg";
 import StarRating from "../../main/Catalog/BookItem/StarRating/StarRating";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 import { BaseParagraph, FlexWrapper } from "../../../shared/styles/styles";
-import { RateArrow, RatingWrapper } from "./BookDetails.styles";
+import {
+  RateArrow,
+  RatingWrapper,
+  StyledBookCover,
+} from "./BookDetails.styles";
 
 import type { Book } from "../../../types/types";
 import cartApi from "../../../api/cartApi";
@@ -77,15 +80,12 @@ const BookDetails = ({ bookId }: Props) => {
 
   return (
     <>
-      <CoverWrapper>
-        <BookCover
-          style={{ width: "522px", height: "779px" }}
-          src={book.cover}
-          alt={book.name}
-        />
-      </CoverWrapper>
+      <div>
+        <CoverWrapper>
+          <StyledBookCover src={book.cover} alt={book.name} />
+        </CoverWrapper>
 
-      <InfoWrapper>
+        {/* <InfoWrapper> */}
         <BookTitle>{book.name}</BookTitle>
         <BookAuthor>{book.author}</BookAuthor>
 
@@ -94,28 +94,30 @@ const BookDetails = ({ bookId }: Props) => {
             rating={book.avgRating ?? 0}
             onRate={handleRate}
             noMargin
+            bookProfile
           />
           <RateArrow src={Arrow} />
           <BaseParagraph style={{ color: "#B9BAC3", fontSize: "16px" }}>
             Rate this book
           </BaseParagraph>
         </RatingWrapper>
+      </div>
 
-        <BookAuthor>Description</BookAuthor>
-        <Description>{book.description}</Description>
+      <BookAuthor>Description</BookAuthor>
+      <Description>{book.description}</Description>
 
-        <ButtonsWrapper>
-          <FlexWrapper variant="column">
-            <BaseParagraph fontSize="16px">Paperback</BaseParagraph>
-            <Button available={false}>Not Available</Button>
-          </FlexWrapper>
+      <ButtonsWrapper>
+        <FlexWrapper variant="column">
+          <BaseParagraph fontSize="16px">Paperback</BaseParagraph>
+          <Button available={false}>Not Available</Button>
+        </FlexWrapper>
 
-          <FlexWrapper variant="column">
-            <BaseParagraph fontSize="16px">Hardcover</BaseParagraph>
-            <BaseButton onClick={addToCartHandler}>{book.price}€</BaseButton>
-          </FlexWrapper>
-        </ButtonsWrapper>
-      </InfoWrapper>
+        <FlexWrapper variant="column">
+          <BaseParagraph fontSize="16px">Hardcover</BaseParagraph>
+          <BaseButton onClick={addToCartHandler}>{book.price}€</BaseButton>
+        </FlexWrapper>
+      </ButtonsWrapper>
+      {/* </InfoWrapper> */}
     </>
   );
 };

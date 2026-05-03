@@ -1,7 +1,7 @@
 import { BaseLogo, BaseParagraph } from "../../shared/styles/styles";
 import footerLogo from "../../assets/footer/footer-logo.png";
 import map from "../../assets/footer/map.png";
-import { InfoWrapper, FooterWrapper } from "./Footer.styles";
+import { InfoWrapper, FooterWrapper, MapImage } from "./Footer.styles";
 
 const Footer = () => {
   return (
@@ -23,7 +23,7 @@ const Footer = () => {
 
       <InfoWrapper>
         <BaseParagraph>6391 Elgin St. Celina, Delaware 10299</BaseParagraph>
-        <img src={map} alt="logo"></img>
+        <MapImage src={map} alt="logo"></MapImage>
       </InfoWrapper>
     </FooterWrapper>
   );

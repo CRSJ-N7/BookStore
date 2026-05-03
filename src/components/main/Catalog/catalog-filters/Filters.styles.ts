@@ -6,7 +6,7 @@ import Slider from "@mui/material/Slider";
 
 export const StyledSelect = styled(Select)<{ sortFilter?: boolean }>`
   && {
-    max-width: 250px;
+    flex: 1;
     min-width: 196px;
     height: 44px;
     border-radius: 16px;
@@ -34,6 +34,9 @@ export const StyledSelect = styled(Select)<{ sortFilter?: boolean }>`
 
   && .MuiSelect-icon {
     display: none;
+  }
+
+  @media screen and (max-width: 1111px) {
   }
 `;
 export const GenreText = styled.span`

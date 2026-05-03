@@ -5,17 +5,18 @@ export const BookItemWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  max-width: 305px;
   position: relative;
 `;
 
 export const BookCover = styled.img`
   width: 100%;
-  height: auto;
-  aspect-ratio: 305/448;
+  aspect-ratio: 305 / 448;
+  object-fit: cover; /* ← ВАЖНО */
+
   border-radius: 4px;
   margin-bottom: 30px;
   cursor: pointer;
+
   transition:
     0.4s ease transform,
     0.7s ease box-shadow;
@@ -23,6 +24,14 @@ export const BookCover = styled.img`
   &:hover {
     transform: scale(1.05);
     box-shadow: 0px 25px 25px 0px #bfbfbfff;
+  }
+
+  @media (max-width: 834px) {
+    aspect-ratio: 254 / 372;
+  }
+
+  @media (max-width: 480px) {
+    aspect-ratio: 135 / 192;
   }
 `;
 

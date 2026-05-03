@@ -5,6 +5,10 @@ export const ProfileWrapper = styled.div`
   flex-direction: column;
   gap: 32px;
   margin-inline: 80px;
+
+  @media screen and (max-width: 834px) {
+    margin-inline: 16px;
+  }
 `;
 
 export const TopSection = styled.div`
@@ -14,7 +18,7 @@ export const TopSection = styled.div`
 `;
 
 export const CoverWrapper = styled.div`
-  flex: 0 0 300px;
+  /* flex: 0 0 300px; */
 `;
 
 export const BookCover = styled.img`
@@ -38,7 +42,7 @@ export const BookTitle = styled.h1`
 export const BookAuthor = styled.h3`
   margin: 0;
   font-size: 18px;
-  color: #555;
+  color: ${({ theme }) => theme.colors.primary.darkBlue};
 `;
 
 export const Description = styled.p`
@@ -122,8 +126,6 @@ export const CommentUserName = styled.span`
   letter-spacing: 0.75px;
   color: #0d1821;
 `;
-
-// color: ${(p) => p.theme.color.greenMain};
 
 export const CommentUserText = styled.span`
   font-family: "Poppins", sans-serif;

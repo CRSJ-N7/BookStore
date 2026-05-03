@@ -16,9 +16,7 @@ const BookProfile = () => {
   return (
     <>
       <ProfileWrapper>
-        <TopSection>
-          <BookDetails bookId={+id} />
-        </TopSection>
+        <BookDetails bookId={+id} />
 
         <CommentsSection bookId={+id} />
       </ProfileWrapper>

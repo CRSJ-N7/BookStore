@@ -11,11 +11,12 @@ type Props = {
   rating: number;
   onRate: (value: number) => void;
   noMargin?: boolean;
+  bookProfile?: boolean;
 };
 
-const StarRating = ({ rating, onRate, noMargin }: Props) => {
+const StarRating = ({ rating, onRate, noMargin, bookProfile }: Props) => {
   return (
-    <StarRatingWrapper noMargin={noMargin}>
+    <StarRatingWrapper noMargin={noMargin} bookProfile={bookProfile}>
       <StarsContainer>
         {[1, 2, 3, 4, 5].map((value) => (
           <Star
