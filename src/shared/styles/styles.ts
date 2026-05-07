@@ -1,19 +1,50 @@
 import Button from "@mui/material/Button";
-import styled, { css } from "styled-components";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
-export const BaseHeader = styled.h1<{ fontSize?: string }>`
-  color: #0d1821;
-  font-family: "Poppins", sans-serif;
-  font-size: ${({ fontSize }) => fontSize ?? "40px"};
+// const BREAK_POINTS = {
+//   md: 834,
+//   sm: 320,
+// } as const;
+
+// const getMediaString = (type: keyof typeof BREAK_POINTS) => {
+//   return `@media screen and (max-width: ${BREAK_POINTS[type]}px)`
+// }
+
+// const getCustomString = (val: number) => {
+//   return `@media screen and (max-width: ${val}px)`
+// }
+
+// const MEDIA_STRING = {
+//   maxWidth: {
+//     md: getMediaString('md'),
+//     sm: getMediaString('sm'),
+//     custom: getCustomString,
+//   }
+// }
+
+// const theme = {
+//   typography: {
+//     body1: css`
+//       font-size: 14px;
+//       font-weight: 500;
+//       line-height: 18px;
+//     `,
+//     body2: css`
+//       font-size: 14px;
+//       font-weight: 400;
+//       line-height: 18px;
+//     `
+//   }
+// } as const;
+
+export const BaseHeader = styled.h1<{ profile?: boolean }>`
+  color: #0d1821; // theme
+  font-family: "Poppins", sans-serif; // base
+  font-size: ${({ profile }) =>
+    profile ? "clamp(16px, 2vw, 24px)" : "clamp(28px, 3vw, 40px)"};
   font-weight: 700;
   cursor: pointer;
-
-  @media screen and (max-width: 834px) {
-    font-size: 24px;
-  }
-  @media screen and (max-width: 320px) {
-    font-size: 18px;
-  }
 `;
 
 export const BaseParagraph = styled.p<{ fontSize?: string }>`
@@ -36,7 +67,7 @@ export const BaseInputToolTip = styled.p`
   margin-top: 9px;
   font-size: 12px;
   font-family: "Poppins", sans-serif;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
   letter-spacing: 0.75px;
 `;
 
@@ -69,21 +100,19 @@ export const StyledAdornment = styled.div`
   z-index: 1;
 `;
 
-type InputVariant = "search" | "profile" | "auth";
+type InputVariant = "search" | "profile" | "auth" | "comment";
 
 export const StyledInput = styled.input<{ variant?: InputVariant }>`
   font-size: 16px;
   height: 64px;
   padding-inline: 50px;
-
   background-color: #f0f4ef;
   border-radius: 16px;
   border: 1px solid transparent;
   outline: none;
   letter-spacing: 0.75px;
   font-family: "Poppins", sans-serif;
-
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
 
   &:focus {
     outline: 1px solid #0d1821;
@@ -91,7 +120,14 @@ export const StyledInput = styled.input<{ variant?: InputVariant }>`
   }
 
   &::placeholder {
-    color: #999;
+    color: ${({ theme }) => theme.palette.info.main};
+    font-size: clamp(14px, 1.5vw, 18px);
+  }
+
+  @media screen and (max-width: 480px) {
+    &::placeholder {
+      /* font-size: 12px; */
+    }
   }
 
   ${({ variant }) => {
@@ -99,20 +135,39 @@ export const StyledInput = styled.input<{ variant?: InputVariant }>`
       case "search":
         return css`
           min-width: 0;
-          max-width: 630px;
+          max-width: inherit;
           width: 100%;
         `;
 
       case "auth":
         return css`
-          width: 413px;
+          width: 100%;
+          max-width: 413px;
         `;
 
       case "profile":
         return css`
-          width: 522px;
+          width: 100%;
+          max-width: 522px;
           padding-top: 15px;
           font-weight: 400;
+        `;
+
+      case "comment":
+        return css`
+          width: 100%;
+          height: 128px;
+          font-weight: 400;
+
+          ::placeholder {
+            position: absolute;
+            left: 25px;
+            top: 25px;
+          }
+
+          @media screen and (max-width: 480px) {
+            height: 87px;
+          }
         `;
 
       default:
@@ -127,10 +182,18 @@ export const FlexWrapper = styled.div<{
   variant?: string;
   justify?: string;
   align?: string;
+  maxWidth?: string;
 }>`
   display: flex;
   gap: 14px;
+  width: stretch;
+  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "231px")};
+  min-width: 0;
   flex-direction: ${({ variant }) => variant ?? "row"};
   justify-content: ${({ justify }) => justify ?? "flex-start"};
   align-items: ${({ align }) => align ?? "stretch"};
+
+  .book-details__text {
+    font-size: 16px;
+  }
 `;

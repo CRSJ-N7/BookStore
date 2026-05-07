@@ -11,9 +11,14 @@ import {
   BookDataWrapper,
   QuantityButton,
   CheckoutWrapper,
-  TotalPrice,
   ItemPrice,
   BookCover,
+  TotalPriceWrapper,
+  TotalPrice,
+  EmptyCartContainer,
+  CartImage,
+  EmptyCartInfoWrapper,
+  ButtonWrapper,
 } from "./Cart.styles";
 
 import cartApi from "../../api/cartApi";
@@ -23,6 +28,8 @@ import { setCart } from "../../store/cartSlice";
 import DeleteIcon from "../../assets/icons/Delete.svg";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import Divider from "@mui/material/Divider";
+import { BaseHeader, BaseParagraph } from "../../shared/styles/styles";
+import EmptyCart from "../../assets/cart/emptyFolder.png";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
@@ -68,7 +75,23 @@ const Cart = () => {
   };
 
   if (items.length === 0) {
-    return <div>Your cart is empty</div>;
+    return (
+      <EmptyCartContainer>
+        <CartImage src={EmptyCart}></CartImage>
+        <EmptyCartInfoWrapper>
+          <BaseHeader>Your cart is empty</BaseHeader>
+          <BaseParagraph>
+            Add items to cart to make a purchase. <br />
+            Go to the catalogue no.
+          </BaseParagraph>
+          <Link to={"/"}>
+            <ButtonWrapper>
+              <BaseButton>Go to catalog</BaseButton>
+            </ButtonWrapper>
+          </Link>
+        </EmptyCartInfoWrapper>
+      </EmptyCartContainer>
+    );
   }
 
   return (
@@ -119,15 +142,16 @@ const Cart = () => {
         </>
       ))}
 
-      <TotalPrice>
-        Total: <strong>{totalPrice}€</strong>
-      </TotalPrice>
+      <TotalPriceWrapper>
+        <TotalPrice>
+          Total: <strong>{totalPrice}€</strong>
+        </TotalPrice>
+      </TotalPriceWrapper>
 
       <CheckoutWrapper>
         <BaseButton option="secondary" onClick={clearCartHandler}>
           Clear Cart
         </BaseButton>
-
         <BaseButton>Checkout</BaseButton>
       </CheckoutWrapper>
     </CartWrapper>

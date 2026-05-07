@@ -6,6 +6,7 @@ import { BaseButton } from "../../shared/ui/Button/Button.styles";
 import { useAppDispatch } from "../../hooks/hooks";
 import { logOut } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+import { ButtonWrapper } from "../../shared/ui/Info/InfoContainer.styles";
 
 const ProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,9 @@ const ProfilePage = () => {
       <ProfileDataContainer>
         <ProfileInfoSection />
         <PasswordSection />
-        <BaseButton onClick={logoutHandler}>Logout</BaseButton>
+        <ButtonWrapper>
+          <BaseButton onClick={logoutHandler}>Logout</BaseButton>
+        </ButtonWrapper>
       </ProfileDataContainer>
     </UserProfileWrapper>
   );

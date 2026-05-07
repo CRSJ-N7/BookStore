@@ -4,15 +4,18 @@ import MuiButton from "@mui/material/Button";
 type ButtonStyled = {
   available?: boolean;
   option?: "default" | "secondary";
+  banner?: boolean;
 };
 
 export const BaseButton = styled(MuiButton)<ButtonStyled>`
   && {
+    display: flex;
+    flex-wrap: nowrap;
     text-transform: none;
-    padding: 10px 50px;
-    width: 231px;
-    height: 44px;
+    padding: clamp(8px, 1vw, 10px) clamp(25px, 1vw, 45px);
     font-weight: 500;
+    max-height: 44px;
+    width: 100%;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.75px;
     background: #344966;
@@ -28,7 +31,7 @@ export const BaseButton = styled(MuiButton)<ButtonStyled>`
 
   &&:focus {
     box-shadow: 0 0 0 8px rgba(214, 216, 231, 0.5);
-    background: #344966;
+    background: ${({ theme }) => theme.palette.primary.main};
   }
 
   ${(props) =>
@@ -72,7 +75,4 @@ export const BaseButton = styled(MuiButton)<ButtonStyled>`
       background: white;
     }
   `}
-  @media screen and (max-width: 320px) {
-    font-size: 14px;
-  }
 `;

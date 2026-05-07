@@ -10,8 +10,10 @@ import {
   CartIcon,
   SvgTestWrapper,
   Quantity,
-  SearchWrapper,
   ProfileIconsBlanked,
+  RightSlot,
+  HeaderStyledAdornment,
+  InputContainer,
 } from "./Header.styles";
 
 import SearchIcon from "../../assets/icons/Search.svg";
@@ -22,11 +24,7 @@ import ElipseDark from "../../assets/icons/EllipseLightBlue.svg";
 import ElipseGreen from "../../assets/icons/EllipseGreen.svg";
 
 import Button from "../../shared/ui/Button/Button";
-import {
-  BaseLogo,
-  StyledAdornment,
-  StyledInput,
-} from "../../shared/styles/styles";
+import { BaseLogo, StyledInput } from "../../shared/styles/styles";
 
 import { useNavigate } from "react-router-dom";
 
@@ -78,10 +76,10 @@ const Header = () => {
         <CatalogText onClick={() => navigate("/")}>Catalog</CatalogText>
 
         <SearchBlock>
-          <SearchWrapper>
-            <StyledAdornment>
+          <InputContainer>
+            <HeaderStyledAdornment>
               <img src={SearchIcon} />
-            </StyledAdornment>
+            </HeaderStyledAdornment>
 
             <StyledInput
               variant="search"
@@ -91,44 +89,46 @@ const Header = () => {
               onKeyDown={(e) => handleKeyDown(e.key)}
             />
             {dropDown ? <BooksDropDown searchedBooks={searchedBooks} /> : null}
-          </SearchWrapper>
+          </InputContainer>
         </SearchBlock>
 
-        {!user ? (
-          <Button variant="contained" onClick={() => navigate("/auth/login")}>
-            Log in / Sign Up
-          </Button>
-        ) : (
-          <ProfileWrapper>
-            <SvgTestWrapper onClick={() => navigate("/cart")}>
-              <CartIconMainEllipse src={ElipseDark} />
-              <CartIcon src={CartIconMain} />
+        <RightSlot>
+          {!user ? (
+            <Button variant="contained" onClick={() => navigate("/auth/login")}>
+              Log in / Sign Up
+            </Button>
+          ) : (
+            <ProfileWrapper>
+              <SvgTestWrapper onClick={() => navigate("/cart")}>
+                <CartIconMainEllipse src={ElipseDark} />
+                <CartIcon src={CartIconMain} />
 
-              {totalCartItems > 0 && (
-                <>
-                  <CartIconSecondEllipse src={ElipseGreen} />
-                  <Quantity>{totalCartItems}</Quantity>
-                </>
-              )}
-            </SvgTestWrapper>
+                {totalCartItems > 0 && (
+                  <>
+                    <CartIconSecondEllipse src={ElipseGreen} />
+                    <Quantity>{totalCartItems}</Quantity>
+                  </>
+                )}
+              </SvgTestWrapper>
 
-            <ProfileIcons
-              src={favouritesIcon}
-              onClick={() => navigate("/favourites")}
-            />
-
-            {user.name && !user.avatar ? (
-              <ProfileIconsBlanked onClick={() => navigate("/profile")}>
-                {user.name.charAt(0).toUpperCase()}
-              </ProfileIconsBlanked>
-            ) : (
               <ProfileIcons
-                src={user.avatar ? user.avatar : profileIcon}
-                onClick={() => navigate("/profile")}
+                src={favouritesIcon}
+                onClick={() => navigate("/favourites")}
               />
-            )}
-          </ProfileWrapper>
-        )}
+
+              {user.name && !user.avatar ? (
+                <ProfileIconsBlanked onClick={() => navigate("/profile")}>
+                  {user.name.charAt(0).toUpperCase()}
+                </ProfileIconsBlanked>
+              ) : (
+                <ProfileIcons
+                  src={user.avatar ? user.avatar : profileIcon}
+                  onClick={() => navigate("/profile")}
+                />
+              )}
+            </ProfileWrapper>
+          )}
+        </RightSlot>
       </HeaderWrapper>
     </>
   );

@@ -5,7 +5,7 @@ import { getBooksThunk } from "./getBookThunks";
 type BookState = {
   books: Book[];
   genres: Genres;
-  currentBook: Book | null;//
+  currentBook: Book | null; //
   currentFavourites: Book[];
   loading: boolean;
   totalPages: number;
@@ -52,7 +52,6 @@ const bookSlice = createSlice({
       .addCase(getBooksThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.books = action.payload.books;
-        state.genres = action.payload.genres;
         state.totalPages = action.payload.totalPages;
       })
       .addCase(getBooksThunk.rejected, (state) => {

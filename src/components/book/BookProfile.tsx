@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-import { ProfileWrapper, TopSection } from "./BookProfile.style";
+import { ProfileWrapper } from "./BookProfile.style";
 
 import BookDetails from "./BookDetails/BookDetails";
 import CommentsSection from "./CommentsSection/CommentsSection";

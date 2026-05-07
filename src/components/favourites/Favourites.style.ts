@@ -4,12 +4,16 @@ export const FavouritesContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 840px) {
+    margin: 16px;
+  }
 `;
 export const FavouritesHeader = styled.h2`
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #222;
+  color: ${({ theme }) => theme.palette.primary.main};
 `;
 export const FavouritesWrapper = styled.div`
   display: flex;
@@ -20,8 +24,12 @@ export const FavouritesWrapper = styled.div`
   padding: 32px;
   border-radius: 16px;
   background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
-  border: 1px solid #e5e5e5;
+  border: 2px solid ${({ theme }) => theme.palette.primary.light};
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+  @media screen and (max-width: 840px) {
+    justify-content: center;
+  }
 `;
 export const BookItemWrapper = styled.div`
   width: 200px;
@@ -50,7 +58,7 @@ export const StyledBookTitle = styled.div`
 
 export const StyledBookAuthor = styled.div`
   font-size: 13px;
-  color: #666;
+  color: ${({ theme }) => theme.palette.primary.main};
 
   white-space: nowrap;
   overflow: hidden;

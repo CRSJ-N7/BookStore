@@ -1,28 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
-import ListItemText from "@mui/material/ListItemText";
 import checked from "../../../../assets/main-page/filters/checked.svg";
 import unchecked from "../../../../assets/main-page/filters/unchecked.svg";
 import { useSearchParams } from "react-router-dom";
-import { useAppSelector } from "../../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 
-import { ArrowIcon, GenreText, StyledSelect } from "./Filters.styles";
+import {
+  ArrowIcon,
+  GenreText,
+  StyledListItemText,
+  StyledSelect,
+} from "./Filters.styles";
 import filterArrow from "../../../../assets/main-page/filters/filterArrow.svg";
 import { FlexWrapper } from "../../../../shared/styles/styles";
+import bookApi from "../../../../api/bookApi";
+import { setGenres } from "../../../../store/bookSlice";
 
 const GenreSelect = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentGenres = searchParams.get("genres");
   const g = currentGenres?.split(",");
+  const dispatch = useAppDispatch();
 
-  const [genres, setGenres] = useState<string[]>(g ?? []);
+  const [genres, setLocalGenres] = useState<string[]>(g ?? []);
   const [open, setOpen] = useState(false);
 
   const genresData = useAppSelector((state) => state.books.genres);
 
   const handleGenreChange = (selected: string[]) => {
-    setGenres(selected);
+    setLocalGenres(selected);
 
     const params = new URLSearchParams(searchParams);
 
@@ -34,6 +41,15 @@ const GenreSelect = () => {
 
     setSearchParams(params);
   };
+
+  useEffect(() => {
+    const loadGenres = async () => {
+      const genres = await bookApi.getGenres();
+      dispatch(setGenres(genres));
+    };
+
+    loadGenres();
+  }, []);
 
   return (
     <StyledSelect
@@ -77,7 +93,7 @@ const GenreSelect = () => {
             checkedIcon={<img src={checked} />}
             checked={genres.includes(item)}
           />
-          <ListItemText primary={item} />
+          <StyledListItemText primary={item} />
         </MenuItem>
       ))}
     </StyledSelect>

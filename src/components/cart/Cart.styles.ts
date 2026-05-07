@@ -5,19 +5,22 @@ export const CartWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  @media screen and (max-width: 840px) {
+    margin: 16px;
+  }
 `;
 
 export const BookTitle = styled.div`
   font-family: "Poppins", sans-serif;
-  font-size: 40px;
+  font-size: clamp(18px, 2vw, 40px);
+  word-break: break-word;
   font-weight: 700;
 `;
 
 export const BookAuthorName = styled.div`
   font-family: "Poppins", sans-serif;
   margin-top: 5px;
-  font-size: 24px;
-  font-weight: 400;
 `;
 
 export const BookDataWrapper = styled.div`
@@ -34,6 +37,10 @@ export const QuantityWrapper = styled.div`
   margin-top: 50px;
   max-width: 196px;
 
+  @media screen and (max-width: 420px) {
+    gap: 10px;
+  }
+
   p {
     margin: 0;
     width: 24px;
@@ -43,6 +50,10 @@ export const QuantityWrapper = styled.div`
   img {
     margin-left: 50px;
     cursor: pointer;
+
+    @media screen and (max-width: 840px) {
+      margin-left: auto;
+    }
   }
 
   span {
@@ -55,7 +66,7 @@ export const QuantityWrapper = styled.div`
 
 export const QuantityButton = styled.button`
   border-radius: 50%;
-  background-color: #f0f4ef;
+  background-color: ${({ theme }) => theme.palette.primary.light};
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -66,6 +77,11 @@ export const QuantityButton = styled.button`
 export const CheckoutWrapper = styled.div`
   display: flex;
   gap: 16px;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const BookItemContainer = styled.div`
@@ -77,6 +93,16 @@ export const BookCover = styled.img`
   width: 197px;
   height: 289px;
   cursor: pointer;
+
+  @media (max-width: 834px) {
+    width: 255px;
+    height: 375px;
+  }
+
+  @media (max-width: 480px) {
+    width: 135px;
+    height: 202px;
+  }
 `;
 
 export const CartContainer = styled.div`
@@ -84,16 +110,69 @@ export const CartContainer = styled.div`
   flex-direction: row;
 `;
 
-export const TotalPrice = styled.div`
+export const TotalPriceWrapper = styled.div`
   font-family: "Poppins", sans-serif;
+`;
+
+export const TotalPrice = styled.p`
+  font-size: clamp(18px, 2vw, 36px);
   font-weight: 400;
-  font-size: 36px;
 `;
 
 export const ItemPrice = styled.div`
-  color: #0d1821;
+  color: ${({ theme }) => theme.palette.primary.dark};
   font-family: "Poppins", sans-serif;
-  font-size: 36px;
+  font-size: clamp(18px, 2vw, 36px);
   font-weight: 400;
   margin-top: 50px;
+`;
+
+export const EmptyCartContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 62px;
+  margin: 80px;
+
+  @media (max-width: 840px) {
+    margin: 16px;
+    gap: 24px;
+  }
+
+  @media (max-width: 531px) {
+    flex-direction: column-reverse;
+  }
+`;
+
+export const EmptyCartInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 15px;
+
+  & > :last-child {
+    margin-top: 30px;
+  }
+
+  @media screen and (max-width: 531px) {
+    width: 100%;
+    align-self: flex-start;
+  }
+`;
+
+export const CartImage = styled.img`
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: contain;
+  flex: 1;
+  min-width: 0;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+
+  @media screen and (max-width: 531px) {
+    justify-content: center;
+  }
 `;

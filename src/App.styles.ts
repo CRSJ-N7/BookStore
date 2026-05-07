@@ -6,10 +6,6 @@ export const GlobalContainer = styled.div`
   width: 100%;
 `;
 
-export const AppContainer = styled.div`
-  width: 100%;
-`;
-
 export const Loader = styled.div`
   display: flex;
   flex-direction: column;

@@ -12,7 +12,7 @@ const MainBanner = () => {
   const paragraph = (
     <>
       Buy two books and <br />
-      get one free;
+      get one free
     </>
   );
   const header = "Build your library with us";
@@ -25,6 +25,7 @@ const MainBanner = () => {
           paragraph={paragraph}
           header={header}
           buttonText={buttonText}
+          banner
           buttonProps={{
             variant: "contained",
             style: { marginTop: "50px", zIndex: 2 },

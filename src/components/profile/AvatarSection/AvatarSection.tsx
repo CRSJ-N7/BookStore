@@ -26,6 +26,7 @@ const AvatarSection = () => {
       if (!reader.result || typeof reader.result !== "string") return;
       const base64 = reader.result;
       const updatedUser = await authApi.uploadAvatar(base64);
+
       dispatch(setUser(updatedUser.safeUser));
     };
     reader.readAsDataURL(file);

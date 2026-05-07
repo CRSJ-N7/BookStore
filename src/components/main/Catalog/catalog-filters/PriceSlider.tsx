@@ -78,6 +78,7 @@ const PriceSlider = () => {
         PaperProps: {
           sx: {
             marginTop: "10px",
+            borderRadius: "16px",
           },
         },
       }}

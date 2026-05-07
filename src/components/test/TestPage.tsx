@@ -1,31 +1,32 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { BaseButton } from "../../shared/ui/Button/Button.styles";
+// import { useFormik } from "formik";
+// import * as Yup from "yup";
+// import { BaseButton } from "../../shared/ui/Button/Button.styles";
+import TestComponent from "./TestComponent";
 
-const values = {
-  text: "",
-  value: "",
-};
+// const values = {
+//   text: "",
+//   value: "",
+// };
 
 export const TestPage = () => {
-  const formik = useFormik({
-    initialValues: values,
+  // const formik = useFormik({
+  //   initialValues: values,
 
-    validationSchema: Yup.object({
-      text: Yup.string()
-        .required("Привет ты ахуел")
-        .min(6, "ты ахуел, дай хотя бы 6 символов"),
-      value: Yup.number().required().min(0).max(5),
-    }),
+  //   validationSchema: Yup.object({
+  //     text: Yup.string()
+  //       .required("Привет ты ахуел")
+  //       .min(6, "ты ахуел, дай хотя бы 6 символов"),
+  //     value: Yup.number().required().min(0).max(5),
+  //   }),
 
-    onSubmit: () => {
-      console.log("something");
-    },
-  });
+  //   onSubmit: () => {
+  //     console.log("something");
+  //   },
+  // });
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      {/* <form onSubmit={formik.handleSubmit}>
         <input
           type="text"
           name="text"
@@ -40,7 +41,9 @@ export const TestPage = () => {
           <div>{formik.errors.value}</div>
         )}
         <BaseButton type="submit"></BaseButton>
-      </form>
+      </form> */}
+
+      <TestComponent />
     </>
   );
 };

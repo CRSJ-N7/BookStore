@@ -5,6 +5,7 @@ import {
   ChangeInfoWrapper,
   ChangeInfo,
   FloatingLabel,
+  FormSection,
 } from "../ProfilePage.styles";
 import {
   BaseHeader,
@@ -91,99 +92,105 @@ const PasswordSection = () => {
 
   return (
     <>
-      <ProfileHeaderWrapper>
-        <BaseHeader fontSize="20px">Password</BaseHeader>
+      <FormSection>
+        <ProfileHeaderWrapper>
+          <BaseHeader profile>Password</BaseHeader>
 
-        <ChangeInfoWrapper>
-          <ChangeInfo onClick={handleClick}>{someTitle}</ChangeInfo>
+          <ChangeInfoWrapper>
+            <ChangeInfo onClick={handleClick}>{someTitle}</ChangeInfo>
 
-          {isEditPassword && (
-            <ChangeInfo onClick={handleCancelEditingPassword}>Back</ChangeInfo>
-          )}
-        </ChangeInfoWrapper>
-      </ProfileHeaderWrapper>
+            {isEditPassword && (
+              <ChangeInfo onClick={handleCancelEditingPassword}>
+                Back
+              </ChangeInfo>
+            )}
+          </ChangeInfoWrapper>
+        </ProfileHeaderWrapper>
 
-      {/* OLD PASSWORD */}
-      <InputWrapper>
-        <FloatingLabel>
-          {isEditPassword ? "Old password" : "Your password"}
-        </FloatingLabel>
+        {/* OLD PASSWORD */}
+        <InputWrapper>
+          <FloatingLabel>
+            {isEditPassword ? "Old password" : "Your password"}
+          </FloatingLabel>
 
-        <StyledAdornment>
-          <img
-            src={hideIcon}
-            onMouseDown={() =>
-              isEditPassword ? handleMouseDown("oldPassword") : null
-            }
-            onMouseUp={() =>
-              isEditPassword ? handleMouseUp("oldPassword") : null
-            }
-            onMouseLeave={() =>
-              isEditPassword ? handleMouseUp("oldPassword") : null
-            }
-            style={isEditPassword ? { cursor: "pointer" } : { cursor: "unset" }}
+          <StyledAdornment>
+            <img
+              src={hideIcon}
+              onMouseDown={() =>
+                isEditPassword ? handleMouseDown("oldPassword") : null
+              }
+              onMouseUp={() =>
+                isEditPassword ? handleMouseUp("oldPassword") : null
+              }
+              onMouseLeave={() =>
+                isEditPassword ? handleMouseUp("oldPassword") : null
+              }
+              style={
+                isEditPassword ? { cursor: "pointer" } : { cursor: "unset" }
+              }
+            />
+          </StyledAdornment>
+
+          <StyledInput
+            variant="profile"
+            name="password"
+            type={showPassword.oldPassword ? "text" : "password"}
+            disabled={!isEditPassword}
+            value={isEditPassword ? passwords.password : "******************"}
+            onChange={handlePasswordChange}
           />
-        </StyledAdornment>
+        </InputWrapper>
 
-        <StyledInput
-          variant="profile"
-          name="password"
-          type={showPassword.oldPassword ? "text" : "password"}
-          disabled={!isEditPassword}
-          value={isEditPassword ? passwords.password : "******************"}
-          onChange={handlePasswordChange}
-        />
-      </InputWrapper>
+        {/* NEW PASSWORD */}
+        {isEditPassword && (
+          <>
+            <InputWrapper>
+              <FloatingLabel>New password</FloatingLabel>
 
-      {/* NEW PASSWORD */}
-      {isEditPassword && (
-        <>
-          <InputWrapper>
-            <FloatingLabel>New password</FloatingLabel>
+              <StyledAdornment>
+                <img
+                  src={hideIcon}
+                  onMouseDown={() => handleMouseDown("newPassword")}
+                  onMouseUp={() => handleMouseUp("newPassword")}
+                  onMouseLeave={() => handleMouseUp("newPassword")}
+                  style={{ cursor: "pointer" }}
+                />
+              </StyledAdornment>
 
-            <StyledAdornment>
-              <img
-                src={hideIcon}
-                onMouseDown={() => handleMouseDown("newPassword")}
-                onMouseUp={() => handleMouseUp("newPassword")}
-                onMouseLeave={() => handleMouseUp("newPassword")}
-                style={{ cursor: "pointer" }}
+              <StyledInput
+                variant="profile"
+                name="newPassword"
+                type={showPassword.newPassword ? "text" : "password"}
+                value={passwords.newPassword}
+                onChange={handlePasswordChange}
               />
-            </StyledAdornment>
+            </InputWrapper>
 
-            <StyledInput
-              variant="profile"
-              name="newPassword"
-              type={showPassword.newPassword ? "text" : "password"}
-              value={passwords.newPassword}
-              onChange={handlePasswordChange}
-            />
-          </InputWrapper>
+            {/* REPEAT PASSWORD */}
+            <InputWrapper>
+              <FloatingLabel>Repeat password</FloatingLabel>
 
-          {/* REPEAT PASSWORD */}
-          <InputWrapper>
-            <FloatingLabel>Repeat password</FloatingLabel>
+              <StyledAdornment>
+                <img
+                  src={hideIcon}
+                  onMouseDown={() => handleMouseDown("repeatedPassword")}
+                  onMouseUp={() => handleMouseUp("repeatedPassword")}
+                  onMouseLeave={() => handleMouseUp("repeatedPassword")}
+                  style={{ cursor: "pointer" }}
+                />
+              </StyledAdornment>
 
-            <StyledAdornment>
-              <img
-                src={hideIcon}
-                onMouseDown={() => handleMouseDown("repeatedPassword")}
-                onMouseUp={() => handleMouseUp("repeatedPassword")}
-                onMouseLeave={() => handleMouseUp("repeatedPassword")}
-                style={{ cursor: "pointer" }}
+              <StyledInput
+                variant="profile"
+                name="repeatedPassword"
+                type={showPassword.repeatedPassword ? "text" : "password"}
+                value={passwords.repeatedPassword}
+                onChange={handlePasswordChange}
               />
-            </StyledAdornment>
-
-            <StyledInput
-              variant="profile"
-              name="repeatedPassword"
-              type={showPassword.repeatedPassword ? "text" : "password"}
-              value={passwords.repeatedPassword}
-              onChange={handlePasswordChange}
-            />
-          </InputWrapper>
-        </>
-      )}
+            </InputWrapper>
+          </>
+        )}
+      </FormSection>
     </>
   );
 };

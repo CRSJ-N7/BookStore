@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
+import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
@@ -40,16 +41,20 @@ export const StyledSelect = styled(Select)<{ sortFilter?: boolean }>`
   }
 `;
 export const GenreText = styled.span`
+  position: relative;
   font-family: "Poppins", sans-serif;
   font-size: 18px;
   letter-spacing: 0.75px;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
 `;
 
 export const ArrowIcon = styled.img`
+  position: absolute;
   width: 24px;
   height: 24px;
   transition: 0.2s;
+  right: 0;
+  margin-right: 5px;
 `;
 
 export const PriceWrapper = styled.div`
@@ -65,7 +70,7 @@ export const PriceValue = styled.p`
 
 export const StyledMenuItem = styled(MenuItem)`
   && {
-    background: transparent;
+    opacity: 0.5;
     transition: 0.2s;
   }
 
@@ -75,10 +80,12 @@ export const StyledMenuItem = styled(MenuItem)`
   }
 
   &&:hover {
+    background-color: ${({ theme }) => theme.palette.primary.light};
   }
 
   &&.Mui-selected {
-    color: #344966;
+    color: ${({ theme }) => theme.palette.primary.dark};
+    opacity: 1;
     background-color: unset;
   }
 `;
@@ -116,7 +123,16 @@ export const StyledSlider = styled(Slider)`
 `;
 
 export const SliderBox = styled(Box)`
-  width: 300px;
   padding: 25px;
   background: #f0f4ef;
+
+  @media screen and (min-width: 834px) {
+    width: 300px;
+  }
+`;
+
+export const StyledListItemText = styled(ListItemText)`
+  font-size: clamp(14px, 2vw, 16px);
+  letter-spacing: 2px;
+  color: ${({ theme }) => theme.palette.primary.main};
 `;

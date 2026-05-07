@@ -11,15 +11,15 @@ import {
   BaseParagraph,
   FormWrapper,
   InputWrapper,
-  StyledAdornment,
 } from "../../../shared/styles/styles";
-import { SwitchAuth } from "../AuthPage.styles";
+import { LoginAdornment, SwitchAuth } from "../AuthPage.styles";
 import { StyledInput } from "../../../shared/styles/styles";
 import mailIcon from "../../../assets/icons/mail.svg";
 import hideIcon from "../../../assets/icons/hide.svg";
 import authApi from "../../../api/authApi";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 import { toast } from "react-toastify";
+import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -80,9 +80,9 @@ const SignUpPage = () => {
       <BaseHeader>Sign Up</BaseHeader>
       <FormWrapper onSubmit={formik.handleSubmit}>
         <InputWrapper>
-          <StyledAdornment>
+          <LoginAdornment>
             <img src={mailIcon} alt="email" />
-          </StyledAdornment>
+          </LoginAdornment>
           <StyledInput
             variant="auth"
             name="email"
@@ -96,9 +96,9 @@ const SignUpPage = () => {
           <BaseInputToolTip>Enter your email</BaseInputToolTip>
         </InputWrapper>
         <InputWrapper>
-          <StyledAdornment>
+          <LoginAdornment>
             <img src={hideIcon} alt="email" />
-          </StyledAdornment>
+          </LoginAdornment>
           <StyledInput
             variant="auth"
             name="password"
@@ -113,9 +113,9 @@ const SignUpPage = () => {
           <BaseInputToolTip>Enter your password</BaseInputToolTip>
         </InputWrapper>
         <InputWrapper>
-          <StyledAdornment>
+          <LoginAdornment>
             <img src={hideIcon} alt="email" />
-          </StyledAdornment>
+          </LoginAdornment>
           <StyledInput
             variant="auth"
             name="confirmPassword"
@@ -131,14 +131,14 @@ const SignUpPage = () => {
             Repeat your password without errors
           </BaseInputToolTip>
         </InputWrapper>
-
-        <BaseButton type="submit">Register</BaseButton>
+        <ButtonWrapper>
+          <BaseButton type="submit">Register</BaseButton>
+        </ButtonWrapper>
       </FormWrapper>
       <BaseParagraph>
         Already have an account?
         <SwitchAuth onClick={() => navigate("/auth/login")}>Log In</SwitchAuth>
       </BaseParagraph>
-      ;
     </>
   );
 };

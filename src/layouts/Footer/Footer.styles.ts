@@ -4,10 +4,11 @@ export const FooterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: darkblue;
+  background: ${({ theme }) => theme.palette.primary.dark};
   height: 341px;
   padding: 48px 64px;
   margin-top: 30px;
+  gap: 12px;
 
   @media screen and (max-width: 834px) {
     height: auto;
@@ -31,5 +32,4 @@ export const InfoWrapper = styled.div`
 export const MapImage = styled.img`
   max-width: 100%;
   height: auto;
-  display: block;
 `;

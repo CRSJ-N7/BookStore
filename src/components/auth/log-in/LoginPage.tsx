@@ -11,15 +11,17 @@ import {
   BaseParagraph,
   FormWrapper,
   InputWrapper,
-  StyledAdornment,
 } from "../../../shared/styles/styles";
-import { SwitchAuth } from "../AuthPage.styles";
+import { LoginAdornment, SwitchAuth } from "../AuthPage.styles";
 import { StyledInput } from "../../../shared/styles/styles";
 import mailIcon from "../../../assets/icons/mail.svg";
 import hideIcon from "../../../assets/icons/hide.svg";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 import authApi from "../../../api/authApi";
 import { toast } from "react-toastify";
+import cartApi from "../../../api/cartApi";
+import { setCart } from "../../../store/cartSlice";
+import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -53,6 +55,9 @@ const SignUpPage = () => {
 
         dispatch(setUser(safeUser));
 
+        const userCart = await cartApi.getCart();
+        dispatch(setCart(userCart));
+
         toast.success("Login succesfull!");
 
         navigate("/");
@@ -68,9 +73,9 @@ const SignUpPage = () => {
       <BaseHeader>Log in</BaseHeader>
       <FormWrapper onSubmit={formik.handleSubmit}>
         <InputWrapper>
-          <StyledAdornment>
+          <LoginAdornment>
             <img src={mailIcon} alt="email" />
-          </StyledAdornment>
+          </LoginAdornment>
           <StyledInput
             variant="auth"
             name="email"
@@ -85,9 +90,9 @@ const SignUpPage = () => {
         </InputWrapper>
 
         <InputWrapper>
-          <StyledAdornment>
+          <LoginAdornment>
             <img src={hideIcon} alt="email" />
-          </StyledAdornment>
+          </LoginAdornment>
           <StyledInput
             variant="auth"
             name="password"
@@ -101,12 +106,11 @@ const SignUpPage = () => {
           )}
           <BaseInputToolTip>Enter your password</BaseInputToolTip>
         </InputWrapper>
-
-        <BaseButton style={{ marginTop: "50px" }} type="submit">
-          Log in
-        </BaseButton>
+        <ButtonWrapper>
+          <BaseButton type="submit">Log in</BaseButton>
+        </ButtonWrapper>
       </FormWrapper>
-      <BaseParagraph style={{ marginTop: "25px" }}>
+      <BaseParagraph>
         Don't have an account?
         <SwitchAuth onClick={() => navigate("/auth/signup")}>
           Sign Up

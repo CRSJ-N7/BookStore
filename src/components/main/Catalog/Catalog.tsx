@@ -32,7 +32,7 @@ const Catalog = () => {
 
         setFavourites(books.map((book) => book.id));
       } catch (e) {
-        toast.error(`Failed to load favourites, ${e}`);
+        console.log(e);
       }
     };
 

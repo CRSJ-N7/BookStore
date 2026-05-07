@@ -17,7 +17,7 @@ type Props = {
 const StarRating = ({ rating, onRate, noMargin, bookProfile }: Props) => {
   return (
     <StarRatingWrapper noMargin={noMargin} bookProfile={bookProfile}>
-      <StarsContainer>
+      <StarsContainer bookProfile={bookProfile}>
         {[1, 2, 3, 4, 5].map((value) => (
           <Star
             key={value}
@@ -26,7 +26,7 @@ const StarRating = ({ rating, onRate, noMargin, bookProfile }: Props) => {
           />
         ))}
       </StarsContainer>
-      <Rating>{rating.toFixed(1)}</Rating>
+      <Rating bookProfile={bookProfile}>{rating.toFixed(1)}</Rating>
     </StarRatingWrapper>
   );
 };

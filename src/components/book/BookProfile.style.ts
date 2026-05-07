@@ -11,18 +11,13 @@ export const ProfileWrapper = styled.div`
   }
 `;
 
-export const TopSection = styled.div`
-  display: flex;
-  max-width: 400px;
-  gap: 128px;
-`;
-
 export const CoverWrapper = styled.div`
-  /* flex: 0 0 300px; */
+  grid-area: cover;
+  min-width: 0;
 `;
-
 export const BookCover = styled.img`
   width: 100%;
+  height: 100%;
   border-radius: 8px;
   object-fit: cover;
 `;
@@ -36,20 +31,38 @@ export const InfoWrapper = styled.div`
 
 export const BookTitle = styled.h1`
   margin: 0;
-  font-size: 28px;
+  font-size: 40px;
+
+  @media screen and (max-width: 830px) {
+    font-size: 32px;
+  }
+
+  @media screen and (max-width: 430px) {
+    font-size: 18px;
+  }
 `;
 
-export const BookAuthor = styled.h3`
-  margin: 0;
-  font-size: 18px;
-  color: ${({ theme }) => theme.colors.primary.darkBlue};
-`;
+// export const BookAuthor = styled.h3`
+//   margin: 0;
+//   font-size: 24px;
+//   color: ${({ theme }) => theme.palette.primary.main};
+
+//   @media screen and (max-width: 830px) {
+//     font-size: 20px;
+//   }
+
+//   @media screen and (max-width: 430px) {
+//     font-size: 12px;
+//   }
+// `;
 
 export const Description = styled.p`
   font-size: 16px;
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
+  overflow-wrap: break-word;
+  word-break: break-word;
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -57,6 +70,10 @@ export const ButtonsWrapper = styled.div`
   margin-bottom: 14px;
   display: flex;
   gap: 16px;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 export const CommentsWrapper = styled.div`
@@ -71,6 +88,10 @@ export const CommentInputWrapper = styled.div`
   flex-direction: column;
   margin-top: 60px;
   gap: 8px;
+
+  @media screen and (max-width: 480px) {
+    margin-top: 20px;
+  }
 `;
 
 export const CommentInput = styled.input`
@@ -88,9 +109,9 @@ export const CommentButton = styled.button`
 export const CommentItem = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 8px;
+  justify-content: center;
+  padding: 20px;
   border-radius: 6px;
-  background-color: #f5f5f5;
   font-size: 14px;
 `;
 
@@ -104,19 +125,24 @@ export const CommentUserProfilePlaceholder = styled.span`
   width: 60px;
   height: 60px;
   border-radius: 60%;
-  outline: 1px solid green;
+  outline: 1.5px solid ${({ theme }) => theme.palette.secondary.dark};
   align-content: center;
   text-align: center;
   font-size: 25px;
   font-weight: 900;
 `;
 
-export const CommentContainer = styled.div`
+export const CommentsContainer = styled.div`
   display: flex;
-  background: #f0f4ef;
-  border-radius: 12px;
+  flex-direction: column;
+  background: ${({ theme }) => theme.palette.primary.light};
+  border-radius: 16px;
   padding: 15px;
-  gap: 15px;
+`;
+
+export const CommentsItemContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const CommentUserName = styled.span`
@@ -124,7 +150,7 @@ export const CommentUserName = styled.span`
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.75px;
-  color: #0d1821;
+  color: ${({ theme }) => theme.palette.primary.dark};
 `;
 
 export const CommentUserText = styled.span`
@@ -132,12 +158,18 @@ export const CommentUserText = styled.span`
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.75px;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
+  margin-left: 80px;
   margin-top: 20px;
+
+  @media screen and (max-width: 480px) {
+    margin-left: 10px;
+    margin-top: 15px;
+  }
 `;
 
 export const CommentsDate = styled.div`
-  color: #b9bac3;
+  color: ${({ theme }) => theme.palette.info.main};
   letter-spacing: 0.75px;
   font-size: 12px;
 `;

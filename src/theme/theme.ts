@@ -1,21 +1,28 @@
-export const theme = {
-  colors: {
+import { createTheme, type Theme as MuiTheme } from "@mui/material/styles";
+
+declare module "@emotion/react" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  interface Theme extends MuiTheme {}
+}
+
+export const theme = createTheme({
+  palette: {
     primary: {
-      darkBlue: "#344966",
+      main: "#344966",
       dark: "#0d1821",
       light: "#F0F4EF",
-      green: "#BFCC94",
+      contrastText: "#ffffff",
     },
     secondary: {
-      lightGrey: undefined as string | undefined,
-      darkGrey: "#B9BAC3",
-      white: "#ffffff",
-      darkGreen: "#8D9F4F",
+      main: "#8D9F4F",
+      light: "#BFCC94",
+      dark: "#B9BAC3",
+      contrastText: "#ffffff", //
     },
-    extra: {
-      extraColor: undefined as string | undefined,
+    info: {
+      main: "#A0A3BD",
     },
   },
-};
+});
 
 export type AppTheme = typeof theme;

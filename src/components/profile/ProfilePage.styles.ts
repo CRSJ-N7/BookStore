@@ -5,44 +5,63 @@ export const UserProfileWrapper = styled.div`
   margin-bottom: 100px;
   margin-inline: 80px;
   gap: 110px;
+  @media screen and (max-width: 834px) {
+    margin-inline: 16px;
+    gap: 30px;
+  }
+
+  @media screen and (max-width: 684px) {
+    flex-direction: column;
+    gap: 24px;
+  }
 `;
 
 export const PhotoWrapper = styled.div`
   position: relative;
-  width: 305px;
-  height: 305px;
+  max-height: fit-content;
+  max-width: fit-content;
 `;
 
 export const ProfilePicture = styled.img`
   display: block;
+  width: 100%;
   max-width: 305px;
-  max-height: 305px;
+  height: auto;
   border-radius: 10%;
 `;
 
 export const PhotoUploader = styled.img`
   position: absolute;
-  bottom: 45px;
+  bottom: 25px;
   right: 25px;
   z-index: 2;
   cursor: pointer;
 `;
-
 export const ProfileDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+  flex: 1;
+  min-width: 0;
+`;
+
+export const FormSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  max-width: 522px;
 `;
 
 export const ProfileHeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
 
-export const InputWithLabelWrapper = styled.div`
-  position: relative;
-  width: 630px;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    align-items: normal;
+  }
 `;
 
 export const InputLabel = styled.span`
@@ -52,7 +71,7 @@ export const InputLabel = styled.span`
   left: 70px;
   font-size: 14px;
   letter-spacing: 0.75px;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
   pointer-events: none;
   z-index: 2;
 `;
@@ -69,6 +88,11 @@ export const ChangeInfo = styled.p`
   text-decoration-style: solid;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
+  font-size: 16px;
+
+  @media screen and (max-width: 834px) {
+    font-size: 14px;
+  }
 `;
 
 export const FloatingLabel = styled.label`

@@ -7,6 +7,7 @@ import {
   ChangeInfo,
   ChangeInfoWrapper,
   FloatingLabel,
+  FormSection,
 } from "../ProfilePage.styles";
 import {
   BaseHeader,
@@ -79,57 +80,58 @@ const ProfileInfoSection = () => {
 
   return (
     <>
-      <ProfileHeaderWrapper>
-        <BaseHeader fontSize="20px">Personal information</BaseHeader>
+      <FormSection>
+        <ProfileHeaderWrapper>
+          <BaseHeader profile>Personal information</BaseHeader>
 
-        {!isEditProfile ? (
-          <ChangeInfo onClick={handleStartEditingProfile}>
-            Change information
-          </ChangeInfo>
-        ) : (
-          <ChangeInfoWrapper>
-            <ChangeInfo onClick={handleAcceptUpdatingProfile}>
-              Accept
+          {!isEditProfile ? (
+            <ChangeInfo onClick={handleStartEditingProfile}>
+              Change information
             </ChangeInfo>
-            <ChangeInfo onClick={handleCancelEditingProfile}>Back</ChangeInfo>
-          </ChangeInfoWrapper>
-        )}
-      </ProfileHeaderWrapper>
+          ) : (
+            <ChangeInfoWrapper>
+              <ChangeInfo onClick={handleAcceptUpdatingProfile}>
+                Accept
+              </ChangeInfo>
+              <ChangeInfo onClick={handleCancelEditingProfile}>Back</ChangeInfo>
+            </ChangeInfoWrapper>
+          )}
+        </ProfileHeaderWrapper>
 
-      {/* NAME */}
-      <InputWrapper>
-        <FloatingLabel>Your name</FloatingLabel>
+        {/* NAME */}
+        <InputWrapper>
+          <FloatingLabel>Your name</FloatingLabel>
 
-        <StyledAdornment>
-          <img src={profileIcon} />
-        </StyledAdornment>
+          <StyledAdornment>
+            <img src={profileIcon} />
+          </StyledAdornment>
 
-        <StyledInput
-          variant="profile"
-          name="name"
-          disabled={!isEditProfile}
-          value={isEditProfile ? profileData.name : (user?.name ?? "")}
-          onChange={handleProfileChange}
-        />
-      </InputWrapper>
+          <StyledInput
+            variant="profile"
+            name="name"
+            disabled={!isEditProfile}
+            value={isEditProfile ? profileData.name : (user?.name ?? "")}
+            onChange={handleProfileChange}
+          />
+        </InputWrapper>
 
-      {/* EMAIL */}
-      <InputWrapper>
-        <FloatingLabel>Your email</FloatingLabel>
+        {/* EMAIL */}
+        <InputWrapper>
+          <FloatingLabel>Your email</FloatingLabel>
 
-        <StyledAdornment>
-          <img src={emailIcon} />
-        </StyledAdornment>
+          <StyledAdornment>
+            <img src={emailIcon} />
+          </StyledAdornment>
 
-        <StyledInput
-          variant="profile"
-          name="email"
-          disabled={!isEditProfile}
-          value={isEditProfile ? profileData.email : (user?.email ?? "")}
-          onChange={handleProfileChange}
-          style={{ width: "522px" }}
-        />
-      </InputWrapper>
+          <StyledInput
+            variant="profile"
+            name="email"
+            disabled={!isEditProfile}
+            value={isEditProfile ? profileData.email : (user?.email ?? "")}
+            onChange={handleProfileChange}
+          />
+        </InputWrapper>
+      </FormSection>
     </>
   );
 };

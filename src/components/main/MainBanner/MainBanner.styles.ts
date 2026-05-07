@@ -1,35 +1,57 @@
 import styled from "@emotion/styled";
 
 export const MainWrapper = styled.div`
-  display: flex;
-  background: #f0f4ef;
-  margin-inline: 80px;
-  justify-content: space-between;
-  position: relative;
-  padding: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 
-  @media screen and (max-width: 1111px) {
+  align-items: center;
+  background: ${({ theme }) => theme.palette.primary.light};
+
+  margin-inline: 80px;
+  padding: 50px 50px 0px 50px;
+
+  position: relative;
+
+  @media (max-width: 1111px) {
     margin-inline: 16px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 `;
 
 export const MainImage = styled.img`
-  align-self: flex-end;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  align-self: end;
 
-  @media screen and (max-width: 864px) {
-    aspect-ratio: 364/328;
-  }
+  min-width: 0;
 `;
 
 export const BackgroundImage = styled.img`
   position: absolute;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+  width: clamp(200px, 30vw, 500px);
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+
+  @media (max-width: 834px) {
+    top: 0;
+    right: 0;
+    left: unset;
+    bottom: unset;
+  }
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start;
   justify-content: center;
+  min-width: 0;
 `;

@@ -61,8 +61,8 @@ type UploadImageResponse = {
   safeUser: {
     id: number;
     email: string;
-    name: string | null;
-    avatar: string | null;
+    name: string;
+    avatar: string;
   };
   message: string;
 };

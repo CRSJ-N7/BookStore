@@ -2,31 +2,32 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import bookApi from "../../../api/bookApi";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import cartApi from "../../../api/cartApi";
 
-import {
-  CoverWrapper,
-  // InfoWrapper,
-  BookTitle,
-  BookAuthor,
-  Description,
-  ButtonsWrapper,
-} from "../BookProfile.style";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { setCart } from "../../../store/cartSlice";
 
 import Arrow from "../../../assets/icons/RateArrow.svg";
 import StarRating from "../../main/Catalog/BookItem/StarRating/StarRating";
-import { BaseButton } from "../../../shared/ui/Button/Button.styles";
+
+import Button from "../../../shared/ui/Button/Button";
 import { BaseParagraph, FlexWrapper } from "../../../shared/styles/styles";
+
 import {
-  RateArrow,
+  Wrapper,
+  Cover,
+  InfoTop,
+  InfoBottom,
+  Title,
+  Author,
+  Description,
   RatingWrapper,
-  StyledBookCover,
+  RateArrow,
+  ButtonsWrapper,
+  StyledBaseParagraph,
 } from "./BookDetails.styles";
 
 import type { Book } from "../../../types/types";
-import cartApi from "../../../api/cartApi";
-import { setCart } from "../../../store/cartSlice";
-import Button from "../../../shared/ui/Button/Button";
 
 type Props = {
   bookId: number;
@@ -38,29 +39,20 @@ const BookDetails = ({ bookId }: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const loadBook = async () => {
-      try {
-        const data = await bookApi.getBook(bookId);
-        setBook(data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    loadBook();
+    bookApi.getBook(bookId).then(setBook).catch(console.error); //toast
   }, [bookId]);
 
   const handleRate = async (value: number) => {
     if (!user || !book) {
-      toast.error("You have to login first"); // navigate login
+      toast.error("You have to login first"); //redirect
       return;
     }
 
     try {
-      const updatedBook = await bookApi.rateBook(book.id, value);
-      setBook(updatedBook);
+      const updated = await bookApi.rateBook(book.id, value);
+      setBook(updated);
     } catch (e) {
-      console.error(e);
+      console.error(e); //toast
     }
   };
 
@@ -69,25 +61,21 @@ const BookDetails = ({ bookId }: Props) => {
       await cartApi.addToCart(bookId);
       const data = await cartApi.getCart();
       dispatch(setCart(data));
-
       toast.success(`Book ${book?.name} added to cart`);
     } catch (e) {
-      toast.error(`Failed to add to cart, error: ${e}`);
+      toast.error(`Failed: ${e}`); // нужно сообщение понятное человеку
     }
   };
 
   if (!book) return null;
 
   return (
-    <>
-      <div>
-        <CoverWrapper>
-          <StyledBookCover src={book.cover} alt={book.name} />
-        </CoverWrapper>
+    <Wrapper>
+      <Cover src={book.cover} alt={book.name} />
 
-        {/* <InfoWrapper> */}
-        <BookTitle>{book.name}</BookTitle>
-        <BookAuthor>{book.author}</BookAuthor>
+      <InfoTop>
+        <Title>{book.name}</Title>
+        <Author>{book.author}</Author>
 
         <RatingWrapper>
           <StarRating
@@ -97,28 +85,27 @@ const BookDetails = ({ bookId }: Props) => {
             bookProfile
           />
           <RateArrow src={Arrow} />
-          <BaseParagraph style={{ color: "#B9BAC3", fontSize: "16px" }}>
-            Rate this book
-          </BaseParagraph>
+          <StyledBaseParagraph>Rate this book</StyledBaseParagraph>
         </RatingWrapper>
-      </div>
+      </InfoTop>
 
-      <BookAuthor>Description</BookAuthor>
-      <Description>{book.description}</Description>
+      <InfoBottom>
+        <Author>Description</Author>
+        <Description>{book.description}</Description>
 
-      <ButtonsWrapper>
-        <FlexWrapper variant="column">
-          <BaseParagraph fontSize="16px">Paperback</BaseParagraph>
-          <Button available={false}>Not Available</Button>
-        </FlexWrapper>
+        <ButtonsWrapper>
+          <FlexWrapper variant="column">
+            <BaseParagraph fontSize="16px">Paperback</BaseParagraph>
+            <Button available={false}>Not Available</Button>
+          </FlexWrapper>
 
-        <FlexWrapper variant="column">
-          <BaseParagraph fontSize="16px">Hardcover</BaseParagraph>
-          <BaseButton onClick={addToCartHandler}>{book.price}€</BaseButton>
-        </FlexWrapper>
-      </ButtonsWrapper>
-      {/* </InfoWrapper> */}
-    </>
+          <FlexWrapper variant="column">
+            <BaseParagraph fontSize="16px">Hardcover</BaseParagraph>
+            <Button onClick={addToCartHandler}>{book.price}€</Button>
+          </FlexWrapper>
+        </ButtonsWrapper>
+      </InfoBottom>
+    </Wrapper>
   );
 };
 

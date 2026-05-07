@@ -6,10 +6,18 @@ type Variant = "default" | "secondary";
 type Props = ButtonProps & {
   available?: boolean;
   option?: Variant;
+  banner?: boolean;
 };
 
-const Button = ({ option, available = true, ...props }: Props) => {
-  return <BaseButton option={option} disabled={!available} {...props} />;
+const Button = ({ option, banner, available = true, ...props }: Props) => {
+  return (
+    <BaseButton
+      banner={banner}
+      option={option}
+      disabled={!available}
+      {...props}
+    />
+  );
 };
 
 export default Button;

@@ -9,17 +9,19 @@ import {
   CommentInputWrapper,
   CommentItem,
   CommentUserProfile,
-  CommentContainer,
   CommentUserName,
   CommentUserText,
   CommentUserProfilePlaceholder,
   CommentsDate,
+  CommentsItemContainer,
+  CommentsContainer,
 } from "../BookProfile.style";
 
 import getDate from "../../../utilities/getDate";
 import type { Comment } from "../../../types/types";
 import { BaseHeader, StyledInput } from "../../../shared/styles/styles";
-import { BaseButton } from "../../../shared/ui/Button/Button.styles";
+import Button from "../../../shared/ui/Button/Button";
+import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
 
 type Props = {
   bookId: number;
@@ -48,10 +50,7 @@ const CommentsSection = ({ bookId }: Props) => {
     if (!user || !newComment.trim()) return;
 
     try {
-      const created = await commentApi.createComment(
-        bookId,
-        newComment
-      );
+      const created = await commentApi.createComment(bookId, newComment);
 
       setComments((prev) => [...prev, created]);
       setNewComment("");
@@ -65,35 +64,38 @@ const CommentsSection = ({ bookId }: Props) => {
       <BaseHeader>Comments</BaseHeader>
 
       {comments.map((item) => (
-        <CommentContainer key={item.id}>
-          {item.user.avatar ? (
-            <CommentUserProfile src={item.user.avatar} />
-          ) : (
-            <CommentUserProfilePlaceholder>
-              {item.user.name?.charAt(0).toUpperCase() || "?"}
-            </CommentUserProfilePlaceholder>
-          )}
-
-          <CommentItem>
-            <CommentUserName>{item.user.name}</CommentUserName>
-            <CommentsDate>
-              Left a comment {getDate(item.createdAt)}
-            </CommentsDate>
-            <CommentUserText>{item.text}</CommentUserText>
-          </CommentItem>
-        </CommentContainer>
+        <CommentsContainer>
+          <CommentsItemContainer key={item.id}>
+            {item.user.avatar ? (
+              <CommentUserProfile src={item.user.avatar} />
+            ) : (
+              <CommentUserProfilePlaceholder>
+                {item.user.name?.charAt(0).toUpperCase() || "?"}
+              </CommentUserProfilePlaceholder>
+            )}
+            <CommentItem>
+              <CommentUserName>{item.user.name}</CommentUserName>
+              <CommentsDate>
+                Left a comment {getDate(item.createdAt)}
+              </CommentsDate>
+            </CommentItem>
+          </CommentsItemContainer>
+          <CommentUserText>{item.text}</CommentUserText>
+        </CommentsContainer>
       ))}
 
       {user && (
         <CommentInputWrapper>
           <StyledInput
             value={newComment}
+            type="textarea"
+            variant="comment"
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Share a comment"
           />
-          <BaseButton onClick={handleSubmit}>
-            Post a comment
-          </BaseButton>
+          <ButtonWrapper>
+            <Button onClick={handleSubmit}>Post a comment</Button>
+          </ButtonWrapper>
         </CommentInputWrapper>
       )}
     </CommentsWrapper>

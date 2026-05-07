@@ -54,6 +54,13 @@ const SortSelect = () => {
           />
         </FlexWrapper>
       )}
+      MenuProps={{
+        PaperProps: {
+          sx: {
+            borderRadius: "16px",
+          },
+        },
+      }}
     >
       <StyledMenuItem value="Price">Price</StyledMenuItem>
       <StyledMenuItem value="Name">Name</StyledMenuItem>
