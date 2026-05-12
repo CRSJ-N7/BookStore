@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 import commentApi from "../../../api/commentApi";
 import { useAppSelector } from "../../../hooks/hooks";
@@ -22,6 +21,7 @@ import type { Comment } from "../../../types/types";
 import { BaseHeader, StyledInput } from "../../../shared/styles/styles";
 import Button from "../../../shared/ui/Button/Button";
 import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
+import toastError from "../../../utilities/errorHandler";
 
 type Props = {
   bookId: number;
@@ -54,8 +54,8 @@ const CommentsSection = ({ bookId }: Props) => {
 
       setComments((prev) => [...prev, created]);
       setNewComment("");
-    } catch (e) {
-      toast.error(`Error: ${e}`);
+    } catch (error) {
+      toastError(error);
     }
   };
 

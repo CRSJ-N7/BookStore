@@ -7,7 +7,7 @@ export const AuthWrapper = styled.div`
   margin: 80px;
   gap: 60px;
 
-  @media screen and (max-width: 1111px) {
+  @media screen and (max-width: 834px) {
     margin: 40px 16px;
   }
 

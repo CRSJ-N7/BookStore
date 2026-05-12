@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/authSlice";
 import { tokenStorage } from "../../../storage/tokenStorage";
-import type { AxiosError } from "axios";
 import {
   BaseHeader,
   BaseInputToolTip,
@@ -22,6 +21,7 @@ import { toast } from "react-toastify";
 import cartApi from "../../../api/cartApi";
 import { setCart } from "../../../store/cartSlice";
 import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
+import toastError from "../../../utilities/errorHandler";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -62,8 +62,7 @@ const SignUpPage = () => {
 
         navigate("/");
       } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(`${err.response?.data?.message}`);
+        toastError(error);
       }
     },
   });

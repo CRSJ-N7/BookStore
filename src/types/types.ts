@@ -1,3 +1,5 @@
+import type { AxiosError } from "axios";
+
 export type Book = {
   id: number;
   author: string;
@@ -26,3 +28,8 @@ export type Comment = {
   createdAt: string;
   user: User;
 };
+
+interface ApiError {
+  message: string;
+}
+export type AxiosErrorWithData = AxiosError<ApiError>;

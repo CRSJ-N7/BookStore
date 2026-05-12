@@ -15,6 +15,7 @@ import {
 } from "../../../shared/styles/styles";
 import hideIcon from "../../../assets/icons/hide.svg";
 import { toast } from "react-toastify";
+import toastError from "../../../utilities/errorHandler";
 
 const PasswordSection = () => {
   const [isEditPassword, setIsEditPassword] = useState(false);
@@ -66,7 +67,7 @@ const PasswordSection = () => {
 
       toast.success("Password changed successfully");
     } catch (error) {
-      toast.error(error as string);
+      toastError(error);
     }
   };
 

@@ -22,7 +22,8 @@ import { toast } from "react-toastify";
 
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { setCart } from "../../../../store/cartSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toastError from "../../../../utilities/errorHandler";
 
 type BookItemProps = {
   book: Book;
@@ -33,11 +34,13 @@ type BookItemProps = {
 const BookItem = ({ book, isFavourite, toggleFavourite }: BookItemProps) => {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [rating, setRating] = useState<number>(book.avgRating ?? 0);
 
   const handleRate = async (value: number) => {
     if (!user) {
+      navigate("/auth/login");
       toast.info("You have to Log In first");
       return;
     }
@@ -46,7 +49,7 @@ const BookItem = ({ book, isFavourite, toggleFavourite }: BookItemProps) => {
       const data = await bookApi.rateBook(book.id, value);
       setRating(data.avgRating ?? 0);
     } catch (e) {
-      toast.error(`Failed to set ratging, Error: ${e}`);
+      toastError(e);
     }
   };
 
@@ -57,7 +60,7 @@ const BookItem = ({ book, isFavourite, toggleFavourite }: BookItemProps) => {
       dispatch(setCart(data));
       toast.success(`Book ${book.name} added to cart`);
     } catch (e) {
-      toast.error(`Failed to add to cart, error: ${e}`);
+      toastError(e);
     }
   };
 

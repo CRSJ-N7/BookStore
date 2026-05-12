@@ -28,6 +28,8 @@ import {
 } from "./BookDetails.styles";
 
 import type { Book } from "../../../types/types";
+import { useNavigate } from "react-router-dom";
+import toastError from "../../../utilities/errorHandler";
 
 type Props = {
   bookId: number;
@@ -35,16 +37,18 @@ type Props = {
 
 const BookDetails = ({ bookId }: Props) => {
   const user = useAppSelector((state) => state.auth.user);
+  const navigate = useNavigate();
   const [book, setBook] = useState<Book | null>(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    bookApi.getBook(bookId).then(setBook).catch(console.error); //toast
+    bookApi.getBook(bookId).then(setBook).catch();
   }, [bookId]);
 
   const handleRate = async (value: number) => {
     if (!user || !book) {
-      toast.error("You have to login first"); //redirect
+      navigate("/auth/login");
+      toast.error("You have to login first");
       return;
     }
 
@@ -52,7 +56,7 @@ const BookDetails = ({ bookId }: Props) => {
       const updated = await bookApi.rateBook(book.id, value);
       setBook(updated);
     } catch (e) {
-      console.error(e); //toast
+      toastError(e);
     }
   };
 
@@ -63,7 +67,7 @@ const BookDetails = ({ bookId }: Props) => {
       dispatch(setCart(data));
       toast.success(`Book ${book?.name} added to cart`);
     } catch (e) {
-      toast.error(`Failed: ${e}`); // нужно сообщение понятное человеку
+      toastError(e);
     }
   };
 

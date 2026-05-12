@@ -18,6 +18,7 @@ import {
 import profileIcon from "../../../assets/icons/profile.svg";
 import emailIcon from "../../../assets/icons/mail.svg";
 import { toast } from "react-toastify";
+import toastError from "../../../utilities/errorHandler";
 
 const ProfileInfoSection = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -60,7 +61,7 @@ const ProfileInfoSection = () => {
 
       toast.success("Profile changed successfully");
     } catch (error) {
-      toast.error(error as string);
+      toastError(error);
 
       setProfileData({
         name: user?.name ?? "",
