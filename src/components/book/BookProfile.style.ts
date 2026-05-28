@@ -15,6 +15,7 @@ export const CoverWrapper = styled.div`
   grid-area: cover;
   min-width: 0;
 `;
+
 export const BookCover = styled.img`
   width: 100%;
   height: 100%;
@@ -160,11 +161,11 @@ export const CommentUserText = styled.span`
   letter-spacing: 0.75px;
   color: ${({ theme }) => theme.palette.primary.main};
   margin-left: 80px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 
   @media screen and (max-width: 480px) {
     margin-left: 10px;
-    margin-top: 15px;
+    /* margin-top: 15px; */
   }
 `;
 

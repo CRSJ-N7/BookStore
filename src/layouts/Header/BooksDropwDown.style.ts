@@ -4,7 +4,7 @@ export const SearchBooksWrapper = styled.div`
   position: absolute;
   display: flex;
   flex-wrap: nowrap;
-  overflow: hidden;
+  overflow-y: scroll;
   flex-direction: column;
   gap: 20px;
   left: 12px;
@@ -22,6 +22,7 @@ export const SearchBookContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
+  overflow-y: auto;
 `;
 
 export const SearchBookCover = styled.img`
@@ -31,6 +32,5 @@ export const SearchBookCover = styled.img`
 `;
 
 export const SearchBookName = styled.p`
-  font-family: "Poppins", sans-serif;
   font-size: 15px;
 `;

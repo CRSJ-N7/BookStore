@@ -45,17 +45,15 @@ export const BooksWrapper = styled.div`
   margin-top: 38px;
   margin-inline: 80px;
   width: 100%;
-  font-size: 20px;
 
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 21px;
 
-  @media (max-width: 834px) {
+  @media (max-width: 900px) {
     margin-inline: 16px;
     gap: 25px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    font-size: 15px;
   }
 
   @media (max-width: 480px) {

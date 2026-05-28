@@ -20,6 +20,7 @@ import authApi from "../../../api/authApi";
 import { BaseButton } from "../../../shared/ui/Button/Button.styles";
 import { toast } from "react-toastify";
 import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
+import toastError from "../../../utilities/errorHandler";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ const SignUpPage = () => {
         navigate("/");
       } catch (error) {
         const err = error as AxiosError<{ message: string }>;
-        console.log(err.response?.data?.message);
+        toastError(err.response?.data?.message);
       }
     },
   });

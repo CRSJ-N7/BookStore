@@ -13,7 +13,7 @@ export const MainWrapper = styled.div`
 
   position: relative;
 
-  @media (max-width: 1111px) {
+  @media (max-width: 900px) {
     margin-inline: 16px;
   }
 

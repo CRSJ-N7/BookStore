@@ -22,6 +22,7 @@ import { BaseHeader, StyledInput } from "../../../shared/styles/styles";
 import Button from "../../../shared/ui/Button/Button";
 import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
 import toastError from "../../../utilities/errorHandler";
+import { getSocket } from "../../../utilities/socket";
 
 type Props = {
   bookId: number;
@@ -38,12 +39,31 @@ const CommentsSection = ({ bookId }: Props) => {
       try {
         const data = await commentApi.getComments(bookId.toString());
         setComments(data);
-      } catch (e) {
-        console.error(e);
+      } catch {
+        toastError("Failed to load comments");
       }
     };
 
     loadComments();
+  }, [bookId]);
+
+  useEffect(() => {
+    const socket = getSocket();
+
+    socket.emit("join_book", bookId);
+
+    socket.on("new_comment", (comment: Comment) => {
+      setComments((prev) => {
+        const exists = prev.some((c) => c.id === comment.id);
+        if (exists) return prev;
+        return [...prev, comment];
+      });
+    });
+
+    return () => {
+      socket.emit("leave_book", bookId);
+      socket.off("new_comment");
+    };
   }, [bookId]);
 
   const handleSubmit = async () => {
@@ -52,7 +72,11 @@ const CommentsSection = ({ bookId }: Props) => {
     try {
       const created = await commentApi.createComment(bookId, newComment);
 
-      setComments((prev) => [...prev, created]);
+      setComments((prev) => {
+        const exists = prev.some((c) => c.id === created.id);
+        if (exists) return prev;
+        return [...prev, created];
+      });
       setNewComment("");
     } catch (error) {
       toastError(error);
@@ -88,7 +112,7 @@ const CommentsSection = ({ bookId }: Props) => {
         <CommentInputWrapper>
           <StyledInput
             value={newComment}
-            type="textarea"
+            as="textarea"
             variant="comment"
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Share a comment"

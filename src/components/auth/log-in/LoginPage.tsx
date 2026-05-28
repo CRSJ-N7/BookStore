@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/authSlice";
 import { tokenStorage } from "../../../storage/tokenStorage";
 import {
@@ -22,9 +21,10 @@ import cartApi from "../../../api/cartApi";
 import { setCart } from "../../../store/cartSlice";
 import { ButtonWrapper } from "../../../shared/ui/Info/InfoContainer.styles";
 import toastError from "../../../utilities/errorHandler";
+import { useAppDispatch } from "../../../hooks/hooks";
 
 const SignUpPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const formik = useFormik({

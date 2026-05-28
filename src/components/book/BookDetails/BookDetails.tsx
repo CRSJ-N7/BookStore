@@ -48,7 +48,7 @@ const BookDetails = ({ bookId }: Props) => {
   const handleRate = async (value: number) => {
     if (!user || !book) {
       navigate("/auth/login");
-      toast.error("You have to login first");
+      toastError("You have to login first");
       return;
     }
 

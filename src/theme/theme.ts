@@ -6,6 +6,9 @@ declare module "@emotion/react" {
 }
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: '"Poppins", sans-serif',
+  },
   palette: {
     primary: {
       main: "#344966",

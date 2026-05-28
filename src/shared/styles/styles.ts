@@ -2,45 +2,8 @@ import Button from "@mui/material/Button";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-// const BREAK_POINTS = {
-//   md: 834,
-//   sm: 320,
-// } as const;
-
-// const getMediaString = (type: keyof typeof BREAK_POINTS) => {
-//   return `@media screen and (max-width: ${BREAK_POINTS[type]}px)`
-// }
-
-// const getCustomString = (val: number) => {
-//   return `@media screen and (max-width: ${val}px)`
-// }
-
-// const MEDIA_STRING = {
-//   maxWidth: {
-//     md: getMediaString('md'),
-//     sm: getMediaString('sm'),
-//     custom: getCustomString,
-//   }
-// }
-
-// const theme = {
-//   typography: {
-//     body1: css`
-//       font-size: 14px;
-//       font-weight: 500;
-//       line-height: 18px;
-//     `,
-//     body2: css`
-//       font-size: 14px;
-//       font-weight: 400;
-//       line-height: 18px;
-//     `
-//   }
-// } as const;
-
 export const BaseHeader = styled.h1<{ profile?: boolean }>`
-  color: #0d1821; // theme
-  font-family: "Poppins", sans-serif; // base
+  color: ${({ theme }) => theme.palette.primary.dark};
   font-size: ${({ profile }) =>
     profile ? "clamp(16px, 2vw, 24px)" : "clamp(28px, 3vw, 40px)"};
   font-weight: 700;
@@ -48,8 +11,7 @@ export const BaseHeader = styled.h1<{ profile?: boolean }>`
 `;
 
 export const BaseParagraph = styled.p<{ fontSize?: string }>`
-  color: #344966;
-  font-family: "Poppins", sans-serif;
+  color: ${({ theme }) => theme.palette.primary.main};
   font-size: ${({ fontSize }) => fontSize ?? "20px"};
   font-weight: 400;
 
@@ -66,7 +28,6 @@ export const BaseLogo = styled.img`
 export const BaseInputToolTip = styled.p`
   margin-top: 9px;
   font-size: 12px;
-  font-family: "Poppins", sans-serif;
   color: ${({ theme }) => theme.palette.primary.main};
   letter-spacing: 0.75px;
 `;
@@ -111,7 +72,6 @@ export const StyledInput = styled.input<{ variant?: InputVariant }>`
   border: 1px solid transparent;
   outline: none;
   letter-spacing: 0.75px;
-  font-family: "Poppins", sans-serif;
   color: ${({ theme }) => theme.palette.primary.main};
 
   &:focus {
@@ -158,6 +118,9 @@ export const StyledInput = styled.input<{ variant?: InputVariant }>`
           width: 100%;
           height: 128px;
           font-weight: 400;
+          resize: none;
+          padding-top: 25px;
+          padding-left: 25px;
 
           ::placeholder {
             position: absolute;

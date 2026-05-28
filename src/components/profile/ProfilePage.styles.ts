@@ -66,7 +66,6 @@ export const ProfileHeaderWrapper = styled.div`
 
 export const InputLabel = styled.span`
   position: absolute;
-  font-family: "Poppins", sans-serif;
   top: 8px;
   left: 70px;
   font-size: 14px;
@@ -87,7 +86,6 @@ export const ChangeInfo = styled.p`
   text-decoration-line: underline;
   text-decoration-style: solid;
   cursor: pointer;
-  font-family: "Poppins", sans-serif;
   font-size: 16px;
 
   @media screen and (max-width: 834px) {
@@ -100,7 +98,6 @@ export const FloatingLabel = styled.label`
   top: 8px;
   left: 53px;
   font-size: 12px;
-  font-family: Poppins;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
   z-index: 2;
 `;

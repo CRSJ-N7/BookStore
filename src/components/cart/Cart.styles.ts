@@ -12,14 +12,12 @@ export const CartWrapper = styled.div`
 `;
 
 export const BookTitle = styled.div`
-  font-family: "Poppins", sans-serif;
   font-size: clamp(18px, 2vw, 40px);
   word-break: break-word;
   font-weight: 700;
 `;
 
 export const BookAuthorName = styled.div`
-  font-family: "Poppins", sans-serif;
   margin-top: 5px;
 `;
 
@@ -57,7 +55,6 @@ export const QuantityWrapper = styled.div`
   }
 
   span {
-    font-family: "Poppins", sans-serif;
     font-size: 16px;
     line-height: 0.75px;
     font-weight: 600;
@@ -71,16 +68,18 @@ export const QuantityButton = styled.button`
   height: 30px;
   cursor: pointer;
   border: none;
-  color: #0d1821;
+  color: ${({ theme }) => theme.palette.primary.dark};
 `;
 
 export const CheckoutWrapper = styled.div`
   display: flex;
   gap: 16px;
+  max-width: 450px;
 
   @media screen and (max-width: 480px) {
     flex-direction: column;
     align-items: center;
+    max-width: unset;
   }
 `;
 
@@ -111,7 +110,7 @@ export const CartContainer = styled.div`
 `;
 
 export const TotalPriceWrapper = styled.div`
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
 `;
 
 export const TotalPrice = styled.p`

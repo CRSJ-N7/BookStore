@@ -63,7 +63,7 @@ export const Author = styled.h3`
 export const Description = styled.p`
   font-size: 16px;
   line-height: 1.5;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
 
   overflow-wrap: break-word;
 `;

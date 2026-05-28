@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import MuiButton from "@mui/material/Button";
 
@@ -16,7 +17,6 @@ export const BaseButton = styled(MuiButton)<ButtonStyled>`
     font-weight: 500;
     max-height: 44px;
     width: 100%;
-    font-family: "Poppins", sans-serif;
     letter-spacing: 0.75px;
     background: #344966;
     border-radius: 16px;
@@ -36,19 +36,19 @@ export const BaseButton = styled(MuiButton)<ButtonStyled>`
 
   ${(props) =>
     props.disabled &&
-    `
-    && {
-      background: #e0e0e0 !important;
-      color: #9e9e9e !important;
-      cursor: not-allowed;
-      opacity: 1 !important;
-    }
+    css`
+      && {
+        background: #e0e0e0 !important;
+        color: #9e9e9e !important;
+        cursor: not-allowed;
+        opacity: 1 !important;
+      }
 
-    &&:hover {
-      background: #e0e0e0 !important;
-      opacity: 1;
-    }
-  `}
+      &&:hover {
+        background: #e0e0e0 !important;
+        opacity: 1;
+      }
+    `}
 
   &&.Mui-disabled {
     pointer-events: auto;

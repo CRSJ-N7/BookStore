@@ -42,7 +42,6 @@ export const StyledSelect = styled(Select)<{ sortFilter?: boolean }>`
 `;
 export const GenreText = styled.span`
   position: relative;
-  font-family: "Poppins", sans-serif;
   font-size: 18px;
   letter-spacing: 0.75px;
   color: ${({ theme }) => theme.palette.primary.main};
@@ -65,7 +64,7 @@ export const PriceWrapper = styled.div`
 
 export const PriceValue = styled.p`
   font-size: 16px;
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
 `;
 
 export const StyledMenuItem = styled(MenuItem)`
@@ -75,7 +74,6 @@ export const StyledMenuItem = styled(MenuItem)`
   }
 
   &&.MuiMenuItem-root {
-    font-family: "Poppins", sans-serif;
     letter-spacing: 0.75px;
   }
 
@@ -91,7 +89,7 @@ export const StyledMenuItem = styled(MenuItem)`
 `;
 
 export const StyledSlider = styled(Slider)`
-  color: #344966;
+  color: ${({ theme }) => theme.palette.primary.main};
 
   & .MuiMenu-list {
     padding-top: 0px !important;
@@ -124,7 +122,7 @@ export const StyledSlider = styled(Slider)`
 
 export const SliderBox = styled(Box)`
   padding: 25px;
-  background: #f0f4ef;
+  background: ${({ theme }) => theme.palette.primary.light};
 
   @media screen and (min-width: 834px) {
     width: 300px;

@@ -32,6 +32,7 @@ export const BookCover = styled.img`
 
   @media (max-width: 480px) {
     aspect-ratio: 135 / 192;
+    margin: 5px;
   }
 `;
 
@@ -48,7 +49,6 @@ export const FavouritesIcon = styled.img`
 export const BookTitle = styled.h3`
   width: 100%;
   font-size: clamp(16px, 2vw, 20px);
-  font-family: "Poppins", sans-serif;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,19 +64,22 @@ export const BookAuthor = styled.p`
   text-overflow: ellipsis;
   color: ${({ theme }) => theme.palette.secondary.dark};
   margin: 0 0 15px 0;
+
+  @media screen and (max-width: 380px) {
+    margin: 0 0 5px 0;
+  }
 `;
 
 export const BookPrice = styled.p`
   font-size: 18px;
   font-weight: bold;
-  color: #2c3e50;
+  color: ${({ theme }) => theme.palette.primary.main};
   margin: 8px 0;
 `;
 
 export const Price = styled.p`
   color: ${({ theme }) => theme.palette.primary.light};
   letter-spacing: 0.75px;
-  font-family: "Poppins", sans-serif;
   font-size: clamp(18px, 2vw, 20px);
 
   @media (max-width: 834px) {

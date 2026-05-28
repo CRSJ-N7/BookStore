@@ -25,7 +25,7 @@ export const InfoWrapper = styled.div`
   align-items: flex-start;
 
   p {
-    color: #f0f4ef;
+    color: ${({ theme }) => theme.palette.primary.light};
   }
 `;
 

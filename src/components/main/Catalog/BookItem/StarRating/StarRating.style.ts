@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const StarRatingWrapper = styled.div<{
@@ -9,15 +10,18 @@ export const StarRatingWrapper = styled.div<{
   margin-bottom: ${({ noMargin }) => (noMargin ? "0" : "30px")};
   ${({ bookProfile }) =>
     bookProfile &&
-    `
-    gap: 15px;
-
-     @media screen and (max-width: 380px) {
-flex-direction: column;
-align-items: baseline;
-gap: 5px;
-}
+    css`
+      gap: 15px;
+      @media screen and (max-width: 380px) {
+        flex-direction: column;
+        align-items: baseline;
+        gap: 5px;
+      }
     `}
+
+  @media screen and (max-width: 380px) {
+    margin-bottom: 10px;
+  }
 `;
 
 export const StarsContainer = styled.div<{ bookProfile?: boolean }>`
@@ -54,7 +58,6 @@ export const Star = styled.img`
 
 export const Rating = styled.p<{ bookProfile?: boolean }>`
   margin-left: auto;
-  font-family: "Poppins", sans-serif;
   color: ${({ theme }) => theme.palette.secondary.dark};
   ${({ bookProfile }) =>
     bookProfile &&

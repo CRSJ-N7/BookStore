@@ -1,8 +1,12 @@
 type DateInput = Date | string | number;
 
 const getDate = (dateInput: DateInput): string => {
-  const date = new Date(dateInput);
-  const now = new Date();
+  const date = new Date(
+    typeof dateInput === "string" && !dateInput.endsWith("Z")
+      ? dateInput + "Z"
+      : dateInput,
+  );
+  const now = new Date(new Date().toUTCString());
 
   if (isNaN(date.getTime())) {
     return "Unknown date";

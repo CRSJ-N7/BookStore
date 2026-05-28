@@ -7,6 +7,8 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { logOut } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ButtonWrapper } from "../../shared/ui/Info/InfoContainer.styles";
+import { disconnectSocket } from "../../utilities/socket";
+import { clearNotifications } from "../../store/notificationSlice";
 
 const ProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +17,8 @@ const ProfilePage = () => {
   const logoutHandler = () => {
     dispatch(logOut());
     navigate("/");
+    disconnectSocket();
+    clearNotifications();
   };
 
   return (
